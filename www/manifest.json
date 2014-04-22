@@ -1,6 +1,6 @@
 {
-  "name": "Hello World",
-  "description": "A Sample Chrome App",
+  "name": "Weekly",
+  "description": "Keep track of your life, week by week.",
   "manifest_version": 2,
   "minimum_chrome_version": "23",
   "version": "0.1.1",
@@ -18,7 +18,10 @@
   },
   "app": {
     "background": {
-      "scripts": ["background.js"]
+      "scripts": [
+        "background.js",
+        "angular.min.js"
+      ]
     }
   },
   "permissions": [

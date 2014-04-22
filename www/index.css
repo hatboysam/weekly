@@ -9,8 +9,28 @@ body {
   height: 100%;
   margin: 0;
   text-align: center;
+  color: white;
 }
 
 img {
   margin: 50px auto;
+}
+
+.day {
+  background: #009999;
+  border-bottom: 2px #006363 solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.day.expanded {
+  bacground: #33CCCC;
+}
+
+.task {
+  background: #FF9640;
+  padding: 5px;
+  border-bottom: 2px #BF7130 solid;
 }

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="weeklyApp">
   <head>
-    <title>Hello, Mobile!</title>
+    <title>Weekly</title>
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <script src="angular.min.js"></script>
+    <script src="assets/js/controllers.js"></script>
   </head>
-  <body>
-    <img src="assets/chrome_logo.png" />
-    <h1>Hello, Mobile!</h1>
+  <body ng-controller="DayCtrl">
+    <div ng-repeat="day in days" class="day">
+      {{ day }}
+    </div>
   </body>
 </html>
