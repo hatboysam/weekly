@@ -10,13 +10,12 @@ html {
 }
 
 body {
-  box-shadow: 0 0 50px #ddd inset;
-  -webkit-box-shadow: 0 0 50px #ddd inset;
   font-family: OpenSans, Helvetica, Arial, sans;
   height: 100%;
   margin: 0;
   text-align: center;
   color: white;
+  background: #225E79;
 }
 
 #signin {
@@ -31,6 +30,7 @@ body {
 }
 
 .day {
+  position: relative;
   background: #3BA3D0;
   border-bottom: 2px #0772A1 solid;
   padding-top: 10px;
@@ -42,13 +42,43 @@ body {
   font-size: medium;
 }
 
+.badge {
+  position: absolute;
+  background: #FF8700;
+  font-size: small;
+  position: absolute;
+  right: 10px;
+  line-height: 16px;
+  height: 16px;
+  padding: 0 4px;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  border: 1px solid;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px;
+}
+
+.hide {
+  display: none;
+}
+
 .day.expanded {
 }
 
 .task {
   color: black;
-  border-left: 10px #FF8700 solid;;
+  /** border-left: 10px #FF8700 solid; **/
   font-size: small;
+  background: white;
+  position: relative;
+}
+
+.task-bar {
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5) inset;
+  height: 100%;
+  background: #FF8700;
+  width: 10px;
+  position: absolute;
+  left: 0px;
 }
 
 .task-content {

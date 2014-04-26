@@ -205,6 +205,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.chromium.identity/identity.js",
+        "id": "org.chromium.identity.Identity",
+        "clobbers": [
+            "chrome.identity"
+        ]
+    },
+    {
         "file": "plugins/org.chromium.common/events.js",
         "id": "org.chromium.common.events",
         "clobbers": [
@@ -267,9 +274,13 @@ module.exports.metadata =
     "org.chromium.polyfill.CustomEvent": "1.0.0",
     "org.chromium.polyfill.xhr_features": "1.0.0",
     "org.chromium.polyfill.blob_constructor": "1.0.0",
+    "org.chromium.identity": "1.2.0",
     "org.chromium.common": "1.0.1",
     "org.chromium.storage": "1.0.1",
-    "org.chromium.runtime": "1.0.1"
+    "org.chromium.runtime": "1.0.1",
+    "com.google.playservices": "15.0.1",
+    "org.chromium.frameworks.googleopensource": "1.0.0",
+    "org.chromium.frameworks.googleplus": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

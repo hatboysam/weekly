@@ -2,11 +2,11 @@
 <html ng-app="weeklyApp">
   <head>
     <title>Weekly</title>
-    <style>
-    </style>
     <link rel="stylesheet" href="index.css" type="text/css" />
     <script src="angular.min.js"></script>
     <script src="assets/js/controllers.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/onpage.js"></script>
   </head>
   <body ng-controller="DayCtrl">
     <div class="title" id="title">
@@ -15,8 +15,12 @@
     <div ng-repeat="day in days" class="day-box">
       <div class="day">
         {{ day.name }}
+        <span class="badge hide" ng-if="day.hasTasks()">
+          {{ day.numTasks() }}
+        </span>
       </div>
       <div ng-repeat="task in day.tasks" class="task">
+        <div class="task-bar"></div>
         <div class="task-content">
           {{ task.description }}
         </div>

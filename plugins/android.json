@@ -53,6 +53,14 @@
                         {
                             "xml": "<feature name=\"ChromeI18n\"><param name=\"android-package\" value=\"org.chromium.ChromeI18n\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ChromeIdentity\"><param name=\"android-package\" value=\"org.chromium.ChromeIdentity\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://accounts.google.com/*\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -66,6 +74,16 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
                             "count": 1
                         }
                     ]
@@ -106,6 +124,9 @@
         },
         "org.chromium.polyfill.blob_constructor": {
             "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "org.chromium.identity": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
         }
     },
     "dependent_plugins": {
@@ -116,6 +137,15 @@
             "PACKAGE_NAME": "com.your.company.HelloWorld"
         },
         "org.chromium.runtime": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "org.chromium.frameworks.googleopensource": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "org.chromium.frameworks.googleplus": {
             "PACKAGE_NAME": "com.your.company.HelloWorld"
         }
     }

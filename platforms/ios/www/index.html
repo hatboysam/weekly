@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="weeklyApp">
   <head>
-    <title>Hello, Mobile!</title>
+    <title>Weekly</title>
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <script src="angular.min.js"></script>
+    <script src="assets/js/controllers.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/onpage.js"></script>
   </head>
-  <body>
-    <img src="assets/chrome_logo.png" />
-    <h1>Hello, Mobile!</h1>
+  <body ng-controller="DayCtrl">
+    <div class="title" id="title">
+      Weekly
+    </div>
+    <div ng-repeat="day in days" class="day-box">
+      <div class="day">
+        {{ day.name }}
+        <span class="badge hide" ng-if="day.hasTasks()">
+          {{ day.numTasks() }}
+        </span>
+      </div>
+      <div ng-repeat="task in day.tasks" class="task">
+        <div class="task-bar"></div>
+        <div class="task-content">
+          {{ task.description }}
+        </div>
+      </div>
+    </div>
+
+    <!--<img 
+      ng-click="signIn()"
+      src="assets/sign-in-with-google.png" 
+      id="signin"></img>-->
   </body>
 </html>

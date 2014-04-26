@@ -10,7 +10,7 @@
                     "AssetsLibrary.framework": [
                         {
                             "xml": "false",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "MobileCoreServices.framework": [
@@ -22,12 +22,58 @@
                     "CoreGraphics.framework": [
                         {
                             "xml": "false",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "SystemConfiguration.framework": [
                         {
                             "xml": "true",
+                            "count": 1
+                        },
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Foundation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreLocation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreMotion.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreText.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "MediaPlayer.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Security.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "UIKit.framework": [
+                        {
+                            "xml": "false",
                             "count": 1
                         }
                     ]
@@ -97,6 +143,14 @@
                         {
                             "xml": "<feature name=\"ChromeI18n\"><param name=\"ios-package\" value=\"ChromeI18n\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ChromeIdentity\"><param name=\"ios-package\" value=\"ChromeIdentity\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://accounts.google.com/*\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -136,6 +190,9 @@
         },
         "org.chromium.polyfill.blob_constructor": {
             "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "org.chromium.identity": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
         }
     },
     "dependent_plugins": {
@@ -146,6 +203,15 @@
             "PACKAGE_NAME": "com.your.company.HelloWorld"
         },
         "org.chromium.runtime": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "org.chromium.frameworks.googleopensource": {
+            "PACKAGE_NAME": "com.your.company.HelloWorld"
+        },
+        "org.chromium.frameworks.googleplus": {
             "PACKAGE_NAME": "com.your.company.HelloWorld"
         }
     }

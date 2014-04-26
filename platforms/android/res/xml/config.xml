@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.your.company.HelloWorld" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.habosa.weekly" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
@@ -38,8 +38,12 @@
         <param name="android-package" value="org.chromium.ChromeI18n" />
         <param name="onload" value="true" />
     </feature>
-    <name>Hello World</name>
-    <description>A Sample Chrome App</description>
+    <feature name="ChromeIdentity">
+        <param name="android-package" value="org.chromium.ChromeIdentity" />
+    </feature>
+    <access origin="https://accounts.google.com/*" />
+    <name>Weekly</name>
+    <description>Keep track of your life, week by week.</description>
     <author />
     <preference name="KeyboardShrinksView" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
