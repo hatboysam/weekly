@@ -2,13 +2,30 @@
 <html ng-app="weeklyApp">
   <head>
     <title>Weekly</title>
+    <style>
+    </style>
     <link rel="stylesheet" href="index.css" type="text/css" />
     <script src="angular.min.js"></script>
     <script src="assets/js/controllers.js"></script>
   </head>
   <body ng-controller="DayCtrl">
-    <div ng-repeat="day in days" class="day">
-      {{ day }}
+    <div class="title" id="title">
+      Weekly
     </div>
+    <div ng-repeat="day in days" class="day-box">
+      <div class="day">
+        {{ day.name }}
+      </div>
+      <div ng-repeat="task in day.tasks" class="task">
+        <div class="task-content">
+          {{ task.description }}
+        </div>
+      </div>
+    </div>
+
+    <!--<img 
+      ng-click="signIn()"
+      src="assets/sign-in-with-google.png" 
+      id="signin"></img>-->
   </body>
 </html>

@@ -25,6 +25,13 @@
     }
   },
   "permissions": [
-    "<all_urls>"
-  ]
+    "<all_urls>",
+    "identity"
+  ],
+  "oauth2": {
+    "client_id": "891667400722.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ]
+  }
 }
