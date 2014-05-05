@@ -3,33 +3,62 @@
   <head>
     <title>Weekly</title>
     <link rel="stylesheet" href="index.css" type="text/css" />
+
+    <!-- jQuery -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.jpanelmenu.min.js"></script>
+    <script src="assets/js/onpage.js"></script>
+
+    <!-- Google APIs -->
+    <script src="assets/js/gapi-chrome-apps.js"></script>
+
+    <!-- Angular -->
     <script src="angular.min.js"></script>
     <script src="assets/js/controllers.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/onpage.js"></script>
   </head>
   <body ng-controller="DayCtrl">
-    <div class="title" id="title">
-      Weekly
+    <div id="menu" style="display: none;">
+      <ul class="sidemenu">
+        <li class="menu-item">
+          Settings
+        </li>
+        <li class="menu-item">
+          About
+        </li>
+        <li class="menu-item" ng-click="refresh()">
+          Refresh
+        </li>
+        <li class="menu-item" ng-click="logIn()">
+          {{ loginMsg }}
+        </li>
+      </ul>
     </div>
-    <div ng-repeat="day in days" class="day-box">
-      <div class="day">
-        {{ day.name }}
-        <span class="badge hide" ng-if="day.hasTasks()">
-          {{ day.numTasks() }}
-        </span>
+    <div id="content">
+      <div class="title" id="title">
+        <a class="menu-trigger" href="#menu">
+          <img src="assets/icons/hamburger.png" id="burger"></img>
+        </a>
+        Weekly
       </div>
-      <div ng-repeat="task in day.tasks" class="task">
-        <div class="task-bar"></div>
-        <div class="task-content">
-          {{ task.description }}
+      <div ng-repeat="day in days" class="day-box">
+        <div class="day">
+          {{ day.name }}
+          <span class="badge hide" ng-if="day.hasTasks()">
+            {{ day.numTasks() }}
+          </span>
+        </div>
+        <div ng-repeat="task in day.tasks" class="task">
+          <div class="task-bar"></div>
+          <div class="task-content">
+            {{ task.description }}
+          </div>
         </div>
       </div>
-    </div>
 
-    <!--<img 
-      ng-click="signIn()"
-      src="assets/sign-in-with-google.png" 
-      id="signin"></img>-->
+<!--       <img 
+        ng-click="logIn()"
+        src="assets/sign-in-with-google.png" 
+        id="signin"></img> -->
+    </div>
   </body>
 </html>

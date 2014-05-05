@@ -18,6 +18,10 @@ body {
   background: #225E79;
 }
 
+a {
+  text-decoration: none;
+}
+
 #signin {
   width: 100%;
 }
@@ -27,6 +31,41 @@ body {
   font-size: xx-large;
   padding: 5px;
   background: #024A68;
+  position: relative;
+}
+
+.menu-trigger {
+  position:  absolute;
+  left: 10px;
+}
+
+#burger {
+  height: 25px;
+}
+
+#jPanelMenu-menu {
+  background: #3B3B3B;
+  border-right: 2px #024A68 solid;
+}
+
+.sidemenu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.sidemenu li {
+  padding: 10px;
+  background: -webkit-linear-gradient(#3E3E3E, #383838);
+  font-weight: bold;
+  padding: 0.5em 5%;
+  border-top: 1px solid #484848;
+  border-bottom: 1px solid #2E2E2E;
+  font-size: medium;
+}
+
+.sidemenu li:hover {
+  background: -webkit-linear-gradient(#0772A1, #024A68);
 }
 
 .day {

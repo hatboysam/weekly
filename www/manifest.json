@@ -24,12 +24,14 @@
       ]
     }
   },
+  "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+EyucIyETym2OR3mPl2EVQULs+1p50pf6dyTdEG+igD41fSpAfEQiXS4Dp+E8ye5HdyBnKUDnSQJ08bAYeTP7z+udV990ddkSSk6uqZTa/o1dr8jv1KDE+MQAF8Qe/XzzddLkaHGQMmATFRbq6IwY8Emk3p7QDcVdTNGFBMxphQIDAQAC",
   "permissions": [
-    "<all_urls>",
-    "identity"
+    "https://www.googleapis.com/*",
+    "identity",
+    "storage"
   ],
   "oauth2": {
-    "client_id": "891667400722.apps.googleusercontent.com",
+    "client_id": "891667400722-25ci7soa3o4cdh0cum1b0abcq3m8djun.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/calendar"
     ]

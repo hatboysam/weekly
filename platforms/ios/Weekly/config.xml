@@ -71,4 +71,5 @@
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     <content src="plugins/org.chromium.bootstrap/chromeapp.html" />
     <access origin="*" />
+    <access origin="https://www.googleapis.com/*" />
 </widget>
