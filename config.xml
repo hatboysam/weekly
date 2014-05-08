@@ -18,4 +18,8 @@
     <access origin="*" />
     <access origin="https://www.googleapis.com/*" />
     <access origin="https://www.googleapis.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://www.googleapis.com/*" />
 </widget>

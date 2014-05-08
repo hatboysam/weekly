@@ -56,6 +56,7 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/sign-in-with-google.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/fonts/Lobster.ttf \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/hamburger.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/icon114.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/icon128.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/icon144.png \
@@ -75,6 +76,8 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon72.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon96.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/controllers.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/gapi-chrome-apps.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.jpanelmenu.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/onpage.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.file \

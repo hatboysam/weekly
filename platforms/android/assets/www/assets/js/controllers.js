@@ -84,7 +84,7 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
    * Sign in with Google+
    */
   $scope.logIn = function() {
-    gapi.auth.authorize({}, function(response) {
+    gapi.auth.authorize({ interactive: true, immediate: false }, function(response) {
       console.log(response);
 
       if (response.access_token) {

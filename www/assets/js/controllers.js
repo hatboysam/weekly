@@ -63,12 +63,25 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
   for (i = 0; i < dayNames.length; i++) {
     this.days.push(new Weekday(dayNames[i], dayTasks[i]));
   }
+
+  this.addTask = function(task, day) {
+    this.days[day].addTask(task);
+  }
+
+  this.addAllFromCal = function(items) {
+    items.forEach(function(item) {
+      var startDate = dateFromString(item.start.date);
+      this.addTask(new Task(item.summary), startDate.getDay());
+    }.bind(this));
+  }
+
 }]);
 
 /**
  * Day Controller
  */
-weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, weekdayModel) {
+weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', function($scope, $q, weekdayModel) {
+  
   $scope.days = weekdayModel.days;
 
   /** Log In button text **/
@@ -84,7 +97,7 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
    * Sign in with Google+
    */
   $scope.logIn = function() {
-    gapi.auth.authorize({}, function(response) {
+    gapi.auth.authorize({ interactive: true, immediate: false }, function(response) {
       console.log(response);
 
       if (response.access_token) {
@@ -97,7 +110,7 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
   $scope.checkCalendarsExist = function() {
     // COMPLETE CALENDAR
     chrome.storage.local.get('completeId', function(items) {
-      if (items.completeId) {
+      if (items.completeId && (items.completeId != undefined)) {
         // Calendar exists for complete
         console.log(items.completeId);
         $scope.completeId = items.completeId;
@@ -106,6 +119,7 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
         console.log('NEED TO CREATE COMPLETE');
         $scope.createCalendar('Weekly Complete', function(calObj) {
           if (calObj.id) {
+            console.log("ID: " + calObj.id);
             chrome.storage.local.set({ completeId: calObj.id });
           }
         });
@@ -114,7 +128,7 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
 
     // INCOMPLETE CALENDAR
     chrome.storage.local.get('incompleteId', function(items) {
-      if (items.incompleteId) {
+      if (items.incompleteId && (items.incompleteId != undefined)) {
         // Calendar does not exist for complete
         console.log(items.incompleteId)
         $scope.incompleteId = items.incompleteId;
@@ -123,6 +137,7 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
         console.log('NEED TO CREATE INCOMPLETE');
         $scope.createCalendar('Weekly Incomplete', function(calObj) {
           if (calObj.id) {
+            console.log("ID: " + calObj.id);
             chrome.storage.local.set({ incompleteId: calObj.id });
           }
         });
@@ -144,37 +159,49 @@ weeklyApp.controller('DayCtrl', ['$scope', 'weekdayModel', function($scope, week
   }
 
   $scope.refresh = function() {
-    $scope.loadEvents($scope.incompleteId, function(response) {
-      console.log(response);
-      if (response.items) {
-        // Clear tasks
-        weekdayModel.days.forEach(function(day) {
-          day.clearTasks();
-        });
+    // Back up
+    var oldDaysBackup = $scope.days;
 
-        // Add back
-        response.items.forEach(function(item) {
-          var startDate = dateFromString(item.start.date);
-          var startDay = weekdayModel.days[startDate.getDay()];
-          startDay.addTask(new Task(item.summary));
-        });
+    // Clear old tasks
+    weekdayModel.days.forEach(function(day) {
+      day.clearTasks();
+    });
 
-        // Add to scope
+    $scope.loadEvents($scope.incompleteId).then(function(response) {
+        console.log('Incomplete is good');
+        weekdayModel.addAllFromCal(response.items); 
+        return $scope.loadEvents($scope.completeId);
+    }).then(function(response) {
+        console.log('Complete is good');
+        weekdayModel.addAllFromCal(response.items); 
+    }).then(function() {
         $scope.days = weekdayModel.days;
-        $scope.$digest();
-      }
+    }, function(err) {
+        console.log('Error');
+        console.log(err);
+        $scope.days = oldDaysBackup;
     });
   };
 
   /**
    * Load all events from a calendar name
    */
-  $scope.loadEvents = function(id, callback) {
+  $scope.loadEvents = function(id) {
+    var loadDefer = $q.defer();
+
     console.log('Loading Events...');
     gapi.client.request({ 
       path: '/calendar/v3/calendars/' + id + '/events', 
-      callback: callback
+      callback: function (response) {
+        if (response.items) {
+          loadDefer.resolve(response);
+        } else {
+          loadDefer.reject(response);
+        }
+      }
     });
+
+    return loadDefer.promise;
   }
 
 }]);
