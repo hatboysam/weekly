@@ -4,12 +4,17 @@
 weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', function($scope, $q, weekdayModel, gCalAPI) {
   
   $scope.days = weekdayModel.days;
+  $scope.dayNames = weekdayModel.dayNames;
 
   /** Log In button text **/
   $scope.loginMsg = "Log In";
 
   /** Google auth token **/
   $scope.token = "";
+
+  /** Making a new task **/
+  $scope.taskDay = "";
+  $scope.taskDesc = "";
 
   /**
    * Sign in with Google+
@@ -66,11 +71,11 @@ weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', func
 
     gCalAPI.loadEvents($scope.incompleteId).then(function(response) {
         console.log('Incomplete is good');
-        weekdayModel.addAllFromCal(response.items); 
+        weekdayModel.addAllFromCal(response.items, false); 
         return gCalAPI.loadEvents($scope.completeId);
     }).then(function(response) {
         console.log('Complete is good');
-        weekdayModel.addAllFromCal(response.items); 
+        weekdayModel.addAllFromCal(response.items, true); 
     }).then(function() {
         $scope.days = weekdayModel.days;
     }, function(err) {
@@ -79,6 +84,37 @@ weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', func
         $scope.days = oldDaysBackup;
     });
   };
+
+  $scope.toggle = function(task) {
+    task.completed = !task.completed;
+  };
+
+  $scope.newTask = function() {
+    // Day name to to day index
+    var day = $scope.dayNames.indexOf($scope.taskDay);
+    if (day > 0) {
+      // Get from form
+      var desc = $scope.taskDesc;
+      var task = new Task(desc, false);
+
+      // Add task
+      weekdayModel.addTask(task, day);
+
+      // gCalCreate
+      var dateObj = dateForDay(day);
+      var dateString = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+      gCalAPI.createEvent($scope.incompleteId, desc, dateString)
+        .then(function(eventObj) {
+          console.log(eventObj);
+        }, function(errorObj) {
+          console.log(errorObj);
+        }); 
+
+      // Clear form
+      $scope.taskDay = "";
+      $scope.taskDesc = ""
+    }
+  }
 
 }]);
 

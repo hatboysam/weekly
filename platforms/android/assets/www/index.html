@@ -2,6 +2,8 @@
 <html ng-app="weeklyApp">
   <head>
     <title>Weekly</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/foundation-forms-buttons.css" type="text/css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
 
     <!-- jQuery -->
@@ -42,6 +44,30 @@
           <img src="assets/icons/hamburger.png" id="burger"></img>
         </a>
         Weekly
+        <a class="new-task">+</a>
+      </div>
+      <div id="task-form" class="hide">
+        <table>
+          <tr>
+            <td>
+              <label>When:
+                <select 
+                  ng-model="taskDay" 
+                  ng-options="dayName for dayName in dayNames"></select>
+              </label>
+            </td>
+            <td>
+              <label>What:
+                <input type="text" ng-model="taskDesc"></input>
+              </label>
+            </td>
+            <td>
+              <span class="check-btn span-btn" ng-click="newTask()">&#x2713;</span>
+            </td>
+            <td>
+              <span class="x-btn span-btn">&#x2717;</span>
+            </td>
+        </table>
       </div>
       <div ng-repeat="day in days" class="day-box">
         <div class="day">
@@ -50,18 +76,16 @@
             {{ day.numTasks() }}
           </span>
         </div>
-        <div ng-repeat="task in day.tasks" class="task">
+        <div 
+          class="task"  
+          ng-repeat="task in day.tasks" 
+          ng-class="{ 'completed': task.completed }">
           <div class="task-bar"></div>
-          <div class="task-content">
+          <div class="task-content" ng-click="toggle(task)">
             {{ task.description }}
           </div>
         </div>
       </div>
-
-<!--       <img 
-        ng-click="logIn()"
-        src="assets/sign-in-with-google.png" 
-        id="signin"></img> -->
     </div>
   </body>
 </html>

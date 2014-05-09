@@ -25,6 +25,7 @@ Weekday.prototype.clearTasks = function() {
 /**
  * Task object
  */
-function Task(description) {
+function Task(description, completed) {
   this.description = description;
+  this.completed = completed;
 }

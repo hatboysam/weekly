@@ -21,6 +21,19 @@ function dateFromString(dateString) {
   return new Date(year, month, day);
 }
 
+function dateForDay(dayInd) {
+  var now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  var nowDay = now.getDay();
+  var dayDiff = nowDay - dayInd;
+  var oneDay = 24 * 60 * 60 * 1000;
+
+  var thatDay = new Date(now.getTime() - (dayDiff * oneDay));
+
+  return thatDay;
+}
+
 $(document).ready(function() {
 
   // Side Panel menu
@@ -42,8 +55,21 @@ $(document).ready(function() {
 
   // Show and hide tasks
   $(document).on('click', '.day', function() {
-      $(this).siblings('.task').slideToggle();
-      $(this).find('.badge').fadeToggle();
+      $(this).siblings('.task').slideToggle(200);
+      $(this).find('.badge').fadeToggle(200);
+      $(this).toggleClass('collapsed');
+  });
+
+  // Show and hide the new task form
+  $(document).on('click', '.new-task', function() {
+    $('#task-form').slideToggle(200);
+  })
+
+  $(document).on('click', '.x-btn', function() {
+    $('#task-form').slideUp(200);
+  });
+  $(document).on('click', '.check-btn', function() {
+    $('#task-form').slideUp(200);
   });
 
 });

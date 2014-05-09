@@ -75,11 +75,14 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon57.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon72.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon96.png \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/app.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/controllers.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/gapi-chrome-apps.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.jpanelmenu.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.min.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/models.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/onpage.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/services.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.file \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.keyboard \

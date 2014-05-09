@@ -4,22 +4,22 @@
 weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
   this.days = [];
 
-  dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  dayTasks = [ [], [], [], [], [], [], [] ];
+  this.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  this.dayTasks = [ [], [], [], [], [], [], [] ];
 
-  for (i = 0; i < dayNames.length; i++) {
-    this.days.push(new Weekday(dayNames[i], dayTasks[i]));
+  for (i = 0; i < this.dayNames.length; i++) {
+    this.days.push(new Weekday(this.dayNames[i], this.dayTasks[i]));
   }
 
   this.addTask = function(task, day) {
     this.days[day].addTask(task);
   }
 
-  this.addAllFromCal = function(items) {
+  this.addAllFromCal = function(items, completed) {
     items.forEach(function(item) {
       var dateString = item.start.date ? item.start.date : item.start.dateTime;
       var startDate = dateFromString(dateString);
-      this.addTask(new Task(item.summary), startDate.getDay());
+      this.addTask(new Task(item.summary, completed), startDate.getDay());
     }.bind(this));
   }
 
@@ -68,6 +68,8 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
     },
 
     loadEvents: function(id) {
+      // TODO: Get for this week only!
+      // use dateForDay(0) for the start of the week
       var loadDefer = $q.defer();
 
       console.log('Loading Events...');
@@ -84,6 +86,32 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
       });
 
       return loadDefer.promise;
+    },
+
+    createEvent: function(id, name, date) {
+      var eventDefer = $q.defer();
+      gapi.client.request({
+        path: '/calendar/v3/calendars/' + id + '/events',
+        method: 'POST',
+        body: {
+          summary: name,
+          start: {
+            date: date
+          },
+          end: {
+            date: date
+          }
+        },
+        callback: function(eventObj) {
+          if (eventObj.id) {
+            eventDefer.resolve(eventObj);
+          } else {
+            eventDefer.reject(eventObj);
+          }
+        }
+      });
+
+      return eventDefer.promise;
     }
   };
 }]);
