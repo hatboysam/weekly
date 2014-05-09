@@ -12,6 +12,15 @@ function serialize(obj) {
    return str.join("&");
 }
 
+function dateFromString(dateString) {
+  var splitArr = dateString.split("-");
+  var year = parseInt(splitArr[0]);
+  var month = parseInt(splitArr[1]) - 1;
+  var day = parseInt(splitArr[2]);
+
+  return new Date(year, month, day);
+}
+
 $(document).ready(function() {
 
   // Side Panel menu
