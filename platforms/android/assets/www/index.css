@@ -16,6 +16,7 @@ body {
   text-align: center;
   color: white;
   background: #225E79;
+  overflow: scroll;
 }
 
 a {

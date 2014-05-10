@@ -29,3 +29,7 @@ function Task(description, completed) {
   this.description = description;
   this.completed = completed;
 }
+
+Task.prototype.setId = function(id) {
+  this.id = id;
+}

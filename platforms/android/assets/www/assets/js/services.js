@@ -19,7 +19,9 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
     items.forEach(function(item) {
       var dateString = item.start.date ? item.start.date : item.start.dateTime;
       var startDate = dateFromString(dateString);
-      this.addTask(new Task(item.summary, completed), startDate.getDay());
+      var task = new Task(item.summary, completed);
+      task.setId(item.id);
+      this.addTask(task, startDate.getDay());
     }.bind(this));
   }
 
@@ -112,6 +114,26 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
       });
 
       return eventDefer.promise;
+    },
+
+    moveEvent: function(eventId, fromId, toId) {
+      var moveDefer = $q.defer();
+      var basePath = '/calendar/v3/calendars/' + fromId + '/events/' + eventId + '/move/';
+      var fullPath = basePath + '?destination=' + toId;
+
+      gapi.client.request({
+        path: fullPath,
+        method: 'POST',
+        callback: function(eventObj) {
+          if (eventObj.id) {
+            moveDefer.resolve(eventObj.id);
+          } else {
+            moveDefer.reject('Error: could not move event');
+          }
+        }
+      });
+
+      return moveDefer.promise;
     }
   };
 }]);

@@ -86,13 +86,27 @@ weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', func
   };
 
   $scope.toggle = function(task) {
+    // Calendars to move
+    var fromId = task.completed ? $scope.completeId : $scope.incompleteId;
+    var toId = task.completed ? $scope.incompleteId : $scope.completeId;
+
+    // Toggle locallt
     task.completed = !task.completed;
+
+    gCalAPI.moveEvent(task.id, fromId, toId).then(function(id) {
+      // All good
+      console.log("Event moved");
+    }, function(err) {
+      // Switch back
+      console.log(err);
+      task.completed = !task.completed;
+    });
   };
 
   $scope.newTask = function() {
     // Day name to to day index
     var day = $scope.dayNames.indexOf($scope.taskDay);
-    if (day > 0) {
+    if (day >= 0) {
       // Get from form
       var desc = $scope.taskDesc;
       var task = new Task(desc, false);
@@ -106,6 +120,8 @@ weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', func
       gCalAPI.createEvent($scope.incompleteId, desc, dateString)
         .then(function(eventObj) {
           console.log(eventObj);
+          // Set the task id once it is returned
+          task.setId(eventObj.id);
         }, function(errorObj) {
           console.log(errorObj);
         }); 
