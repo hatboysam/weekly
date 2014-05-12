@@ -36,10 +36,11 @@ weeklyApp.controller('DayCtrl',
       console.log('Complete ID: ' + id);
       $scope.completeId = id;
     }, function(err) {
-      console.log(err);
+      console.log(JSON.stringify(err));
       gCalAPI.createCalendar('Weekly Complete').then(function(id) {
           console.log('Complete ID:' + id);
           localStorageAPI.set({ completeId: id });
+          $scope.completeId = id;
       });
     });
 
@@ -48,10 +49,11 @@ weeklyApp.controller('DayCtrl',
       console.log('Incomplete ID: ' + id);
       $scope.incompleteId = id;
     }, function(err) {
-      console.log(err);
+      console.log(JSON.stringify(err));
       gCalAPI.createCalendar('Weekly Incomplete').then(function(id) {
           console.log('Incomplete ID:' + id);
-          localStorageAPI.set({ inompleteId: id });
+          localStorageAPI.set({ incompleteId: id });
+          $scope.incompleteId = id;
       });
     });
   }
@@ -76,7 +78,6 @@ weeklyApp.controller('DayCtrl',
     }).then(function() {
         $scope.days = weekdayModel.days;
     }, function(err) {
-        console.log('Error');
         console.log(JSON.stringify(err));
         $scope.days = oldDaysBackup;
     });
@@ -95,7 +96,7 @@ weeklyApp.controller('DayCtrl',
       console.log("Event moved");
     }, function(err) {
       // Switch back
-      console.log(err);
+      console.log(JSON.stringify(err));
       task.completed = !task.completed;
     });
   };
@@ -122,8 +123,8 @@ weeklyApp.controller('DayCtrl',
           console.log(eventObj);
           // Set the task id once it is returned
           task.setId(eventObj.id);
-        }, function(errorObj) {
-          console.log(errorObj);
+        }, function(err) {
+          console.log(JSON.stringify(err));
         }); 
 
       // Clear form

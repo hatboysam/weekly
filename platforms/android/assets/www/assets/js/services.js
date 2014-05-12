@@ -190,7 +190,13 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
     },
 
     set: function(setObj) {
-      chrome.storage.local.set(setObj);
+      chrome.storage.local.set(setObj, function() {
+        if (chrome.runtime.lastError) {
+          console.log('Error storing: ' + chrome.runtime.lastError);
+        } else {
+          console.log('Stored: ' + JSON.stringify(setObj));
+        }
+      });
     }
   };
  }]);

@@ -164,9 +164,9 @@ td {
   font-size: small;
   background: white;
   position: relative;
-  max-height: 100px; /** too large on purpose **/
+  max-height: 200px; /** too large on purpose **/
   overflow: hidden;
-  -webkit-transition: max-height 0.2s;
+  -webkit-transition: max-height 0.3s;
 }
 
 .task-bar {
