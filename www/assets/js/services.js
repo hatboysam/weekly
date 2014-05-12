@@ -81,13 +81,16 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
     },
 
     loadEvents: function(id) {
-      // TODO: Get for this week only!
-      // use dateForDay(0) for the start of the week
       var loadDefer = $q.defer();
+      var basePath = '/calendar/v3/calendars/' + id + '/events';
+      var queryOpts = {
+        timeMin: dateForDay(0).toISOString(),
+        timeMax: dateForDay(6).toISOString()
+      };
 
       console.log('Loading Events...');
       gapi.client.request({ 
-        path: '/calendar/v3/calendars/' + id + '/events', 
+        path: basePath + '?' + serialize(queryOpts), 
         callback: function (response) {
           if (response.items) {
             console.log(response.items);
@@ -130,10 +133,10 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
     moveEvent: function(eventId, fromId, toId) {
       var moveDefer = $q.defer();
       var basePath = '/calendar/v3/calendars/' + fromId + '/events/' + eventId + '/move/';
-      var fullPath = basePath + '?destination=' + toId;
+      var queryOpts = { destination: toId };
 
       gapi.client.request({
-        path: fullPath,
+        path: basePath + '?' + serialize(queryOpts),
         method: 'POST',
         callback: function(eventObj) {
           if (eventObj.id) {

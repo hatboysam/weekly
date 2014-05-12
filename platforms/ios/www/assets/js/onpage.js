@@ -36,6 +36,9 @@ function dateForDay(dayInd) {
 
 $(document).ready(function() {
 
+  // Fastclick
+  FastClick.attach(document.body);
+
   // Side Panel menu
   var jPM = $.jPanelMenu({
     menu: '#menu',

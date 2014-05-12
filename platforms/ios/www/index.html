@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="assets/css/foundation-forms-buttons.css" type="text/css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
 
+    <!-- Fastclick -->
+    <script src="assets/js/fastclick.js"></script>
+
     <!-- jQuery -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.jpanelmenu.min.js"></script>
@@ -25,16 +28,13 @@
     <div id="menu" style="display: none;">
       <ul class="sidemenu">
         <li class="menu-item">
-          Settings
-        </li>
-        <li class="menu-item">
           About
         </li>
-        <li class="menu-item" ng-click="refresh()">
+        <li class="menu-item" ng-click="refresh()" ng-if="token">
           Refresh
         </li>
-        <li class="menu-item" ng-click="logIn()">
-          {{ loginMsg }}
+        <li class="menu-item" ng-click="logIn()" ng-if="!token">
+          Log In
         </li>
       </ul>
     </div>
@@ -64,6 +64,9 @@
         <div 
           class="day"
           ng-click="expandDay(day)">
+          <span class="day-date">
+            {{ day.humanDate() }}
+          </span>
           {{ day.name }}
           <span 
             class="badge" 

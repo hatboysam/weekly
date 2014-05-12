@@ -8,11 +8,8 @@ weeklyApp.controller('DayCtrl',
   $scope.days = weekdayModel.days;
   $scope.dayNames = weekdayModel.dayNames;
 
-  /** Log In button text **/
-  $scope.loginMsg = "Log In";
-
   /** Google auth token **/
-  $scope.token = "";
+  $scope.token = undefined;
 
   /** Making a new task **/
   $scope.taskDay = "";
@@ -27,8 +24,10 @@ weeklyApp.controller('DayCtrl',
    */
   $scope.logIn = function() {
     gCalAPI.logIn().then(function(access_token) {
+      console.log('ACCESS TOKEN: ' + access_token);
+      $scope.token = access_token;
       $scope.checkCalendarsExist();
-    })
+    });
   };
 
   $scope.checkCalendarsExist = function() {
@@ -78,7 +77,7 @@ weeklyApp.controller('DayCtrl',
         $scope.days = weekdayModel.days;
     }, function(err) {
         console.log('Error');
-        console.log(err);
+        console.log(JSON.stringify(err));
         $scope.days = oldDaysBackup;
     });
   };
@@ -111,6 +110,9 @@ weeklyApp.controller('DayCtrl',
 
       // Add task
       weekdayModel.addTask(task, day);
+
+      // Expand list
+      $scope.expanded[day] = true;
 
       // gCalCreate
       var dateObj = dateForDay(day);

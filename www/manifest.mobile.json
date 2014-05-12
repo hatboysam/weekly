@@ -1,5 +1,10 @@
 {
   "packageId": "com.habosa.weekly",
   "versionCode": 1,
-  "CFBundleVersion": "1.1.1"
+  "CFBundleVersion": "1.1.1",
+  "android": {
+    "oauth2": {
+      "client_id": "891667400722-4jj4mqolqporeemn9l0svij94ncsrhhg.apps.googleusercontent.com"
+    }
+  }
 }

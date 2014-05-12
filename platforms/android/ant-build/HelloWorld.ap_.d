@@ -51,10 +51,13 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/manifest.mobile.json \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/chrome_logo.png \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/css \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/fonts \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/sign-in-with-google.png \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/css/foundation-forms-buttons.css \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/css/normalize.css \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/fonts/Lobster.ttf \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/hamburger.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/icon114.png \
@@ -77,6 +80,8 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon96.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/app.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/controllers.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/fastclick.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/fastclick.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/gapi-chrome-apps.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.jpanelmenu.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.min.js \

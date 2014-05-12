@@ -28,6 +28,11 @@ Weekday.prototype.isToday = function() {
   return (nowDate.getDay() == this.ind);
 }
 
+Weekday.prototype.humanDate = function() {
+  var myDate = dateForDay(this.ind);
+  return (myDate.getMonth() + 1) + '/' + (myDate.getDate());
+}
+
 /**
  * Task object
  */
