@@ -53,13 +53,7 @@ $(document).ready(function() {
     }
   });
 
-  // Show and hide tasks
-  $(document).on('click', '.day', function() {
-      $(this).siblings('.task').slideToggle(200);
-      $(this).find('.badge').fadeToggle(200);
-      $(this).toggleClass('collapsed');
-  });
-
+  // Track whether form is open
   var formOpen = false;
 
   function closeForm() {

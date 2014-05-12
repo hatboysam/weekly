@@ -18,6 +18,10 @@ weeklyApp.controller('DayCtrl',
   $scope.taskDay = "";
   $scope.taskDesc = "";
 
+  /** Expanded **/
+  $scope.expanded = [false, false, false, false, false, false, false];
+  $scope.expanded[(new Date()).getDay()] = true;
+
   /**
    * Sign in with Google+
    */
@@ -122,8 +126,25 @@ weeklyApp.controller('DayCtrl',
 
       // Clear form
       $scope.taskDay = "";
-      $scope.taskDesc = ""
+      $scope.taskDesc = "";
     }
+  };
+
+  $scope.removeTask = function(task) {
+    // Remove from model
+    weekdayModel.removeTask(task);
+
+    // Gapi remove
+    var calId = task.completed ? $scope.completeId : $scope.incompleteId;
+    gCalAPI.deleteEvent(task.id, calId).then(function() {
+      // All good
+    }, function(err) {
+      console.log(err);
+    });
+  },
+
+  $scope.expandDay = function(day) {
+    $scope.expanded[day.ind] = !($scope.expanded[day.ind]);
   }
 
 }]);

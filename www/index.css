@@ -71,6 +71,7 @@ td {
 
 #burger {
   height: 25px;
+  vertical-align: inherit;
 }
 
 #jPanelMenu-menu {
@@ -124,10 +125,15 @@ td {
   border: 1px solid;
   border-radius: 2px;
   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px;
+  -webkit-transition: opacity 0.2s;
 }
 
 .hide {
   display: none;
+}
+
+.invis {
+  opacity: 0;
 }
 
 .no-shadow {
@@ -137,12 +143,18 @@ td {
 .day.expanded {
 }
 
+.slidup {
+  max-height: 0px !important;
+}
+
 .task {
   color: black;
-  /** border-left: 10px #FF8700 solid; **/
   font-size: small;
   background: white;
   position: relative;
+  max-height: 200px; /** too large on purpose **/
+  overflow: hidden;
+  -webkit-transition: max-height 0.2s;
 }
 
 .task-bar {
@@ -154,11 +166,13 @@ td {
   left: 0px;
 }
 
-.task-toggle {
-  height: 100%;
-  width: 10px;
+.task-rm {
   position: absolute;
-  right: 0px;
+  right: 10px;
+  height: 100%;
+  top: 9px;
+  font-size: medium;
+  color: gray;
 }
 
 .completed .task-bar {

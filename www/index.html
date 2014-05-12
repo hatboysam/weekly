@@ -61,20 +61,26 @@
         </div>  
       </div>
       <div ng-repeat="day in days" class="day-box">
-        <div class="day">
+        <div 
+          class="day"
+          ng-click="expandDay(day)">
           {{ day.name }}
-          <span class="badge hide" ng-if="day.hasTasks()">
+          <span 
+            class="badge" 
+            ng-if="day.hasTasks()"
+            ng-class="{ 'invis': expanded[day.ind] }">
             {{ day.numTasks() }}
           </span>
         </div>
         <div 
           class="task"  
           ng-repeat="task in day.tasks" 
-          ng-class="{ 'completed': task.completed }">
+          ng-class="{ 'completed': task.completed, 'slidup': !expanded[day.ind] }">
           <div class="task-bar"></div>
           <div class="task-content" ng-click="toggle(task)">
             {{ task.description }}
           </div>
+          <span class="task-rm" ng-click="removeTask(task)">&#x00D7;</span>
         </div>
       </div>
     </div>

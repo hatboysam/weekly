@@ -8,11 +8,22 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
   this.dayTasks = [ [], [], [], [], [], [], [] ];
 
   for (i = 0; i < this.dayNames.length; i++) {
-    this.days.push(new Weekday(this.dayNames[i], this.dayTasks[i]));
+    this.days.push(new Weekday(this.dayNames[i], i, this.dayTasks[i]));
   }
 
   this.addTask = function(task, day) {
     this.days[day].addTask(task);
+  }
+
+  this.removeTask = function(task) {
+    for (i = 0; i < 7; i++) {
+      var iDay = this.days[i];
+      var dayTasks = iDay.tasks;
+      var taskInd = dayTasks.indexOf(task);
+      if (taskInd >= 0) {
+        dayTasks.splice(taskInd, 1);
+      }
+    }
   }
 
   this.addAllFromCal = function(items, completed) {
@@ -134,6 +145,24 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
       });
 
       return moveDefer.promise;
+    },
+
+    deleteEvent: function(eventId, calendarId) {
+      var deleteDefer = $q.defer();
+
+      gapi.client.request({
+        path: '/calendar/v3/calendars/' + calendarId + '/events/' + eventId,
+        method: 'DELETE',
+        callback: function(resp) {
+          if (resp == null) {
+            deleteDefer.resolve();
+          } else {
+            deleteDefer.reject('Error: ' + resp);
+          }
+        }
+      });
+
+      return deleteDefer.promise;
     }
   };
 }]);

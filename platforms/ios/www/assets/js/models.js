@@ -1,8 +1,9 @@
 /**
  * Weekday object
  */
-function Weekday(name, tasks) {
+function Weekday(name, ind, tasks) {
   this.name = name;
+  this.ind = ind;
   this.tasks = tasks;
 }
 
@@ -20,6 +21,11 @@ Weekday.prototype.hasTasks = function() {
 
 Weekday.prototype.clearTasks = function() {
   this.tasks = [];
+}
+
+Weekday.prototype.isToday = function() {
+  var nowDate = new Date();
+  return (nowDate.getDay() == this.ind);
 }
 
 /**
