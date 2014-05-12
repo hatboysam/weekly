@@ -60,16 +60,31 @@ $(document).ready(function() {
       $(this).toggleClass('collapsed');
   });
 
+  var formOpen = false;
+
+  function closeForm() {
+    $('#task-form').slideUp(200);
+    $('.new-task').text('+');
+    formOpen = false;
+  };
+
+  function openForm() {
+    $('#task-form').slideDown(200);
+    $('.new-task').html('&#x00D7;');
+    formOpen = true;
+  };
+
   // Show and hide the new task form
   $(document).on('click', '.new-task', function() {
-    $('#task-form').slideToggle(200);
-  })
-
-  $(document).on('click', '.x-btn', function() {
-    $('#task-form').slideUp(200);
+    if (formOpen) {
+      closeForm();
+    } else {
+      openForm();
+    }
   });
+
   $(document).on('click', '.check-btn', function() {
-    $('#task-form').slideUp(200);
+    closeForm();
   });
 
 });

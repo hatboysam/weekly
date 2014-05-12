@@ -47,27 +47,18 @@
         <a class="new-task">+</a>
       </div>
       <div id="task-form" class="hide">
-        <table>
-          <tr>
-            <td>
-              <label>When:
-                <select 
-                  ng-model="taskDay" 
-                  ng-options="dayName for dayName in dayNames"></select>
-              </label>
-            </td>
-            <td>
-              <label>What:
-                <input type="text" ng-model="taskDesc"></input>
-              </label>
-            </td>
-            <td>
-              <span class="check-btn span-btn" ng-click="newTask()">&#x2713;</span>
-            </td>
-            <td>
-              <span class="x-btn span-btn">&#x2717;</span>
-            </td>
-        </table>
+        <div class="task">
+          <div class="task-bar no-shadow"></div>
+          <div class="task-content no-shadow" style="margin-left: 10px">
+            <select 
+              ng-model="taskDay" 
+              ng-options="dayName for dayName in dayNames"></select>
+            <input 
+              type="text" 
+              ng-model="taskDesc"></input>
+            <span class="check-btn span-btn" ng-click="newTask()">add</span>
+          </div>
+        </div>  
       </div>
       <div ng-repeat="day in days" class="day-box">
         <div class="day">

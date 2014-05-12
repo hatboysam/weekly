@@ -130,6 +130,10 @@ td {
   display: none;
 }
 
+.no-shadow {
+  box-shadow: none !important;
+}
+
 .day.expanded {
 }
 
@@ -171,10 +175,7 @@ td {
 }
 
 #task-form {
-  padding-left: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 10px;
+  position: relative;
 }
 
 #task-form select {
