@@ -1,7 +1,9 @@
 /**
  * Day Controller
  */
-weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', function($scope, $q, weekdayModel, gCalAPI) {
+weeklyApp.controller('DayCtrl', 
+  ['$scope', '$q', 'weekdayModel', 'gCalAPI', 'localStorageAPI', 
+  function($scope, $q, weekdayModel, gCalAPI, localStorageAPI) {
   
   $scope.days = weekdayModel.days;
   $scope.dayNames = weekdayModel.dayNames;
@@ -27,35 +29,27 @@ weeklyApp.controller('DayCtrl', ['$scope', '$q', 'weekdayModel', 'gCalAPI', func
 
   $scope.checkCalendarsExist = function() {
     // COMPLETE CALENDAR
-    chrome.storage.local.get('completeId', function(items) {
-      if (items.completeId && (items.completeId != undefined)) {
-        // Calendar exists for complete
-        console.log('Complete ID:' + items.completeId);
-        $scope.completeId = items.completeId;
-      } else {
-        // Create calendar for complete
-        console.log('NEED TO CREATE COMPLETE');
-        gCalAPI.createCalendar('Weekly Complete').then(function(id) {
-          console.log('ID:' + id);
-          chrome.storage.local.set({ completeId: id });
-        });
-      }
+    localStorageAPI.get('completeId').then(function(id) {
+      console.log('Complete ID: ' + id);
+      $scope.completeId = id;
+    }, function(err) {
+      console.log(err);
+      gCalAPI.createCalendar('Weekly Complete').then(function(id) {
+          console.log('Complete ID:' + id);
+          localStorageAPI.set({ completeId: id });
+      });
     });
 
     // INCOMPLETE CALENDAR
-    chrome.storage.local.get('incompleteId', function(items) {
-      if (items.incompleteId && (items.incompleteId != undefined)) {
-        // Calendar does not exist for complete
-        console.log('Incomplete ID:' + items.incompleteId)
-        $scope.incompleteId = items.incompleteId;
-      } else {
-        // Create calendar for incomplete
-        console.log('NEED TO CREATE INCOMPLETE');
-        gCalAPI.createCalendar('Weekly Incomplete').then(function(id) {
-          console.log('ID:' + id);
-          chrome.storage.local.set({ incompleteId: id });
-        });
-      }
+    localStorageAPI.get('incompleteId').then(function(id) {
+      console.log('Incomplete ID: ' + id);
+      $scope.incompleteId = id;
+    }, function(err) {
+      console.log(err);
+      gCalAPI.createCalendar('Weekly Incomplete').then(function(id) {
+          console.log('Incomplete ID:' + id);
+          localStorageAPI.set({ inompleteId: id });
+      });
     });
   }
 

@@ -137,3 +137,28 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
     }
   };
 }]);
+
+/**
+ * Local Storage API
+ */
+ weeklyApp.factory('localStorageAPI', ['$rootScope', '$q', function($rootScope, $q) {
+  return {
+    get: function(key) {
+      var getDefer = $q.defer();
+
+      chrome.storage.local.get(key, function(items) {
+        if (items[key] && (items[key] != undefined)) {
+          getDefer.resolve(items[key]);
+        } else {
+          getDefer.reject('Error: no entry for ' + key);
+        }
+      });
+
+      return getDefer.promise;
+    },
+
+    set: function(setObj) {
+      chrome.storage.local.set(setObj);
+    }
+  };
+ }]);
