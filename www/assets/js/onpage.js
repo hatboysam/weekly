@@ -34,6 +34,30 @@ function dateForDay(dayInd) {
   return thatDay;
 }
 
+function showError(msg) {
+  var alrt = $('#alert');
+  alrt.addClass('alert-error');
+  alrt.text(msg);
+  alrt.slideToggle(200);
+  setTimeout(function() {
+    alrt.text('');
+    alrt.slideToggle(200);
+    alrt.removeClass('alert-error');
+  }, 2000);
+}
+
+function showSuccess(msg) {
+  var alrt = $('#alert');
+  alrt.addClass('alert-success');
+  alrt.text(msg);
+  alrt.slideToggle(200);
+  setTimeout(function() {
+    alrt.text('');
+    alrt.slideToggle(200);
+    alrt.removeClass('alert-success');
+  }, 2000);
+}
+
 $(document).ready(function() {
 
   // Fastclick
@@ -48,13 +72,13 @@ $(document).ready(function() {
   });
   jPM.on();
 
+  // Alert div
+  $('body').append('<div id="alert" class="hide"></div>');
+
   // Clicking a side panel menu item
-  $('.menu-item').on({
-    click: function() {
-      // Close the menu
-      jPM.close();
-    }
-  });
+  $(document).on('click', '.menu-item', function() {
+    jPM.close();
+  })
 
   // Track whether form is open
   var formOpen = false;

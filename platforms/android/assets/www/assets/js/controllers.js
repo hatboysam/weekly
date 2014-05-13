@@ -25,8 +25,11 @@ weeklyApp.controller('DayCtrl',
   $scope.logIn = function() {
     gCalAPI.logIn().then(function(access_token) {
       console.log('ACCESS TOKEN: ' + access_token);
+      showSuccess('Logged in, thanks!');
       $scope.token = access_token;
       $scope.checkCalendarsExist();
+    }, function(err) {
+      showError('Error: there was a problem logging in.');
     });
   };
 
@@ -79,6 +82,7 @@ weeklyApp.controller('DayCtrl',
         $scope.days = weekdayModel.days;
     }, function(err) {
         console.log(JSON.stringify(err));
+        showError('Error: could not refresh');
         $scope.days = oldDaysBackup;
     });
   };

@@ -45,6 +45,24 @@ td {
   padding-right: 5px;
 }
 
+#alert {
+  position: absolute;
+  bottom: 0px;
+  color: white;
+  z-index: 100;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.alert-error {
+  background: red;
+}
+
+.alert-success {
+  background: green;
+}
+
 .span-btn {
   font-size: x-large;
   color: #FF8700;
