@@ -81,7 +81,7 @@
         <div 
           class="task"  
           ng-repeat="task in day.tasks" 
-          ng-class="{ 'completed': task.completed, 'slidup': !expanded[day.ind] }">
+          ng-class="{ 'completed': task.completed }">
           <div class="task-bar"></div>
           <div class="task-content" ng-click="toggle(task)">
             {{ task.description }}

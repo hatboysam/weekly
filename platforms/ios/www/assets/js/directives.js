@@ -1,8 +1,6 @@
 weeklyApp.directive('toggleClass', function() {
   return {
     restrict: 'A',
-    transclude: true,
-    template: '<div ng-click="toggleClick()" ng-transclude></div>',
     compile: function($element, $attrs) {
       var linkFunction = function($scope, $element, $attrs) {
         // Put the class on at the start, if needed
@@ -13,9 +11,12 @@ weeklyApp.directive('toggleClass', function() {
         }
 
         // Toggle the class on click
-        $scope.toggleClick = function(){
+        var toggleClick = function(){
           $element.toggleClass($attrs.toggleClass);
         }
+
+        // Set as click listener
+        $element.click(toggleClick);
       };
 
       return linkFunction;
