@@ -15,10 +15,6 @@ weeklyApp.controller('DayCtrl',
   $scope.taskDay = "";
   $scope.taskDesc = "";
 
-  /** Expanded **/
-  $scope.expanded = [false, false, false, false, false, false, false];
-  $scope.expanded[(new Date()).getDay()] = true;
-
   /**
    * Sign in with Google+
    */
@@ -116,8 +112,7 @@ weeklyApp.controller('DayCtrl',
       // Add task
       weekdayModel.addTask(task, day);
 
-      // Expand list
-      $scope.expanded[day] = true;
+      // TODO: Expand day when added
 
       // gCalCreate
       var dateObj = dateForDay(day);
@@ -148,11 +143,7 @@ weeklyApp.controller('DayCtrl',
     }, function(err) {
       console.log(err);
     });
-  },
-
-  $scope.expandDay = function(day) {
-    $scope.expanded[day.ind] = !($scope.expanded[day.ind]);
-  }
+  };
 
 }]);
 

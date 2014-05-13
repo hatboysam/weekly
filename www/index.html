@@ -23,6 +23,7 @@
     <script src="assets/js/models.js"></script>
     <script src="assets/js/services.js"></script>
     <script src="assets/js/controllers.js"></script>
+    <script src="assets/js/directives.js"></script>
   </head>
   <body ng-controller="DayCtrl">
     <div id="menu" style="display: none;">
@@ -60,18 +61,20 @@
           </div>
         </div>  
       </div>
-      <div ng-repeat="day in days" class="day-box">
+      <div 
+        ng-repeat="day in days" 
+        class="day-box">
         <div 
           class="day"
-          ng-click="expandDay(day)">
+          toggle-class="closed"
+          toggle-start-on="{{ !day.isToday() }}">
           <span class="day-date">
             {{ day.humanDate() }}
           </span>
           {{ day.name }}
           <span 
             class="badge" 
-            ng-if="day.hasTasks()"
-            ng-class="{ 'invis': expanded[day.ind] }">
+            ng-if="day.hasTasks()">
             {{ day.numTasks() }}
           </span>
         </div>

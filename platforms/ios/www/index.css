@@ -109,7 +109,7 @@ td {
 }
 
 .sidemenu li {
-  padding: 10px;
+  padding: 10px !important;
   background: -webkit-linear-gradient(#3E3E3E, #383838);
   font-weight: bold;
   padding: 0.5em 5%;
@@ -135,22 +135,6 @@ td {
   font-size: medium;
 }
 
-.badge {
-  position: absolute;
-  background: #FF8700;
-  font-size: small;
-  position: absolute;
-  right: 10px;
-  line-height: 16px;
-  height: 16px;
-  padding: 0 4px;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.25);
-  border: 1px solid;
-  border-radius: 2px;
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px;
-  -webkit-transition: opacity 0.2s;
-}
-
 .day-date {
   font-size: small;
   position: absolute;
@@ -170,11 +154,32 @@ td {
   box-shadow: none !important;
 }
 
-.day.expanded {
+.closed {
 }
 
-.slidup {
-  max-height: 0px !important;
+.closed ~ .task {
+  max-height: 0px !important; /* Slide up */
+}
+
+.closed .badge {
+  opacity: 1; /* Invis class */
+}
+
+.badge {
+  position: absolute;
+  background: #FF8700;
+  font-size: small;
+  position: absolute;
+  right: 10px;
+  line-height: 16px;
+  height: 16px;
+  padding: 0 4px;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  border: 1px solid;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px;
+  -webkit-transition: opacity 0.2s;
+  opacity: 0; /** Hide by default, show when inside a .closed tag **/
 }
 
 .task {
@@ -198,10 +203,10 @@ td {
 
 .task-rm {
   position: absolute;
-  right: 10px;
+  right: 20px;
   height: 100%;
-  top: 9px;
-  font-size: medium;
+  top: 10px;
+  font-size: large;
   color: gray;
 }
 
@@ -211,11 +216,17 @@ td {
 
 .task-content {
   padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5) inset;
+  font-size: 11pt;
 }
 
 .completed .task-content {
   text-decoration: line-through;
+  color: gray;
 }
 
 #task-form {
