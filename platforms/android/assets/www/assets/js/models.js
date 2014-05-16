@@ -15,6 +15,14 @@ Weekday.prototype.numTasks = function() {
   return this.tasks.length;
 }
 
+Weekday.prototype.numCompleteTasks = function() {
+  return this.tasks.filter(function(x) { return (x.completed); }).length;
+}
+
+Weekday.prototype.numIncompleteTasks = function() {
+  return this.tasks.filter(function(x) { return (!x.completed); }).length;
+}
+
 Weekday.prototype.hasTasks = function() {
   return (this.tasks.length > 0);
 }

@@ -34,7 +34,7 @@
         <li class="menu-item" ng-click="refresh()" ng-if="token">
           Refresh
         </li>
-        <li class="menu-item" ng-click="logIn()" ng-if="!token">
+        <li class="menu-item" ng-click="logIn(false)" ng-if="!token">
           Log In
         </li>
       </ul>
@@ -72,10 +72,13 @@
             {{ day.humanDate() }}
           </span>
           {{ day.name }}
-          <span 
-            class="badge" 
-            ng-if="day.hasTasks()">
-            {{ day.numTasks() }}
+          <span class="badge-box">
+            <span 
+              class="badge badge-complete" 
+              ng-if="day.numCompleteTasks() > 0">{{day.numCompleteTasks()}}</span>
+            <span 
+              class="badge badge-incomplete" 
+              ng-if="day.numIncompleteTasks() > 0">{{day.numIncompleteTasks()}}</span>
           </span>
         </div>
         <div 

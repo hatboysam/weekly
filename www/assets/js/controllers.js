@@ -18,8 +18,8 @@ weeklyApp.controller('DayCtrl',
   /**
    * Sign in with Google+
    */
-  $scope.logIn = function() {
-    gCalAPI.logIn().then(function(access_token) {
+  $scope.logIn = function(inter) {
+    gCalAPI.logIn(inter).then(function(access_token) {
       console.log('ACCESS TOKEN: ' + access_token);
       showSuccess('Logged in, thanks!');
       $scope.token = access_token;
@@ -58,10 +58,6 @@ weeklyApp.controller('DayCtrl',
   }
 
   $scope.refresh = function() {
-    // Back up
-    // TODO: This does not work, make a copy.
-    var oldDaysBackup = $scope.days;
-
     // Clear old tasks
     weekdayModel.days.forEach(function(day) {
       day.clearTasks();
@@ -75,11 +71,15 @@ weeklyApp.controller('DayCtrl',
         console.log('Complete is good');
         weekdayModel.addAllFromCal(response.items, true); 
     }).then(function() {
+        // Load days into view
         $scope.days = weekdayModel.days;
+
+        // Cache in localstorage
+        localStorageAPI.set({ days: $scope.days });
     }, function(err) {
         console.log(JSON.stringify(err));
         showError('Error: could not refresh');
-        $scope.days = oldDaysBackup;
+        $scope.restoreDays();
     });
   };
 
@@ -141,9 +141,29 @@ weeklyApp.controller('DayCtrl',
     gCalAPI.deleteEvent(task.id, calId).then(function() {
       // All good
     }, function(err) {
-      console.log(err);
+      console.log(JSON.stringify(err));
     });
   };
+
+  $scope.restoreDays = function() {
+    // Restore cached tasks
+    localStorageAPI.get('days').then(function(days) {
+      days.forEach(function(day) {
+        day.tasks.forEach(function(task) {
+          var taskObj = new Task(task.description, task.completed);
+          taskObj.setId(task.id);
+          weekdayModel.addTask(taskObj, day.ind);
+        });
+      });
+    });
+  }
+
+  /**
+   * STARTUP TASKS
+   */
+  $scope.logIn(true);
+  $scope.restoreDays();
+
 
 }]);
 

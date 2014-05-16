@@ -80,6 +80,7 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/icons/WeeklyIcon96.png \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/app.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/controllers.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/directives.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/fastclick.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/fastclick.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/gapi-chrome-apps.js \

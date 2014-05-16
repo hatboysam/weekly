@@ -73,7 +73,8 @@ $(document).ready(function() {
   jPM.on();
 
   // Alert div
-  $('body').append('<div id="alert" class="hide"></div>');
+  $('body').append('<div id="alert" class="alert hide"></div>');
+  // $('body').append('<div ng-show="loading" id="alert-loading" class="alert alert-loading hide">Loading...</div>');
 
   // Clicking a side panel menu item
   $(document).on('click', '.menu-item', function() {
@@ -104,6 +105,7 @@ $(document).ready(function() {
     }
   });
 
+  // Close the new task form when a task is added
   $(document).on('click', '.check-btn', function() {
     closeForm();
   });

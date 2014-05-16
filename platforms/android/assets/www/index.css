@@ -45,7 +45,7 @@ td {
   padding-right: 5px;
 }
 
-#alert {
+.alert {
   position: absolute;
   bottom: 0px;
   color: white;
@@ -61,6 +61,10 @@ td {
 
 .alert-success {
   background: green;
+}
+
+.alert-loading {
+  background: #63AFD0;
 }
 
 .span-btn {
@@ -165,21 +169,34 @@ td {
   opacity: 1; /* Invis class */
 }
 
-.badge {
-  position: absolute;
-  background: #FF8700;
-  font-size: small;
+.badge-box {
   position: absolute;
   right: 10px;
+}
+
+.badge {
+/*  position: absolute;*/
+  font-size: small;
   line-height: 16px;
   height: 16px;
   padding: 0 4px;
+  margin-left: 5px;
   text-shadow: 0 1px rgba(0, 0, 0, 0.25);
   border: 1px solid;
   border-radius: 2px;
   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px;
   -webkit-transition: opacity 0.2s;
   opacity: 0; /** Hide by default, show when inside a .closed tag **/
+}
+
+.badge-complete {
+/*  right: 32px;*/
+  background: gray;
+}
+
+.badge-incomplete {
+/*  right: 10px;*/
+  background: #FF8700;
 }
 
 .task {

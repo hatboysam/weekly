@@ -43,10 +43,10 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
  */
 weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
   return {
-    logIn: function() {
+    logIn: function(immed) {
       var loginDefer = $q.defer();
 
-      gapi.auth.authorize({ interactive: true, immediate: false }, function(response) {
+      gapi.auth.authorize({ immediate: immed }, function(response) {
         console.log(response);
 
         if (response.access_token) {
