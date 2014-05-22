@@ -200,3 +200,31 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
     }
   };
  }]);
+
+/**
+ * Request logic
+ */
+weeklyApp.factory('requestMngr', ['$q', function($q) {
+  return {
+    tryWith: function(requestFn, recoverFn) {
+      var attemptDefer = $q.defer();
+
+      requestFn().then(function(resp) {
+        // Request succeeded, first try
+        attemptDefer.resolve(resp);
+      }, function(err) {
+        // Request failed, first try
+        // recover and then try again
+        return recoverFn().then(requestFn);
+      }).then(function(resp) {
+        // Request succeeded, second try
+        attemptDefer.resolve(resp);
+      }, function(err) {
+        // Request failed, second try
+        attemptDefer.reject(err);
+      });
+
+      return attemptDefer.promise;
+    }
+  };
+}]);

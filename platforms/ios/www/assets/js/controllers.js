@@ -2,8 +2,8 @@
  * Day Controller
  */
 weeklyApp.controller('DayCtrl', 
-  ['$scope', '$q', 'weekdayModel', 'gCalAPI', 'localStorageAPI', 
-  function($scope, $q, weekdayModel, gCalAPI, localStorageAPI) {
+  ['$scope', '$q', 'weekdayModel', 'gCalAPI', 'localStorageAPI', 'requestMngr', 
+  function($scope, $q, weekdayModel, gCalAPI, localStorageAPI, requestMngr) {
   
   $scope.days = weekdayModel.days;
   $scope.dayNames = weekdayModel.dayNames;
@@ -63,23 +63,37 @@ weeklyApp.controller('DayCtrl',
       day.clearTasks();
     });
 
-    gCalAPI.loadEvents($scope.incompleteId).then(function(response) {
-        console.log('Incomplete is good');
-        weekdayModel.addAllFromCal(response.items, false); 
-        return gCalAPI.loadEvents($scope.completeId);
-    }).then(function(response) {
-        console.log('Complete is good');
-        weekdayModel.addAllFromCal(response.items, true); 
-    }).then(function() {
-        // Load days into view
-        $scope.days = weekdayModel.days;
+    // Recovery: silent log in
+    var recoverFn = function() { return gCalAPI.logIn(false); };
 
-        // Cache in localstorage
-        localStorageAPI.set({ days: $scope.days });
+    // Get incomplete tasks
+    var incompletePromise = requestMngr.tryWith(function() {
+      return gCalAPI.loadEvents($scope.incompleteId);
+    }, recoverFn);
+
+    // Get complete tasks
+    var completePromise = requestMngr.tryWith(function() {
+      return gCalAPI.loadEvents($scope.completeId);
+    }, recoverFn);
+
+    // When we have fetched both incomplete and complete
+    $q.all([incompletePromise, completePromise]).then(function(results) {
+      // Add to model
+      incompleteResp = results[0];
+      completeResp = results[1];
+      weekdayModel.addAllFromCal(incompleteResp.items, false);
+      weekdayModel.addAllFromCal(completeResp.items, true);
+
+      // Cache
+      localStorageAPI.set({ days: $scope.days });
     }, function(err) {
-        console.log(JSON.stringify(err));
-        showError('Error: could not refresh');
-        $scope.restoreDays();
+      // Restore old days
+      showError('Error: could not refresh');
+      console.log(JSON.stringify(err));
+      $scope.restoreDays();
+
+      // Set as logged out
+      $scope.token = undefined;
     });
   };
 
@@ -161,7 +175,7 @@ weeklyApp.controller('DayCtrl',
   /**
    * STARTUP TASKS
    */
-  $scope.logIn(true);
+  $scope.logIn(false);
   $scope.restoreDays();
 
 
