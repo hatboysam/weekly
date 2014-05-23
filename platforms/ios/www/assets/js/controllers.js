@@ -2,14 +2,17 @@
  * Day Controller
  */
 weeklyApp.controller('DayCtrl', 
-  ['$scope', '$q', 'weekdayModel', 'gCalAPI', 'localStorageAPI', 'requestMngr', 
-  function($scope, $q, weekdayModel, gCalAPI, localStorageAPI, requestMngr) {
+  ['$scope', '$q', 'weekdayModel', 'gCalAPI', 'localStorageAPI', 'requestMngr', 'parseAPI', 
+  function($scope, $q, weekdayModel, gCalAPI, localStorageAPI, requestMngr, parseAPI) {
   
   $scope.days = weekdayModel.days;
   $scope.dayNames = weekdayModel.dayNames;
 
   /** Google auth token **/
   $scope.token = undefined;
+
+  /** Google+ user id **/
+  $scope.id = undefined;
 
   /** Making a new task **/
   $scope.taskDay = "";
@@ -19,42 +22,111 @@ weeklyApp.controller('DayCtrl',
    * Sign in with Google+
    */
   $scope.logIn = function(inter) {
-    gCalAPI.logIn(inter).then(function(access_token) {
-      console.log('ACCESS TOKEN: ' + access_token);
+    gCalAPI.logIn(inter).then(function(resp) {
+      console.log(resp);
+      console.log('ACCESS TOKEN: ' + resp.access_token);
       showSuccess('Logged in, thanks!');
-      $scope.token = access_token;
+      $scope.token = resp.access_token;
+
+      // Get user info
+      return gCalAPI.getInfo();
+    }).then(function(infoObj) {
+      // Got user info
+      console.log(infoObj);
+      $scope.id = infoObj.id;
+
+      // Check for calendars
       $scope.checkCalendarsExist();
     }, function(err) {
-      showError('Error: there was a problem logging in.');
+      showError('Error: there was a problem logging in');
     });
   };
 
   $scope.checkCalendarsExist = function() {
     // COMPLETE CALENDAR
-    localStorageAPI.get('completeId').then(function(id) {
-      console.log('Complete ID: ' + id);
-      $scope.completeId = id;
+    // localStorageAPI.get('completeId').then(function(id) {
+    //   console.log('Complete ID: ' + id);
+    //   $scope.completeId = id;
+    // }, function(err) {
+    //   console.log(JSON.stringify(err));
+    //   gCalAPI.createCalendar('Weekly Complete').then(function(id) {
+    //       console.log('Complete ID:' + id);
+    //       localStorageAPI.set({ completeId: id });
+    //       $scope.completeId = id;
+    //   });
+    // });
+
+    $scope.getCalendar('completeId', 'Weekly Complete');
+    $scope.getCalendar('incompleteId', 'Weekly Incomplete');
+
+    // INCOMPLETE CALENDAR
+    // localStorageAPI.get('incompleteId').then(function(id) {
+    //   console.log('Incomplete ID: ' + id);
+    //   $scope.incompleteId = id;
+    // }, function(err) {
+    //   console.log(JSON.stringify(err));
+    //   gCalAPI.createCalendar('Weekly Incomplete').then(function(id) {
+    //       console.log('Incomplete ID:' + id);
+    //       localStorageAPI.set({ incompleteId: id });
+    //       $scope.incompleteId = id;
+    //   });
+    // });
+  }
+
+  $scope.getCalendar = function(name, title) {
+    var calDefer = $q.defer();
+    
+    // Check localstorage
+    localStorageAPI.get(name).then(function(id) {
+      console.log(title + ': ' + id);
+      $scope[name] = id;
+      calDefer.resolve(id);
     }, function(err) {
-      console.log(JSON.stringify(err));
-      gCalAPI.createCalendar('Weekly Complete').then(function(id) {
-          console.log('Complete ID:' + id);
-          localStorageAPI.set({ completeId: id });
-          $scope.completeId = id;
+      // Check parse
+      parseAPI.query(name, { personId: $scope.id }).then(function(resp) {
+        console.log('QUERYING PARSE:');
+        var results = resp.data.results;
+        console.log(results);
+
+        // Check if query came back with anything
+        if (results.length < 1) {
+          // Nothing from parse, need to create
+          gCalAPI.createCalendar(title).then(function(id) {
+            // Created, store in scope and resolve promise
+            console.log('Created ' + title + ' with ' + id);
+            $scope[name] = id;
+            calDefer.resolve(id);
+
+            // Cache in local storage
+            calObj = {};
+            calObj[name] = id;
+            localStorageAPI.set(calObj);
+
+            // Store on Parse
+            parseAPI.create(name, { personId: $scope.id, calId: id });
+          }, function(err) {
+            // If you get here, everything is really fucked
+            calDefer.reject('Error: everything failed');
+          });
+        } else {
+          // Got result from parse
+          var firstResult = results[0];
+          var id = firstResult.calId;
+          console.log(id);
+
+          // Store in scope and resolve promise
+          $scope[name] = id;
+          calDefer.resolve(id);
+
+          // Cache in local storage
+          calObj = {};
+          calObj[name] = id;
+          localStorageAPI.set(calObj);
+        }
       });
     });
 
-    // INCOMPLETE CALENDAR
-    localStorageAPI.get('incompleteId').then(function(id) {
-      console.log('Incomplete ID: ' + id);
-      $scope.incompleteId = id;
-    }, function(err) {
-      console.log(JSON.stringify(err));
-      gCalAPI.createCalendar('Weekly Incomplete').then(function(id) {
-          console.log('Incomplete ID:' + id);
-          localStorageAPI.set({ incompleteId: id });
-          $scope.incompleteId = id;
-      });
-    });
+    return calDefer.promise;
   }
 
   $scope.refresh = function() {
@@ -161,6 +233,7 @@ weeklyApp.controller('DayCtrl',
 
   $scope.restoreDays = function() {
     // Restore cached tasks
+    // TODO: Don't bother if they're not for the right week, check
     localStorageAPI.get('days').then(function(days) {
       days.forEach(function(day) {
         day.tasks.forEach(function(task) {

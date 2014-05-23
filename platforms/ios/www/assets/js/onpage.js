@@ -58,6 +58,7 @@ function showSuccess(msg) {
   }, 2000);
 }
 
+/** DOCUMENT LOAD **/
 $(document).ready(function() {
 
   // Fastclick

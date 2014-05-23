@@ -50,14 +50,31 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
         console.log(response);
 
         if (response.access_token) {
-          loginDefer.resolve(response.access_token);
-          // TODO: Check calendars exit
+          loginDefer.resolve(response);
         } else {
           loginDefer.reject("Error: no access_token");
         }
       });
 
       return loginDefer.promise;
+    },
+
+    getInfo: function() {
+      var infoDefer = $q.defer(); 
+
+      gapi.client.request({
+        path: '/plus/v1/people/me',
+        method: 'GET',
+        callback: function(infoObj) {
+          if (infoObj.id) {
+            infoDefer.resolve(infoObj);
+          } else {
+            infoDefer.reject('Error: could not get info');
+          }
+        }
+      });
+
+      return infoDefer.promise;
     },
 
     createCalendar: function(name) {
@@ -228,3 +245,55 @@ weeklyApp.factory('requestMngr', ['$q', function($q) {
     }
   };
 }]);
+
+/**
+ * Parse Constants
+ */
+weeklyApp.constant('parseAppId', 'OiLq5JyJVut82Dzgr1aTqvgszsur9wUwVkM5xYsX');
+weeklyApp.constant('parseRestKey', 'EpvelChqb2YgBY8i69pTTwOa3JYnJJlF6MIgUiZx');
+
+/**
+ * Parse API
+ */
+weeklyApp.factory('parseAPI', 
+  ['$q', '$http', 'parseAppId', 'parseRestKey', 
+  function($q, $http, parseAppId, parseRestKey) {
+    return {
+      baseURL: 'https://api.parse.com/1/classes/',
+      headers: {
+        'X-Parse-Application-Id': parseAppId,
+        'X-Parse-REST-API-Key': parseRestKey,
+        'Content-Type': 'application/json'
+      },
+
+      create: function(clazz, data) {
+        var fullURL = this.baseURL + clazz;
+        return $http({ 
+          method: 'POST',
+          url: fullURL,
+          headers: this.headers, 
+          data: data
+        });
+      },
+
+      get: function(clazz, objectId) {
+        var fullURL = this.baseURL + clazz + '/' + objectId;
+        return $http({ 
+          method: 'GET',
+          url: fullURL,
+          headers: this.headers
+        });
+      },
+
+      query: function(clazz, where) {
+        var fullURL = this.baseURL + clazz;
+        return $http({ 
+          method: 'GET',
+          url: fullURL,
+          headers: this.headers,
+          params: { 'where': where }
+        });
+      }
+    };
+}]);
+

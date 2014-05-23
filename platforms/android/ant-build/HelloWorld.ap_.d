@@ -88,6 +88,7 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/jquery.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/models.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/onpage.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/parse-1.2.18.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/services.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.file \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
