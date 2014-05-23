@@ -8,6 +8,8 @@ weeklyApp.controller('DayCtrl',
   $scope.days = weekdayModel.days;
   $scope.dayNames = weekdayModel.dayNames;
 
+  $scope.blockingLoad = false;
+
   /** Google auth token **/
   $scope.token = undefined;
 
@@ -22,10 +24,13 @@ weeklyApp.controller('DayCtrl',
    * Sign in with Google+
    */
   $scope.logIn = function(inter) {
+    $scope.blockingLoad = true;
+
     gCalAPI.logIn(inter).then(function(resp) {
       console.log(resp);
       console.log('ACCESS TOKEN: ' + resp.access_token);
       showSuccess('Logged in, thanks!');
+      $scope.blockingLoad = false;
       $scope.token = resp.access_token;
 
       // Get user info
@@ -38,6 +43,7 @@ weeklyApp.controller('DayCtrl',
       // Check for calendars
       return $scope.checkCalendarsExist();
     }, function(err) {
+      $scope.blockingLoad = false;
       showError('Error: there was a problem logging in');
     }).then(function(ids) {
       // Refresh

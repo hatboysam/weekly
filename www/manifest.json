@@ -35,7 +35,8 @@
     "client_id": "891667400722-29bmprobaroc0caodd53sddkc1ekt55t.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/calendar",
-      "https://www.googleapis.com/auth/plus.me"
+      "https://www.googleapis.com/auth/plus.me",
+      "https://www.googleapis.com/auth/plus.profile.emails.read"
     ]
   }
 }

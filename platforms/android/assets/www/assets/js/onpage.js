@@ -79,7 +79,13 @@ $(document).ready(function() {
 
   // Alert div
   $('body').append('<div id="alert" class="alert hide"></div>');
-  // $('body').append('<div ng-show="loading" id="alert-loading" class="alert alert-loading hide">Loading...</div>');
+
+  // Black overlay
+  $('body').append('<div id="overlay" ng-hide="!blockingLoad"></div>');
+
+  // Add Spinner
+  var spinner = new Spinner({ color: 'white' }).spin();
+  $('#overlay').append(spinner.el);
 
   // Clicking a side panel menu item
   $(document).on('click', '.menu-item', function() {

@@ -101,6 +101,7 @@
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/models.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/onpage.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/services.js \
+/Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/assets/js/spin.min.js \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.file \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
 /Users/samstern/Documents/Programming/Chrome/weekly/platforms/android/assets/www/plugins/org.apache.cordova.keyboard \
