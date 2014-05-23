@@ -72,6 +72,10 @@ $(document).ready(function() {
     animated: true
   });
   jPM.on();
+  $('.jPanelMenu-panel').find('.sidemenu').remove();
+
+  // Swipebox
+  $('.swipebox').swipebox();
 
   // Alert div
   $('body').append('<div id="alert" class="alert hide"></div>');

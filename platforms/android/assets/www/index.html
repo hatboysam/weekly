@@ -4,6 +4,7 @@
     <title>Weekly</title>
     <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/foundation-forms-buttons.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/swipebox.min.css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
 
     <!-- Fastclick -->
@@ -12,6 +13,9 @@
     <!-- jQuery -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.jpanelmenu.min.js"></script>
+
+    <!-- Swipebox -->
+    <script src="assets/js/jquery.swipebox.min.js"></script>
 
     <!-- Custom JS -->
     <script src="assets/js/onpage.js"></script>
@@ -32,6 +36,14 @@
       <ul class="sidemenu">
         <li class="menu-item">
           About
+        </li>
+        <li id="help" class="swipebox" href="assets/img/WeeklyTour-1.png">
+          Help
+          <a href="assets/img/WeeklyTour-2.png" class="swipebox"></a>
+          <a href="assets/img/WeeklyTour-3.png" class="swipebox"></a>
+          <a href="assets/img/WeeklyTour-4.png" class="swipebox"></a>
+          <a href="assets/img/WeeklyTour-5.png" class="swipebox"></a>
+          <a href="assets/img/WeeklyTour-6.png" class="swipebox"></a>
         </li>
         <li class="menu-item" ng-click="refresh()" ng-if="token">
           Refresh

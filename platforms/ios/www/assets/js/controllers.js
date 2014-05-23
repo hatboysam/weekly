@@ -36,46 +36,26 @@ weeklyApp.controller('DayCtrl',
       $scope.id = infoObj.id;
 
       // Check for calendars
-      $scope.checkCalendarsExist();
+      return $scope.checkCalendarsExist();
     }, function(err) {
       showError('Error: there was a problem logging in');
+    }).then(function(ids) {
+      // Refresh
+      $scope.refresh();
     });
   };
 
   $scope.checkCalendarsExist = function() {
-    // COMPLETE CALENDAR
-    // localStorageAPI.get('completeId').then(function(id) {
-    //   console.log('Complete ID: ' + id);
-    //   $scope.completeId = id;
-    // }, function(err) {
-    //   console.log(JSON.stringify(err));
-    //   gCalAPI.createCalendar('Weekly Complete').then(function(id) {
-    //       console.log('Complete ID:' + id);
-    //       localStorageAPI.set({ completeId: id });
-    //       $scope.completeId = id;
-    //   });
-    // });
 
-    $scope.getCalendar('completeId', 'Weekly Complete');
-    $scope.getCalendar('incompleteId', 'Weekly Incomplete');
+    var completePromise = $scope.getCalendar('completeId', 'Weekly Complete');
+    var incompletePromise = $scope.getCalendar('incompleteId', 'Weekly Incomplete');
 
-    // INCOMPLETE CALENDAR
-    // localStorageAPI.get('incompleteId').then(function(id) {
-    //   console.log('Incomplete ID: ' + id);
-    //   $scope.incompleteId = id;
-    // }, function(err) {
-    //   console.log(JSON.stringify(err));
-    //   gCalAPI.createCalendar('Weekly Incomplete').then(function(id) {
-    //       console.log('Incomplete ID:' + id);
-    //       localStorageAPI.set({ incompleteId: id });
-    //       $scope.incompleteId = id;
-    //   });
-    // });
+    return $q.all(completePromise, incompletePromise);
   }
 
   $scope.getCalendar = function(name, title) {
     var calDefer = $q.defer();
-    
+
     // Check localstorage
     localStorageAPI.get(name).then(function(id) {
       console.log(title + ': ' + id);
@@ -249,8 +229,6 @@ weeklyApp.controller('DayCtrl',
    * STARTUP TASKS
    */
   $scope.logIn(false);
-  $scope.restoreDays();
-
 
 }]);
 
