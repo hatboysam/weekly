@@ -41,20 +41,31 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
 /**
  * Google Calendar API
  */
-weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
+weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope, $q, sysInfo) {
   return {
-    logIn: function(immed) {
+    logIn: function(immed, email) {
       var loginDefer = $q.defer();
 
-      gapi.auth.authorize({ immediate: immed }, function(response) {
-        console.log(response);
-
-        if (response.access_token) {
-          loginDefer.resolve(response);
+      sysInfo.getOs().then(function(os) {
+        var opts = { immediate: immed };
+        if (os.indexOf('android') >= 0) {
+          console.log('ANDROID DETECTED');
+          opts.accountHint = email;
         } else {
-          loginDefer.reject("Error: no access_token");
+          console.log('OS: ' + os);
         }
+
+        gapi.auth.authorize(opts, function(response) {
+          console.log(response);
+
+          if (response.access_token) {
+            loginDefer.resolve(response);
+          } else {
+            loginDefer.reject("Error: no access_token");
+          }
+        });
       });
+
 
       return loginDefer.promise;
     },
@@ -206,6 +217,16 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', function($rootScope, $q) {
       return getDefer.promise;
     },
 
+    getAlways: function(key) {
+      var getDefer = $q.defer();
+
+      chrome.storage.local.get(key, function(items) {
+        getDefer.resolve(items[key]);
+      });
+
+      return getDefer.promise;
+    },
+
     set: function(setObj) {
       chrome.storage.local.set(setObj, function() {
         if (chrome.runtime.lastError) {
@@ -242,6 +263,23 @@ weeklyApp.factory('requestMngr', ['$q', function($q) {
       });
 
       return attemptDefer.promise;
+    }
+  };
+}]);
+
+/**
+ * Get system info with Chrome runtime API
+ */
+weeklyApp.factory('sysInfo', ['$q', function($q) {
+  return {
+    getOs: function() {
+      var osDefer = $q.defer();
+
+      chrome.runtime.getPlatformInfo(function(platInfo) {
+        osDefer.resolve(platInfo.os);
+      });
+
+      return osDefer.promise;
     }
   };
 }]);

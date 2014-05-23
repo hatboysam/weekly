@@ -93,4 +93,20 @@
     <access origin="https://api.parse.com/*" />
     <access origin="https://www.googleapis.com/*" />
     <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
+    <access origin="https://www.googleapis.com/*" />
+    <access origin="https://api.parse.com/*" />
 </widget>

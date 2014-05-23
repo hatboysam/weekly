@@ -15,6 +15,7 @@ weeklyApp.controller('DayCtrl',
 
   /** Google+ user id **/
   $scope.id = undefined;
+  $scope.email = undefined;
 
   /** Making a new task **/
   $scope.taskDay = "";
@@ -26,7 +27,11 @@ weeklyApp.controller('DayCtrl',
   $scope.logIn = function(inter) {
     $scope.blockingLoad = true;
 
-    gCalAPI.logIn(inter).then(function(resp) {
+    localStorageAPI.getAlways('email').then(function(email) {
+      // Get email, then log in
+      $scope.email = email;
+      return gCalAPI.logIn(inter, $scope.email);
+    }).then(function(resp) {
       console.log(resp);
       console.log('ACCESS TOKEN: ' + resp.access_token);
       showSuccess('Logged in, thanks!');
@@ -39,6 +44,8 @@ weeklyApp.controller('DayCtrl',
       // Got user info
       console.log(infoObj);
       $scope.id = infoObj.id;
+      $scope.email = infoObj.emails[0].value;
+      localStorageAPI.set({ email: $scope.email });
 
       // Check for calendars
       return $scope.checkCalendarsExist();
@@ -122,7 +129,9 @@ weeklyApp.controller('DayCtrl',
     });
 
     // Recovery: silent log in
-    var recoverFn = function() { return gCalAPI.logIn(false); };
+    var recoverFn = function() { 
+      return gCalAPI.logIn(false, $scope.email); 
+    };
 
     // Get incomplete tasks
     var incompletePromise = requestMngr.tryWith(function() {

@@ -55,6 +55,11 @@
 
     var details = {};
     details.interactive = params.immediate === false || false;
+    // ADDED
+    if (params.accountHint) {
+      details.accountHint = params.accountHint;
+    }
+    // END ADDED
     console.assert(!params.response_type || params.response_type == 'token');
 
     var callbackWrapper = function (getAuthTokenCallbackParam) {
