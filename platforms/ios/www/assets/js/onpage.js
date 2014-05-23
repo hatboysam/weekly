@@ -75,7 +75,21 @@ $(document).ready(function() {
   $('.jPanelMenu-panel').find('.sidemenu').remove();
 
   // Swipebox
-  $('.swipebox').swipebox();
+  $('.swipebox').swipebox({
+    hideBarsOnMobile: false,
+    afterClose: function() {
+      // Mark help as viewed
+      chrome.storage.local.set({ viewedHelp: true }, function() {});
+    }
+  });
+
+  // Check if we have never seen the help
+  chrome.storage.local.get('viewedHelp', function(items) {
+    if (!items.viewedHelp) {
+      // Haven't seen it, launch it
+      $('#help').trigger('click');
+    }
+  });
 
   // Alert div
   $('body').append('<div id="alert" class="alert hide"></div>');
