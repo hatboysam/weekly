@@ -35,28 +35,40 @@ function dateForDay(dayInd) {
 }
 
 function showError(msg) {
-  var alrt = $('#alert');
-  alrt.addClass('alert-error');
-  alrt.text(msg);
-  alrt.slideToggle(200);
-  setTimeout(function() {
-    alrt.text('');
-    alrt.slideToggle(200);
-    alrt.removeClass('alert-error');
-  }, 2000);
+  var alrt = $('#alert-error');
+  showMsg('alert-error', msg);
 }
 
 function showSuccess(msg) {
-  var alrt = $('#alert');
-  alrt.addClass('alert-success');
-  alrt.text(msg);
-  alrt.slideToggle(200);
-  setTimeout(function() {
-    alrt.text('');
-    alrt.slideToggle(200);
-    alrt.removeClass('alert-success');
-  }, 2000);
+  var alrt = $('#alert-success');
+  showMsg('alert-success', msg);
 }
+
+function showMsg(clazz, msg) {
+  var elem = $('#alert');
+  elem
+    .queue(function() {
+      elem.addClass(clazz);
+      $(this).dequeue();
+    })
+    .queue(function() {
+      elem.text(msg);
+      $(this).dequeue();
+    })
+    .slideToggle(200)
+    .delay(1200)
+    .slideToggle(200)
+    .queue(function() {
+      elem.removeClass(clazz);
+      $(this).dequeue();
+    });
+}
+
+/** STARTUP **/
+document.addEventListener('deviceready', function() {
+  console.log('DEVICE READY');
+  // TODO: Bootstrap angular
+}, false);
 
 /** DOCUMENT LOAD **/
 $(document).ready(function() {
@@ -93,6 +105,7 @@ $(document).ready(function() {
 
   // Alert div
   $('body').append('<div id="alert" class="alert hide"></div>');
+  // $('body').append('<div id="alert-success" class="alert alert-success hide"></div>');
 
   // Black overlay
   $('body').append('<div id="overlay" ng-hide="!blockingLoad"></div>');

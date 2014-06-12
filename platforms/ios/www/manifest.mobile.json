@@ -6,5 +6,10 @@
     "oauth2": {
       "client_id": "891667400722-4jj4mqolqporeemn9l0svij94ncsrhhg.apps.googleusercontent.com"
     }
+  },
+  "ios": {
+    "oauth2": {
+      "client_id": "891667400722-vfnubf3f0k01imqmhjidapj1jo4ipi8u.apps.googleusercontent.com"
+    }
   }
 }

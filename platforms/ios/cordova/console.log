@@ -1,0 +1,30 @@
+2014-06-05 01:50:23.946 Weekly[65170:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-05 01:50:24.201 Weekly[65170:70b] Unlimited access to network resources
+2014-06-05 01:50:24.891 Weekly[65170:70b] [CDVTimer][file] 3.292978ms
+2014-06-05 01:50:24.892 Weekly[65170:70b] [CDVTimer][keyboard] 0.194013ms
+2014-06-05 01:50:25.069 Weekly[65170:70b] [CDVTimer][statusbar] 175.562024ms
+2014-06-05 01:50:25.069 Weekly[65170:70b] [CDVTimer][chromenavigation] 0.056982ms
+2014-06-05 01:50:25.070 Weekly[65170:70b] [CDVTimer][chromebootstrap] 0.712991ms
+2014-06-05 01:50:25.071 Weekly[65170:70b] [CDVTimer][chromeextensionurls] 0.111997ms
+2014-06-05 01:50:25.072 Weekly[65170:70b] [CDVTimer][TotalPluginStartup] 183.554947ms
+2014-06-05 01:50:25.341 Weekly[65170:70b] Resetting plugins due to page load.
+2014-06-05 01:50:27.217 Weekly[65170:70b] Got token 1
+2014-06-05 01:50:27.748 Weekly[65170:5903] You are using Google+ iOS SDK version 1.4.1
+2014-06-05 01:50:27.748 Weekly[65170:5903] Get the new version 1.5.1 at http://goo.gl/PO8U17
+2014-06-05 01:50:29.480 Weekly[65170:70b] THREAD WARNING: ['ChromeIdentity'] took '2221.281982' ms. Plugin should use a background thread.
+2014-06-05 01:50:29.482 Weekly[65170:70b] Got token 1
+2014-06-05 01:54:51.387 Weekly[65434:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-05 01:54:51.399 Weekly[65434:70b] Unlimited access to network resources
+2014-06-05 01:54:51.433 Weekly[65434:70b] [CDVTimer][file] 0.908971ms
+2014-06-05 01:54:51.434 Weekly[65434:70b] [CDVTimer][keyboard] 0.164032ms
+2014-06-05 01:54:51.447 Weekly[65434:70b] [CDVTimer][statusbar] 12.757957ms
+2014-06-05 01:54:51.448 Weekly[65434:70b] [CDVTimer][chromenavigation] 0.064015ms
+2014-06-05 01:54:51.449 Weekly[65434:70b] [CDVTimer][chromebootstrap] 0.072956ms
+2014-06-05 01:54:51.450 Weekly[65434:70b] [CDVTimer][chromeextensionurls] 0.097990ms
+2014-06-05 01:54:51.451 Weekly[65434:70b] [CDVTimer][TotalPluginStartup] 19.354999ms
+2014-06-05 01:54:51.586 Weekly[65434:70b] Resetting plugins due to page load.
+2014-06-05 01:54:52.045 Weekly[65434:70b] Got token 1
+2014-06-05 01:54:52.135 Weekly[65434:2b07] You are using Google+ iOS SDK version 1.4.1
+2014-06-05 01:54:52.136 Weekly[65434:2b07] Get the new version 1.5.1 at http://goo.gl/PO8U17
+2014-06-05 01:54:52.994 Weekly[65434:70b] THREAD WARNING: ['ChromeIdentity'] took '863.201904' ms. Plugin should use a background thread.
+2014-06-05 01:54:52.995 Weekly[65434:70b] Got token 1

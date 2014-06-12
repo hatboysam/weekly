@@ -55,11 +55,10 @@
 
     var details = {};
     details.interactive = params.immediate === false || false;
-    // ADDED
     if (params.accountHint) {
+      // Specifying this prevents the account chooser from appearing on Android.
       details.accountHint = params.accountHint;
     }
-    // END ADDED
     console.assert(!params.response_type || params.response_type == 'token');
 
     var callbackWrapper = function (getAuthTokenCallbackParam) {

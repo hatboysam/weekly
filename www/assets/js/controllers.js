@@ -32,7 +32,7 @@ weeklyApp.controller('DayCtrl',
       $scope.email = email;
       return gCalAPI.logIn(inter, $scope.email);
     }).then(function(resp) {
-      console.log(resp);
+      console.log(JSON.stringify(resp));
       console.log('ACCESS TOKEN: ' + resp.access_token);
       showSuccess('Logged in, thanks!');
       $scope.blockingLoad = false;
@@ -105,7 +105,7 @@ weeklyApp.controller('DayCtrl',
           // Got result from parse
           var firstResult = results[0];
           var id = firstResult.calId;
-          console.log(id);
+          console.log(title + ': ' + id);
 
           // Store in scope and resolve promise
           $scope[name] = id;
@@ -123,10 +123,6 @@ weeklyApp.controller('DayCtrl',
   }
 
   $scope.refresh = function() {
-    // Clear old tasks
-    weekdayModel.days.forEach(function(day) {
-      day.clearTasks();
-    });
 
     // Recovery: silent log in
     var recoverFn = function() { 
@@ -145,6 +141,9 @@ weeklyApp.controller('DayCtrl',
 
     // When we have fetched both incomplete and complete
     $q.all([incompletePromise, completePromise]).then(function(results) {
+      // Clear old tasks
+      weekdayModel.clearAll();
+
       // Add to model
       incompleteResp = results[0];
       completeResp = results[1];
@@ -153,11 +152,15 @@ weeklyApp.controller('DayCtrl',
 
       // Cache
       localStorageAPI.set({ days: $scope.days });
+
+      // Notify
+      showSuccess('Refreshed');
     }, function(err) {
       // Restore old days
       showError('Error: could not refresh');
+      console.log('REFRESH failed');
       console.log(JSON.stringify(err));
-      $scope.restoreDays();
+      // $scope.restoreDays();
 
       // Set as logged out
       $scope.token = undefined;
@@ -244,6 +247,22 @@ weeklyApp.controller('DayCtrl',
    * STARTUP TASKS
    */
   $scope.logIn(false);
+
+  /**
+   * DETECT RESUME EVENT (Cordova)
+   */
+  document.addEventListener('resume', function() {
+    console.log('RESUME INSIDE ANGULAR');
+    if ($scope.token) {
+      // Refresh
+      console.log('RESUME - REFRESHING');
+      $scope.refresh();
+    } else {
+      // Log in and refresh
+      console.log('RESUME - LOGGING IN');
+      $scope.logIn(false);
+    }
+  }, false);
 
 }]);
 

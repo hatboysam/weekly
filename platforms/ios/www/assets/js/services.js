@@ -36,6 +36,12 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
     }.bind(this));
   }
 
+  this.clearAll = function() {
+    this.days.forEach(function(day) {
+      day.clearTasks();
+    });
+  }
+
 }]);
 
 /**
@@ -48,7 +54,7 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
 
       sysInfo.getOs().then(function(os) {
         var opts = { immediate: immed };
-        if (os.indexOf('android') >= 0) {
+        if (os.indexOf('android') >= 0 && email != undefined) {
           console.log('ANDROID DETECTED');
           opts.accountHint = email;
         } else {
@@ -56,7 +62,7 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
         }
 
         gapi.auth.authorize(opts, function(response) {
-          console.log(response);
+          console.log(JSON.stringify(response));
 
           if (response.access_token) {
             loginDefer.resolve(response);
@@ -232,7 +238,9 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
         if (chrome.runtime.lastError) {
           console.log('Error storing: ' + chrome.runtime.lastError);
         } else {
-          console.log('Stored: ' + JSON.stringify(setObj));
+          for (var key in setObj) {
+            console.log('Stored: ' + key);
+          }
         }
       });
     }
