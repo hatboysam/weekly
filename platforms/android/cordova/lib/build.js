@@ -24,17 +24,17 @@ var shell   = require('shelljs'),
     Q       = require('q'),
     path    = require('path'),
     fs      = require('fs'),
+    which   = require('which'),
     ROOT    = path.join(__dirname, '..', '..');
 
 
-function hasCustomRules() {
-    return fs.existsSync(path.join(ROOT, 'custom_rules.xml'));
-}
 module.exports.getAntArgs = function(cmd) {
     var args = [cmd, '-f', path.join(ROOT, 'build.xml')];
-    // custom_rules.xml is required for incremental builds.
-    if (hasCustomRules()) {
-        args.push('-Dout.dir=ant-build', '-Dgen.absolute.dir=ant-gen');
+    try {
+      // Specify sdk dir in case local properties are missing
+      args.push('-Dsdk.dir='+path.join(which.sync('android'), '../..'));
+    } catch(e) {
+      // Can't find android; don't push arg: assume all is okay
     }
     return args;
 };
@@ -59,11 +59,7 @@ module.exports.run = function(build_type) {
         default :
             return Q.reject('Build option \'' + build_type + '\' not recognized.');
     }
-    // Without our custom_rules.xml, we need to clean before building.
     var ret = Q();
-    if (!hasCustomRules()) {
-        ret = require('./clean').run();
-    }
     return ret.then(function() {
         return spawn('ant', args);
     });
@@ -74,7 +70,7 @@ module.exports.run = function(build_type) {
  * the script will error out. (should we error or just return undefined?)
  */
 module.exports.get_apk = function() {
-    var binDir = path.join(ROOT, 'ant-build');
+    var binDir = path.join(ROOT, 'bin');
     if (fs.existsSync(binDir)) {
         var candidates = fs.readdirSync(binDir).filter(function(p) {
             // Need to choose between release and debug .apk.
@@ -87,13 +83,13 @@ module.exports.get_apk = function() {
                    a.t < b.t ? 1 : 0;
         });
         if (candidates.length === 0) {
-            console.error('ERROR : No .apk found in \'ant-build\' directory');
+            console.error('ERROR : No .apk found in ' + binDir + ' directory');
             process.exit(2);
         }
         console.log('Using apk: ' + candidates[0].p);
         return candidates[0].p;
     } else {
-        console.error('ERROR : unable to find project ant-build directory, could not locate .apk');
+        console.error('ERROR : unable to find project ' + binDir + ' directory, could not locate .apk');
         process.exit(2);
     }
 }
@@ -105,4 +101,4 @@ module.exports.help = function() {
     console.log('    \'--release\': will build project using ant release');
     console.log('    \'--nobuild\': will skip build process (can be used with run command)');
     process.exit(0);
-}
+};

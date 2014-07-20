@@ -89,6 +89,7 @@ $(document).ready(function() {
   // Swipebox
   $('.swipebox').swipebox({
     hideBarsOnMobile: false,
+    hideBarsDelay: 100000,
     afterClose: function() {
       // Mark help as viewed
       chrome.storage.local.set({ viewedHelp: true }, function() {});

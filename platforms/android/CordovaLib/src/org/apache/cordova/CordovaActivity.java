@@ -18,6 +18,8 @@
 */
 package org.apache.cordova;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -147,63 +149,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
     private Object LOG_TAG;
 
-    /**
-    * Sets the authentication token.
-    *
-    * @param authenticationToken
-    * @param host
-    * @param realm
-    */
-    public void setAuthenticationToken(AuthenticationToken authenticationToken, String host, String realm) {
-        if (this.appView != null && this.appView.viewClient != null) {
-            this.appView.viewClient.setAuthenticationToken(authenticationToken, host, realm);
-        }
-    }
-
-    /**
-     * Removes the authentication token.
-     *
-     * @param host
-     * @param realm
-     *
-     * @return the authentication token or null if did not exist
-     */
-    public AuthenticationToken removeAuthenticationToken(String host, String realm) {
-        if (this.appView != null && this.appView.viewClient != null) {
-            return this.appView.viewClient.removeAuthenticationToken(host, realm);
-        }
-        return null;
-    }
-
-    /**
-     * Gets the authentication token.
-     *
-     * In order it tries:
-     * 1- host + realm
-     * 2- host
-     * 3- realm
-     * 4- no host, no realm
-     *
-     * @param host
-     * @param realm
-     *
-     * @return the authentication token
-     */
-    public AuthenticationToken getAuthenticationToken(String host, String realm) {
-        if (this.appView != null && this.appView.viewClient != null) {
-            return this.appView.viewClient.getAuthenticationToken(host, realm);
-        }
-        return null;
-    }
-
-    /**
-     * Clear all authentication tokens.
-     */
-    public void clearAuthenticationTokens() {
-        if (this.appView != null && this.appView.viewClient != null) {
-            this.appView.viewClient.clearAuthenticationTokens();
-        }
-    }
 
     /**
      * Called when the activity is first created.
@@ -214,6 +159,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Config.init(this);
+        LOG.i(TAG, "Apache Cordova native platform version " + appView.CORDOVA_VERSION + " is starting");
         LOG.d(TAG, "CordovaActivity.onCreate()");
         super.onCreate(savedInstanceState);
 
@@ -269,35 +215,63 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      * require a more specialized web view.
      */
     protected CordovaWebView makeWebView() {
-        return new CordovaWebView(CordovaActivity.this);
+        String r = this.getStringProperty("webView", "org.apache.cordova.AndroidWebView");
+
+        try {
+            Class webViewClass = Class.forName(r);
+            Constructor<CordovaWebView> [] webViewConstructors = webViewClass.getConstructors();
+
+            if(CordovaWebView.class.isAssignableFrom(webViewClass)) {
+                for (Constructor<CordovaWebView> constructor : webViewConstructors) {
+                    try {
+                        CordovaWebView webView = (CordovaWebView) constructor.newInstance(this);
+                        return webView;
+                    } catch (IllegalArgumentException e) {
+                        LOG.d(TAG, "Illegal arguments; trying next constructor.");
+                    }
+                }
+            }
+            LOG.e(TAG, "The WebView Engine is NOT a proper WebView, defaulting to system WebView");
+        } catch (ClassNotFoundException e) {
+            LOG.e(TAG, "The WebView Engine was not found, defaulting to system WebView");
+        } catch (InstantiationException e) {
+            LOG.e(TAG, "Unable to instantiate the WebView, defaulting to system WebView");
+        } catch (IllegalAccessException e) {
+            LOG.e(TAG, "Illegal Access to Constructor.  This should never happen, defaulting to system WebView");
+        } catch (IllegalArgumentException e) {
+            LOG.e(TAG, "The WebView does not implement the default constructor, defaulting to system WebView");
+        } catch (InvocationTargetException e) {
+            LOG.e(TAG, "Invocation Target Exception! Reflection is hard, defaulting to system WebView");
+        }
+        
+        // If all else fails, return a default WebView
+        return (CordovaWebView) new AndroidWebView(CordovaActivity.this);
     }
 
     /**
      * Construct the client for the default web view object.
      *
-     * This is intended to be overridable by subclasses of CordovaIntent which
-     * require a more specialized web view.
+     * This is intended to be overridable by subclasses of CordovaActivity which
+     * require a more specialized web view. By default, it allows the webView
+     * to create its own client objects.
      *
      * @param webView the default constructed web view object
      */
     protected CordovaWebViewClient makeWebViewClient(CordovaWebView webView) {
-        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-            return new CordovaWebViewClient(this, webView);
-        } else {
-            return new IceCreamCordovaWebViewClient(this, webView);
-        }
+        return webView.makeWebViewClient();
     }
 
     /**
      * Construct the chrome client for the default web view object.
      *
-     * This is intended to be overridable by subclasses of CordovaIntent which
-     * require a more specialized web view.
+     * This is intended to be overridable by subclasses of CordovaActivity which
+     * require a more specialized web view. By default, it allows the webView
+     * to create its own client objects.
      *
      * @param webView the default constructed web view object
      */
     protected CordovaChromeClient makeChromeClient(CordovaWebView webView) {
-        return new CordovaChromeClient(this, webView);
+        return webView.makeWebChromeClient();
     }
 
     /**
@@ -325,8 +299,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
         this.appView.setWebViewClient(webViewClient);
         this.appView.setWebChromeClient(webChromeClient);
-        webViewClient.setWebView(this.appView);
-        webChromeClient.setWebView(this.appView);
 
         this.appView.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -335,13 +307,14 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
         if (this.getBooleanProperty("DisallowOverscroll", false)) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
-                this.appView.setOverScrollMode(CordovaWebView.OVER_SCROLL_NEVER);
+                //Note: We're using the parent class, because all we know is that this will be a view
+                this.appView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             }
         }
 
         // Add web view but make it invisible while loading URL
         this.appView.setVisibility(View.INVISIBLE);
-        this.root.addView(this.appView);
+        this.root.addView((View) this.appView.getView());
         setContentView(this.root);
 
         // Clear cancel flag
@@ -408,17 +381,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         this.splashscreenTime = time;
         this.loadUrl(url);
         
-        /*
-        // Init web view if not already done
-        if (this.appView == null) {
-            this.init();
-        }
-
-        this.splashscreenTime = time;
-        this.splashscreen = this.getIntegerProperty("SplashScreen", 0);
-        this.showSplashScreen(this.splashscreenTime);
-        this.appView.loadUrl(url, time);
-        */
     }
     
     /*
@@ -454,15 +416,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         }
     }
 
-
-    /**
-     * Cancel loadUrl before it has been loaded.
-     */
-    // TODO NO-OP
-    @Deprecated
-    public void cancelLoadUrl() {
-        this.cancelLoadUrl = true;
-    }
 
     /**
      * Clear the resource cache.
@@ -605,66 +558,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         return p.doubleValue();
     }
 
-    /**
-     * Set boolean property on activity.
-     * This method has been deprecated in 3.0 and will be removed at a future
-     * time. Please use config.xml instead.
-     *
-     * @param name
-     * @param value
-     * @deprecated
-     */
-    @Deprecated
-    public void setBooleanProperty(String name, boolean value) {
-        Log.d(TAG, "Setting boolean properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
-        this.getIntent().putExtra(name.toLowerCase(), value);
-    }
-
-    /**
-     * Set int property on activity.
-     * This method has been deprecated in 3.0 and will be removed at a future
-     * time. Please use config.xml instead.
-     *
-     * @param name
-     * @param value
-     * @deprecated
-     */
-    @Deprecated
-    public void setIntegerProperty(String name, int value) {
-        Log.d(TAG, "Setting integer properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
-        this.getIntent().putExtra(name.toLowerCase(), value);
-    }
-
-    /**
-     * Set string property on activity.
-     * This method has been deprecated in 3.0 and will be removed at a future
-     * time. Please use config.xml instead.
-     *
-     * @param name
-     * @param value
-     * @deprecated
-     */
-    @Deprecated
-    public void setStringProperty(String name, String value) {
-        Log.d(TAG, "Setting string properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
-        this.getIntent().putExtra(name.toLowerCase(), value);
-    }
-
-    /**
-     * Set double property on activity.
-     * This method has been deprecated in 3.0 and will be removed at a future
-     * time. Please use config.xml instead.
-     *
-     * @param name
-     * @param value
-     * @deprecated
-     */
-    @Deprecated
-    public void setDoubleProperty(String name, double value) {
-        Log.d(TAG, "Setting double properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
-        this.getIntent().putExtra(name.toLowerCase(), value);
-    }
-
     @Override
     /**
      * Called when the system is about to start resuming a previous activity.
@@ -771,31 +664,18 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         }
     }
 
-    /**
-     * @deprecated
-     * Add services to res/xml/plugins.xml instead.
-     *
-     * Add a class that implements a service.
-     *
-     * @param serviceType
-     * @param className
-     */
-    @Deprecated
-    public void addService(String serviceType, String className) {
-        if (this.appView != null && this.appView.pluginManager != null) {
-            this.appView.pluginManager.addService(serviceType, className);
-        }
-    }
 
     /**
      * Send JavaScript statement back to JavaScript.
      * (This is a convenience method)
      *
      * @param statement
+     * 
      */
     public void sendJavascript(String statement) {
         if (this.appView != null) {
-            this.appView.jsMessageQueue.addJavaScript(statement);
+            this.appView.addJavascript(statement);
+            //this.appView.jsMessageQueue.addJavaScript(statement);
         }
     }
 
@@ -874,7 +754,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         super.onActivityResult(requestCode, resultCode, intent);
         Log.d(TAG, "Request code = " + requestCode);
         if (appView != null && requestCode == CordovaChromeClient.FILECHOOSER_RESULTCODE) {
-        	ValueCallback<Uri> mUploadMessage = this.appView.getWebChromeClient().getValueCallback();
+        	ValueCallback<Uri> mUploadMessage = ((CordovaChromeClient) this.appView.getWebChromeClient()).getValueCallback();
             Log.d(TAG, "did we get here?");
             if (null == mUploadMessage)
                 return;
@@ -889,7 +769,8 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         if(callback == null && initCallbackClass != null) {
             // The application was restarted, but had defined an initial callback
             // before being shut down.
-            this.activityResultCallback = appView.pluginManager.getPlugin(initCallbackClass);
+            //this.activityResultCallback = appView.pluginManager.getPlugin(initCallbackClass);
+            this.activityResultCallback = appView.getPlugin(initCallbackClass);
             callback = this.activityResultCallback;
         }
         if(callback != null) {
@@ -1093,36 +974,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         this.runOnUiThread(runnable);
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event)
-    {
-        if (appView != null && (appView.isCustomViewShowing() || appView.getFocusedChild() != null ) &&
-                (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU)) {
-            return appView.onKeyUp(keyCode, event);
-        } else {
-            return super.onKeyUp(keyCode, event);
-    	}
-    }
-    
-    /*
-     * Android 2.x needs to be able to check where the cursor is.  Android 4.x does not
-     * 
-     * (non-Javadoc)
-     * @see android.app.Activity#onKeyDown(int, android.view.KeyEvent)
-     */
-    
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        //Determine if the focus is on the current view or not
-        if (appView != null && appView.getFocusedChild() != null && (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU)) {
-                    return appView.onKeyDown(keyCode, event);
-        }
-        else
-            return super.onKeyDown(keyCode, event);
-    }
-    
-    
     /**
      * Called when a message is sent to plugin.
      *
@@ -1180,4 +1031,66 @@ public class CordovaActivity extends Activity implements CordovaInterface {
             outState.putString("callbackClass", cClass);
         }
     }
+    
+
+    /**
+     * Set boolean property on activity.
+     * This method has been deprecated in 3.0 and will be removed at a future
+     * time. Please use config.xml instead.
+     *
+     * @param name
+     * @param value
+     * @deprecated
+     */
+    @Deprecated
+    public void setBooleanProperty(String name, boolean value) {
+        Log.d(TAG, "Setting boolean properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
+        this.getIntent().putExtra(name.toLowerCase(), value);
+    }
+
+    /**
+     * Set int property on activity.
+     * This method has been deprecated in 3.0 and will be removed at a future
+     * time. Please use config.xml instead.
+     *
+     * @param name
+     * @param value
+     * @deprecated
+     */
+    @Deprecated
+    public void setIntegerProperty(String name, int value) {
+        Log.d(TAG, "Setting integer properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
+        this.getIntent().putExtra(name.toLowerCase(), value);
+    }
+
+    /**
+     * Set string property on activity.
+     * This method has been deprecated in 3.0 and will be removed at a future
+     * time. Please use config.xml instead.
+     *
+     * @param name
+     * @param value
+     * @deprecated
+     */
+    @Deprecated
+    public void setStringProperty(String name, String value) {
+        Log.d(TAG, "Setting string properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
+        this.getIntent().putExtra(name.toLowerCase(), value);
+    }
+
+    /**
+     * Set double property on activity.
+     * This method has been deprecated in 3.0 and will be removed at a future
+     * time. Please use config.xml instead.
+     *
+     * @param name
+     * @param value
+     * @deprecated
+     */
+    @Deprecated
+    public void setDoubleProperty(String name, double value) {
+        Log.d(TAG, "Setting double properties in CordovaActivity will be deprecated in 3.0 on July 2013, please use config.xml");
+        this.getIntent().putExtra(name.toLowerCase(), value);
+    }
+
 }

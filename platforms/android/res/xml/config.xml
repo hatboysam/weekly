@@ -2,8 +2,9 @@
 <widget id="com.habosa.weekly" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="App">
-        <param name="android-package" value="org.apache.cordova.App" />
+        <param name="android-package" value="org.apache.cordova.CoreAndroid" />
     </feature>
+    <preference name="webView" value="org.apache.cordova.engine.crosswalk.XWalkCordovaWebView" />
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
         <param name="onload" value="true" />
@@ -16,10 +17,6 @@
     </feature>
     <feature name="StatusBar">
         <param name="android-package" onload="true" value="org.apache.cordova.statusbar.StatusBar" />
-    </feature>
-    <feature name="ChromeNavigation">
-        <param name="android-package" value="org.chromium.ChromeNavigation" />
-        <param name="onload" value="true" />
     </feature>
     <feature name="ChromeStorage">
         <param name="android-package" value="org.chromium.ChromeStorage" />
@@ -42,6 +39,10 @@
         <param name="android-package" value="org.chromium.ChromeIdentity" />
     </feature>
     <access origin="https://accounts.google.com/*" />
+    <feature name="ChromeNavigation">
+        <param name="android-package" value="org.chromium.ChromeNavigation" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Weekly</name>
     <description>Keep track of your life, week by week.</description>
     <author />
@@ -51,7 +52,6 @@
     <preference name="iosPersistentFileLocation" value="Library" />
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     <content src="plugins/org.chromium.bootstrap/chromeapp.html" />
-    <access origin="*" />
     <access origin="https://www.googleapis.com/*" />
     <access origin="https://api.parse.com/*" />
 </widget>

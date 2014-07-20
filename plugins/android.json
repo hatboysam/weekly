@@ -5,9 +5,37 @@
     },
     "config_munge": {
         "files": {
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest/application": [
+                        {
+                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
             "res/xml/config.xml": {
                 "parents": {
                     "/*": [
+                        {
+                            "xml": "<preference name=\"webView\" value=\"org.apache.cordova.engine.crosswalk.XWalkCordovaWebView\" />",
+                            "count": 1
+                        },
                         {
                             "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
@@ -26,10 +54,6 @@
                         }
                     ],
                     "/widget": [
-                        {
-                            "xml": "<feature name=\"ChromeNavigation\"><param name=\"android-package\" value=\"org.chromium.ChromeNavigation\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
                         {
                             "xml": "<feature name=\"ChromeStorage\"><param name=\"android-package\" value=\"org.chromium.ChromeStorage\" /></feature>",
                             "count": 1
@@ -61,29 +85,9 @@
                         {
                             "xml": "<access origin=\"https://accounts.google.com/*\" />",
                             "count": 1
-                        }
-                    ]
-                }
-            },
-            "AndroidManifest.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
-                            "count": 1
-                        }
-                    ],
-                    "/manifest/application": [
-                        {
-                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
+                            "xml": "<feature name=\"ChromeNavigation\"><param name=\"android-package\" value=\"org.chromium.ChromeNavigation\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -92,61 +96,64 @@
         }
     },
     "installed_plugins": {
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.apache.cordova.engine.crosswalk": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
         "org.apache.cordova.file": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.apache.cordova.labs.keyboard": {
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.apache.cordova.network-information": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.apache.cordova.keyboard": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.chromium.navigation": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.chromium.bootstrap": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.chromium.frameworks.googleopensource": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.chromium.frameworks.googleplus": {
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.chromium.i18n": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.chromium.polyfill.CustomEvent": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.chromium.polyfill.xhr_features": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.chromium.polyfill.blob_constructor": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.chromium.identity": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.chromium.navigation": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.chromium.polyfill.CustomEvent": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.chromium.polyfill.blob_constructor": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.chromium.polyfill.xhr_features": {
+            "PACKAGE_NAME": "com.habosa.weekly"
         }
     },
     "dependent_plugins": {
         "org.chromium.common": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.chromium.storage": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.chromium.runtime": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "com.google.playservices": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.chromium.frameworks.googleopensource": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
-        },
-        "org.chromium.frameworks.googleplus": {
-            "PACKAGE_NAME": "com.your.company.HelloWorld"
+            "PACKAGE_NAME": "com.habosa.weekly"
         }
     }
 }

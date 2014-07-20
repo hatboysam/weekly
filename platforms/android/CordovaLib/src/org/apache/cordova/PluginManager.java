@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.cordova.CordovaArgs;
@@ -37,7 +38,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Intent;
 import android.content.res.XmlResourceParser;
-
 import android.net.Uri;
 import android.os.Debug;
 import android.util.Log;
@@ -66,6 +66,8 @@ public class PluginManager {
     protected HashMap<String, List<String>> urlMap = new HashMap<String, List<String>>();
 
     private AtomicInteger numPendingUiExecs;
+    
+    private Set<String> pluginIdWhitelist;
 
     /**
      * Constructor.
@@ -78,6 +80,10 @@ public class PluginManager {
         this.app = app;
         this.firstRun = true;
         this.numPendingUiExecs = new AtomicInteger(0);
+    }
+    
+    public void setPluginIdWhitelist(Set<String> pluginIdWhitelist) {
+        this.pluginIdWhitelist = pluginIdWhitelist;
     }
 
     /**
@@ -192,7 +198,9 @@ public class PluginManager {
     public void startupPlugins() {
         for (PluginEntry entry : this.entries.values()) {
             if (entry.onload) {
-                entry.createPlugin(this.app, this.ctx);
+                if (pluginIdWhitelist == null || pluginIdWhitelist.contains(entry.service)) {
+                    entry.createPlugin(this.app, this.ctx);
+                }
             }
         }
     }
@@ -236,22 +244,25 @@ public class PluginManager {
             app.sendPluginResult(cr, callbackId);
             return;
         }
+        CallbackContext callbackContext = new CallbackContext(callbackId, app);
         try {
-            CallbackContext callbackContext = new CallbackContext(callbackId, app);
             long pluginStartTime = System.currentTimeMillis();
             boolean wasValidAction = plugin.execute(action, rawArgs, callbackContext);
             long duration = System.currentTimeMillis() - pluginStartTime;
-            
+
             if (duration > SLOW_EXEC_WARNING_THRESHOLD) {
                 Log.w(TAG, "THREAD WARNING: exec() call to " + service + "." + action + " blocked the main thread for " + duration + "ms. Plugin should use CordovaInterface.getThreadPool().");
             }
             if (!wasValidAction) {
                 PluginResult cr = new PluginResult(PluginResult.Status.INVALID_ACTION);
-                app.sendPluginResult(cr, callbackId);
+                callbackContext.sendPluginResult(cr);
             }
         } catch (JSONException e) {
             PluginResult cr = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
-            app.sendPluginResult(cr, callbackId);
+            callbackContext.sendPluginResult(cr);
+        } catch (Exception e) {
+            Log.e(TAG, "Uncaught exception from plugin", e);
+            callbackContext.error(e.getMessage());
         }
     }
 
@@ -275,7 +286,11 @@ public class PluginManager {
         }
         CordovaPlugin plugin = entry.plugin;
         if (plugin == null) {
-            plugin = entry.createPlugin(this.app, this.ctx);
+            if (pluginIdWhitelist == null || pluginIdWhitelist.contains(entry.service)) {
+                plugin = entry.createPlugin(this.app, this.ctx);
+            } else {
+                Log.e(TAG, "Attempted to access non-whitelisted plugin: " + entry.service);
+            }
         }
         return plugin;
     }

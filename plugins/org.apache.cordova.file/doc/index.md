@@ -32,12 +32,42 @@ on the subject. For an overview of other storage options, refer to Cordova's
 
 - Amazon Fire OS
 - Android
-- BlackBerry 10*
+- BlackBerry 10
 - iOS
 - Windows Phone 7 and 8*
 - Windows 8*
 
 \* _These platforms do not support `FileReader.readAsArrayBuffer` nor `FileWriter.write(blob)`._
+
+## Configuring the Plugin
+
+The set of available filesystems can be configured per-platform. Both iOS and
+Android recognize a <preference> tag in `config.xml` which names the
+filesystems to be installed. By default, all file-system roots are enabled.
+
+    <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
+    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
+
+### Android
+
+* files: The application's internal file storage directory
+* files-external: The application's external file storage directory
+* sdcard: The global external file storage directory (this is the root of the SD card, if one is installed). You must have the `android.permission.WRITE_EXTERNAL_STORAGE` permission to use this.
+* cache: The application's internal cache directory
+* cache-external: The application's external cache directory
+* root: The entire device filesystem
+
+Android also supports a special filesystem named "documents", which represents a "/Documents/" subdirectory within the "files" filesystem.
+
+### iOS
+
+* library: The application's Library directory
+* documents: The application's Documents directory
+* cache: The application's Cache directory
+* bundle: The application's bundle; the location of the app itself on disk (read-only)
+* root: The entire device filesystem
+
+By default, the library and documents directories can be synced to iCloud. You can also request two additional filesystems, "library-nosync" and "documents-nosync", which represent a special non-synced directory within the Library or Documents filesystem.
 
 ## Android Quirks
 
@@ -81,17 +111,6 @@ unable to access their previously-stored files, depending on their device.
 If your application is new, or has never previously stored files in the
 persistent filesystem, then the "internal" setting is generally recommended.
 
-## BlackBerry Quirks
-
-`DirectoryEntry.removeRecursively()` may fail with a `ControlledAccessException` in the following cases:
-
-- An app attempts to access a directory created by a previous installation of the app.
-
-> Solution: ensure temporary directories are cleaned manually, or by the application prior to reinstallation.
-
-- If the device is connected by USB.
-
-> Solution: disconnect the USB cable from the device and run again.
 
 ## iOS Quirks
 - `FileReader.readAsText(blob, encoding)`
@@ -163,3 +182,19 @@ This has particularly been an issue with the File-Transfer plugin, which previou
 device-absolute-paths (and can still accept them). It has been updated to work correctly
 with FileSystem URLs, so replacing `entry.fullPath` with `entry.toURL()` should resolve any
 issues getting that plugin to work with files on the device.
+
+## List of Error Codes and Meanings
+When an error is thrown, one of the following codes will be used. 
+
+* 1 = NOT_FOUND_ERR
+* 2 = SECURITY_ERR
+* 3 = ABORT_ERR
+* 4 = NOT_READABLE_ERR
+* 5 = ENCODING_ERR
+* 6 = NO_MODIFICATION_ALLOWED_ERR
+* 7 = INVALID_STATE_ERR
+* 8 = SYNTAX_ERR
+* 9 = INVALID_MODIFICATION_ERR
+* 10 = QUOTA_EXCEEDED_ERR
+* 11 = TYPE_MISMATCH_ERR
+* 12 = PATH_EXISTS_ERR

@@ -1,6 +1,13 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/org.chromium.identity/identity.js",
+        "id": "org.chromium.identity.Identity",
+        "clobbers": [
+            "chrome.identity"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -109,6 +116,10 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.apache.cordova.file/www/fileSystems.js",
+        "id": "org.apache.cordova.file.fileSystems"
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/requestFileSystem.js",
         "id": "org.apache.cordova.file.requestFileSystem",
         "clobbers": [
@@ -123,25 +134,16 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.file/www/ios/Entry.js",
-        "id": "org.apache.cordova.file.iosEntry",
-        "merges": [
-            "window.Entry"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.file/www/ios/FileSystem.js",
         "id": "org.apache.cordova.file.iosFileSystem",
         "merges": [
-            "window.FileSystem"
+            "FileSystem"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
-        "clobbers": [
-            "window.open"
-        ]
+        "file": "plugins/org.apache.cordova.file/www/fileSystems-roots.js",
+        "id": "org.apache.cordova.file.fileSystems-roots",
+        "runs": true
     },
     {
         "file": "plugins/org.apache.cordova.network-information/www/network.js",
@@ -159,17 +161,17 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.keyboard/www/keyboard.js",
-        "id": "org.apache.cordova.keyboard.keyboard",
-        "clobbers": [
-            "window.Keyboard"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.statusbar/www/statusbar.js",
         "id": "org.apache.cordova.statusbar.statusbar",
         "clobbers": [
             "window.StatusBar"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.labs.keyboard/www/keyboard.js",
+        "id": "org.apache.cordova.labs.keyboard.keyboard",
+        "clobbers": [
+            "window.Keyboard"
         ]
     },
     {
@@ -202,13 +204,6 @@ module.exports = [
         "id": "org.chromium.polyfill.xhr_features.xhr-blob",
         "merges": [
             "window"
-        ]
-    },
-    {
-        "file": "plugins/org.chromium.identity/identity.js",
-        "id": "org.chromium.identity.Identity",
-        "clobbers": [
-            "chrome.identity"
         ]
     },
     {
@@ -258,27 +253,35 @@ module.exports = [
     {
         "file": "plugins/org.chromium.runtime/lib/CryptoJS/enc-base64-min.js",
         "id": "org.chromium.runtime.CryptoJS-enc-base64-min"
+    },
+    {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.file": "1.0.2-dev",
-    "org.apache.cordova.inappbrowser": "0.3.3",
-    "org.apache.cordova.network-information": "0.2.7",
-    "org.apache.cordova.keyboard": "0.1.2",
-    "org.apache.cordova.statusbar": "0.1.4",
+    "org.chromium.identity": "1.2.1",
+    "org.apache.cordova.engine.crosswalk": "0.0.1-dev",
+    "org.apache.cordova.file": "1.1.1-dev",
+    "org.apache.cordova.network-information": "0.2.9-dev",
+    "org.apache.cordova.statusbar": "0.1.6-dev",
+    "org.apache.cordova.labs.keyboard": "0.1.2",
     "org.chromium.navigation": "1.0.1",
     "org.chromium.bootstrap": "1.0.2",
     "org.chromium.i18n": "1.0.1",
     "org.chromium.polyfill.CustomEvent": "1.0.0",
     "org.chromium.polyfill.xhr_features": "1.0.0",
     "org.chromium.polyfill.blob_constructor": "1.0.0",
-    "org.chromium.identity": "1.2.0",
     "org.chromium.common": "1.0.1",
     "org.chromium.storage": "1.0.1",
     "org.chromium.runtime": "1.0.1",
-    "com.google.playservices": "15.0.1",
+    "org.apache.cordova.inappbrowser": "0.4.1-dev",
+    "com.google.playservices": "17.0.0",
     "org.chromium.frameworks.googleopensource": "1.0.0",
     "org.chromium.frameworks.googleplus": "1.0.0"
 }

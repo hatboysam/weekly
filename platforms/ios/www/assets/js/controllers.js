@@ -32,9 +32,9 @@ weeklyApp.controller('DayCtrl',
       $scope.email = email;
       return gCalAPI.logIn(inter, $scope.email);
     }).then(function(resp) {
+      console.log('LOGIN: Basic request done');
       console.log(JSON.stringify(resp));
       console.log('ACCESS TOKEN: ' + resp.access_token);
-      showSuccess('Logged in, thanks!');
       $scope.blockingLoad = false;
       $scope.token = resp.access_token;
 
@@ -42,19 +42,24 @@ weeklyApp.controller('DayCtrl',
       return gCalAPI.getInfo();
     }).then(function(infoObj) {
       // Got user info
-      console.log(infoObj);
+      console.log('LOGIN: Got user info');
+      showSuccess('Logged in, thanks!');
       $scope.id = infoObj.id;
       $scope.email = infoObj.emails[0].value;
       localStorageAPI.set({ email: $scope.email });
 
       // Check for calendars
       return $scope.checkCalendarsExist();
-    }, function(err) {
-      $scope.blockingLoad = false;
-      showError('Error: there was a problem logging in');
     }).then(function(ids) {
       // Refresh
+      console.log('LOGIN: Checked for calendars');
       $scope.refresh();
+    }, function(err) {
+      // CATCHALL BLOCK
+      // There was an error somewhere along the way
+      $scope.blockingLoad = false;
+      $scope.token = undefined;
+      showError('Error: there was a problem logging in');
     });
   };
 
@@ -126,7 +131,7 @@ weeklyApp.controller('DayCtrl',
 
     // Recovery: silent log in
     var recoverFn = function() { 
-      return gCalAPI.logIn(false, $scope.email); 
+      return gCalAPI.logIn(true, $scope.email); 
     };
 
     // Get incomplete tasks
@@ -246,7 +251,7 @@ weeklyApp.controller('DayCtrl',
   /**
    * STARTUP TASKS
    */
-  $scope.logIn(false);
+  $scope.logIn(true);
 
   /**
    * DETECT RESUME EVENT (Cordova)
@@ -260,7 +265,7 @@ weeklyApp.controller('DayCtrl',
     } else {
       // Log in and refresh
       console.log('RESUME - LOGGING IN');
-      $scope.logIn(false);
+      $scope.logIn(true);
     }
   }, false);
 

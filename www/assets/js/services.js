@@ -83,6 +83,7 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
         path: '/plus/v1/people/me',
         method: 'GET',
         callback: function(infoObj) {
+          console.log("INFO: " + JSON.stringify(infoObj));
           if (infoObj.id) {
             infoDefer.resolve(infoObj);
           } else {

@@ -29,6 +29,7 @@ import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.PluginResult;
 import org.json.JSONException;
 
 public class StatusBar extends CordovaPlugin {
@@ -65,6 +66,11 @@ public class StatusBar extends CordovaPlugin {
         Log.v(TAG, "Executing action: " + action);
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
+        if ("_ready".equals(action)) {
+            boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
+        }
+
         if ("show".equals(action)) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
