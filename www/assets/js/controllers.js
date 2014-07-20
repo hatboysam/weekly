@@ -129,6 +129,14 @@ weeklyApp.controller('DayCtrl',
 
   $scope.refresh = function() {
 
+    // Check if we need to move last week's events
+    var weekKey = dateToString(dateForDay(0));
+    localStorageAPI.getAlways(weekKey).then(function(seenWeek) {
+      if (!seenWeek) {
+        $scope.beginNewWeek();
+      }
+    });
+
     // Recovery: silent log in
     var recoverFn = function() { 
       return gCalAPI.logIn(true, $scope.email); 
@@ -172,6 +180,45 @@ weeklyApp.controller('DayCtrl',
     });
   };
 
+  $scope.beginNewWeek = function() {
+    console.log('Starting new week');
+
+    // Get all incomplete from last week
+    var lastSunday = -7;
+    var lastSaturday = -1;
+    gCalAPI.loadEvents($scope.incompleteId, lastSunday, lastSaturday).then(function(eventResp) {
+      console.log('LAST WEEK INCOMPLETE');
+      var events = eventResp.items;
+      console.log(events);
+
+      // Move them to this sunday
+      var sundayDateString = dateToString(dateForDay(0));
+      var updatePromises = [];
+      for (var i = 0; i < events.length; i++) {
+        // Change to sunday
+        var thisEvent = events[i];
+        thisEvent.start.date = sundayDateString;
+        thisEvent.end.date = sundayDateString;
+
+        // Make update request
+        var thisEventPromise = gCalAPI.updateEvent($scope.incompleteId, thisEvent);
+        updatePromises.push(thisEventPromise);
+      }
+
+      // Add events locally for instant result
+      weekdayModel.addAllFromCal(events, false);
+
+      // Return all promises bunched
+      return $q.all(updatePromises);
+    }).then(function(updateResults) {
+      console.log('BEGAN NEW WEEK');
+      var weekKey = dateToString(dateForDay(0));
+      var setObj = {};
+      setObj[weekKey] = true;
+      localStorageAPI.set(setObj);
+    });
+  };
+
   $scope.toggle = function(task) {
     // Calendars to move
     var fromId = task.completed ? $scope.completeId : $scope.incompleteId;
@@ -205,7 +252,7 @@ weeklyApp.controller('DayCtrl',
 
       // gCalCreate
       var dateObj = dateForDay(day);
-      var dateString = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+      var dateString = dateToString(dateObj);
       gCalAPI.createEvent($scope.incompleteId, desc, dateString)
         .then(function(eventObj) {
           console.log(eventObj);

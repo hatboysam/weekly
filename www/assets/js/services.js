@@ -115,12 +115,24 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
       return calDefer.promise;
     },
 
-    loadEvents: function(id) {
+    loadEvents: function(id, dayMin, dayMax) {
+      dayMin = dayMin || 0; // Default to 0 (sunday of this week)
+      dayMax = dayMax || 6; // Default to 6 (saturday of this week)
+
       var loadDefer = $q.defer();
       var basePath = '/calendar/v3/calendars/' + id + '/events';
+
+      // The min date and the max date are created normally, except
+      //  UTC hours are set to 0 so that all-day events on Sunday 
+      //  are included.
+      var minDate = dateForDay(dayMin);
+      var maxDate = dateForDay(dayMax);
+      minDate.setUTCHours(0);
+      maxDate.setUTCHours(0);
+
       var queryOpts = {
-        timeMin: dateForDay(0).toISOString(),
-        timeMax: dateForDay(6).toISOString()
+        timeMin: minDate.toISOString(),
+        timeMax: maxDate.toISOString()
       };
 
       console.log('Loading Events...');
@@ -183,6 +195,33 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
       });
 
       return moveDefer.promise;
+    },
+
+    updateEvent: function(calendarId, updatedEvent) {
+      var updateDefer = $q.defer();
+      var basePath = '/calendar/v3/calendars/' + calendarId + '/events/' + updatedEvent.id
+
+      // Just the parts we need to preserve
+      var strippedEvent = {
+        start: updatedEvent.start,
+        end: updatedEvent.end,
+        summary: updatedEvent.summary
+      };
+
+      gapi.client.request({
+        path: basePath,
+        method: 'PUT',
+        body: strippedEvent,
+        callback: function(eventObj) {
+          if (eventObj.id) {
+            updateDefer.resolve(eventObj.id);
+          } else {
+            updateDefer.reject('Error: could not update event');
+          }
+        }
+      });
+
+      return updateDefer.promise;
     },
 
     deleteEvent: function(eventId, calendarId) {

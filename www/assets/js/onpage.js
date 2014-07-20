@@ -31,7 +31,18 @@ function dateForDay(dayInd) {
 
   var thatDay = new Date(now.getTime() - (dayDiff * oneDay));
 
+  
+
   return thatDay;
+}
+
+function dateToString(dateObj) {
+  var yearString = dateObj.getFullYear();
+  var monthNum = dateObj.getMonth() + 1;
+  var monthString = ("0" + monthNum).slice(-2);
+  var dateString = dateObj.getDate();
+
+  return yearString + "-" + monthString + "-" + dateString;
 }
 
 function showError(msg) {
