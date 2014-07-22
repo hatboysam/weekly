@@ -18,24 +18,23 @@ weeklyApp.controller('DayCtrl',
   $scope.email = undefined;
 
   /** Making a new task **/
-  $scope.taskDay = "";
+  $scope.taskDay = $scope.dayNames[0];
   $scope.taskDesc = "";
 
   /**
    * Sign in with Google+
    */
-  $scope.logIn = function(inter) {
+  $scope.logIn = function(immed) {
     $scope.blockingLoad = true;
 
     localStorageAPI.getAlways('email').then(function(email) {
       // Get email, then log in
       $scope.email = email;
-      return gCalAPI.logIn(inter, $scope.email);
+      return gCalAPI.logIn(immed, $scope.email);
     }).then(function(resp) {
       console.log('LOGIN: Basic request done');
       console.log(JSON.stringify(resp));
       console.log('ACCESS TOKEN: ' + resp.access_token);
-      $scope.blockingLoad = false;
       $scope.token = resp.access_token;
 
       // Get user info
@@ -44,6 +43,7 @@ weeklyApp.controller('DayCtrl',
       // Got user info
       console.log('LOGIN: Got user info');
       showSuccess('Logged in, thanks!');
+      $scope.blockingLoad = false;
       $scope.id = infoObj.id;
       $scope.email = infoObj.emails[0].value;
       localStorageAPI.set({ email: $scope.email });
@@ -58,10 +58,24 @@ weeklyApp.controller('DayCtrl',
       // CATCHALL BLOCK
       // There was an error somewhere along the way
       $scope.blockingLoad = false;
-      $scope.token = undefined;
+      $scope.logOut();
       showError('Error: there was a problem logging in');
     });
   };
+
+  $scope.logOut = function() {
+    var logoutDefer = $q.defer();
+
+    // Remove cached auth token
+    console.log('REMOVING TOKEN: ' + $scope.token);
+    chrome.identity.removeCachedAuthToken({ token: $scope.token }, function() {
+      console.log('TOKEN REMOVED');
+      $scope.token = undefined;
+      logoutDefer.resolve();
+    });
+
+    return logoutDefer.promise;
+  }
 
   $scope.checkCalendarsExist = function() {
 
@@ -129,9 +143,28 @@ weeklyApp.controller('DayCtrl',
 
   $scope.refresh = function() {
 
-    // Recovery: silent log in
-    var recoverFn = function() { 
-      return gCalAPI.logIn(true, $scope.email); 
+    // Check if we need to move last week's events
+    var weekKey = dateToString(dateForDay(0));
+    localStorageAPI.getAlways(weekKey).then(function(seenWeek) {
+      if (!seenWeek) {
+        $scope.beginNewWeek();
+      }
+    });
+
+    // Recovery function if a request errors out, returns promise
+    var recoverFn = function() {
+      // Remove cached access token
+      var logOutLogInPromise = $scope.logOut()
+      .then(function() {
+        // Log in again
+        return gCalAPI.logIn(true, $scope.email);
+      })
+      .then(function(resp) {
+        // Save the new access tokem
+        $scope.token = resp.access_token;
+      });
+
+      return logOutLogInPromise;
     };
 
     // Get incomplete tasks
@@ -172,6 +205,45 @@ weeklyApp.controller('DayCtrl',
     });
   };
 
+  $scope.beginNewWeek = function() {
+    console.log('Starting new week');
+
+    // Get all incomplete from last week
+    var lastSunday = -7;
+    var lastSaturday = -1;
+    gCalAPI.loadEvents($scope.incompleteId, lastSunday, lastSaturday).then(function(eventResp) {
+      console.log('LAST WEEK INCOMPLETE');
+      var events = eventResp.items;
+      console.log(events);
+
+      // Move them to this sunday
+      var sundayDateString = dateToString(dateForDay(0));
+      var updatePromises = [];
+      for (var i = 0; i < events.length; i++) {
+        // Change to sunday
+        var thisEvent = events[i];
+        thisEvent.start.date = sundayDateString;
+        thisEvent.end.date = sundayDateString;
+
+        // Make update request
+        var thisEventPromise = gCalAPI.updateEvent($scope.incompleteId, thisEvent);
+        updatePromises.push(thisEventPromise);
+      }
+
+      // Add events locally for instant result
+      weekdayModel.addAllFromCal(events, false);
+
+      // Return all promises bunched
+      return $q.all(updatePromises);
+    }).then(function(updateResults) {
+      console.log('BEGAN NEW WEEK');
+      var weekKey = dateToString(dateForDay(0));
+      var setObj = {};
+      setObj[weekKey] = true;
+      localStorageAPI.set(setObj);
+    });
+  };
+
   $scope.toggle = function(task) {
     // Calendars to move
     var fromId = task.completed ? $scope.completeId : $scope.incompleteId;
@@ -205,7 +277,7 @@ weeklyApp.controller('DayCtrl',
 
       // gCalCreate
       var dateObj = dateForDay(day);
-      var dateString = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+      var dateString = dateToString(dateObj);
       gCalAPI.createEvent($scope.incompleteId, desc, dateString)
         .then(function(eventObj) {
           console.log(eventObj);
@@ -216,7 +288,7 @@ weeklyApp.controller('DayCtrl',
         }); 
 
       // Clear form
-      $scope.taskDay = "";
+      $scope.taskDay = $scope.dayNames[0];
       $scope.taskDesc = "";
     }
   };
@@ -251,7 +323,7 @@ weeklyApp.controller('DayCtrl',
   /**
    * STARTUP TASKS
    */
-  $scope.logIn(true);
+  $scope.logIn(false);
 
   /**
    * DETECT RESUME EVENT (Cordova)
@@ -265,7 +337,7 @@ weeklyApp.controller('DayCtrl',
     } else {
       // Log in and refresh
       console.log('RESUME - LOGGING IN');
-      $scope.logIn(true);
+      $scope.logIn(false);
     }
   }, false);
 

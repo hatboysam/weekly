@@ -69,6 +69,7 @@
           <div class="task-bar no-shadow"></div>
           <div class="task-content no-shadow" style="margin-left: 10px">
             <select 
+              ng-init="taskDay = dayNames[0]"
               ng-model="taskDay" 
               ng-options="dayName for dayName in dayNames"></select>
             <input 

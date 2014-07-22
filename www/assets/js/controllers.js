@@ -18,24 +18,23 @@ weeklyApp.controller('DayCtrl',
   $scope.email = undefined;
 
   /** Making a new task **/
-  $scope.taskDay = "";
+  $scope.taskDay = $scope.dayNames[0];
   $scope.taskDesc = "";
 
   /**
    * Sign in with Google+
    */
-  $scope.logIn = function(inter) {
+  $scope.logIn = function(immed) {
     $scope.blockingLoad = true;
 
     localStorageAPI.getAlways('email').then(function(email) {
       // Get email, then log in
       $scope.email = email;
-      return gCalAPI.logIn(inter, $scope.email);
+      return gCalAPI.logIn(immed, $scope.email);
     }).then(function(resp) {
       console.log('LOGIN: Basic request done');
       console.log(JSON.stringify(resp));
       console.log('ACCESS TOKEN: ' + resp.access_token);
-      $scope.blockingLoad = false;
       $scope.token = resp.access_token;
 
       // Get user info
@@ -44,6 +43,7 @@ weeklyApp.controller('DayCtrl',
       // Got user info
       console.log('LOGIN: Got user info');
       showSuccess('Logged in, thanks!');
+      $scope.blockingLoad = false;
       $scope.id = infoObj.id;
       $scope.email = infoObj.emails[0].value;
       localStorageAPI.set({ email: $scope.email });
@@ -58,10 +58,24 @@ weeklyApp.controller('DayCtrl',
       // CATCHALL BLOCK
       // There was an error somewhere along the way
       $scope.blockingLoad = false;
-      $scope.token = undefined;
+      $scope.logOut();
       showError('Error: there was a problem logging in');
     });
   };
+
+  $scope.logOut = function() {
+    var logoutDefer = $q.defer();
+
+    // Remove cached auth token
+    console.log('REMOVING TOKEN: ' + $scope.token);
+    chrome.identity.removeCachedAuthToken({ token: $scope.token }, function() {
+      console.log('TOKEN REMOVED');
+      $scope.token = undefined;
+      logoutDefer.resolve();
+    });
+
+    return logoutDefer.promise;
+  }
 
   $scope.checkCalendarsExist = function() {
 
@@ -137,9 +151,20 @@ weeklyApp.controller('DayCtrl',
       }
     });
 
-    // Recovery: silent log in
-    var recoverFn = function() { 
-      return gCalAPI.logIn(true, $scope.email); 
+    // Recovery function if a request errors out, returns promise
+    var recoverFn = function() {
+      // Remove cached access token
+      var logOutLogInPromise = $scope.logOut()
+      .then(function() {
+        // Log in again
+        return gCalAPI.logIn(true, $scope.email);
+      })
+      .then(function(resp) {
+        // Save the new access tokem
+        $scope.token = resp.access_token;
+      });
+
+      return logOutLogInPromise;
     };
 
     // Get incomplete tasks
@@ -263,7 +288,7 @@ weeklyApp.controller('DayCtrl',
         }); 
 
       // Clear form
-      $scope.taskDay = "";
+      $scope.taskDay = $scope.dayNames[0];
       $scope.taskDesc = "";
     }
   };
@@ -298,7 +323,7 @@ weeklyApp.controller('DayCtrl',
   /**
    * STARTUP TASKS
    */
-  $scope.logIn(true);
+  $scope.logIn(false);
 
   /**
    * DETECT RESUME EVENT (Cordova)
@@ -312,7 +337,7 @@ weeklyApp.controller('DayCtrl',
     } else {
       // Log in and refresh
       console.log('RESUME - LOGGING IN');
-      $scope.logIn(true);
+      $scope.logIn(false);
     }
   }, false);
 
