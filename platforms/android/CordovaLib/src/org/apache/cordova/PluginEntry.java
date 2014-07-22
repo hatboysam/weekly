@@ -22,8 +22,6 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 
-//import android.content.Context;
-//import android.webkit.WebView;
 
 /**
  * This class represents a service entry object.
@@ -53,8 +51,15 @@ public class PluginEntry {
     public boolean onload = false;
 
     /**
-     * Constructor
-     *
+     * @param service               The name of the service
+     * @param plugin                The plugin associated with this entry
+     */
+    public PluginEntry(String service, CordovaPlugin plugin) {
+        this(service, plugin.getClass().getName(), true);
+        this.plugin = plugin;
+    }
+
+    /**
      * @param service               The name of the service
      * @param pluginClass           The plugin class name
      * @param onload                Create plugin object when HTML page is loaded
@@ -64,20 +69,7 @@ public class PluginEntry {
         this.pluginClass = pluginClass;
         this.onload = onload;
     }
-
-    /**
-     * Alternate constructor
-     *
-     * @param service               The name of the service
-     * @param plugin                The plugin associated with this entry
-     */
-    public PluginEntry(String service, CordovaPlugin plugin) {
-        this.service = service;
-        this.plugin = plugin;
-        this.pluginClass = plugin.getClass().getName();
-        this.onload = false;
-    }
-
+    
     /**
      * Create plugin object.
      * If plugin is already created, then just return it.
@@ -89,11 +81,10 @@ public class PluginEntry {
             return this.plugin;
         }
         try {
-            @SuppressWarnings("rawtypes")
-            Class c = getClassByName(this.pluginClass);
+            Class<?> c = getClassByName(this.pluginClass);
             if (isCordovaPlugin(c)) {
                 this.plugin = (CordovaPlugin) c.newInstance();
-                this.plugin.initialize(ctx, webView);
+                this.plugin.privateInitialize(ctx, webView, webView.getPreferences());
                 return plugin;
             }
         } catch (Exception e) {
@@ -110,9 +101,8 @@ public class PluginEntry {
      * @return a reference to the named class
      * @throws ClassNotFoundException
      */
-    @SuppressWarnings("rawtypes")
-    private Class getClassByName(final String clazz) throws ClassNotFoundException {
-        Class c = null;
+    private Class<?> getClassByName(final String clazz) throws ClassNotFoundException {
+        Class<?> c = null;
         if ((clazz != null) && !("".equals(clazz))) {
             c = Class.forName(clazz);
         }
@@ -122,10 +112,9 @@ public class PluginEntry {
     /**
      * Returns whether the given class extends CordovaPlugin.
      */
-    @SuppressWarnings("rawtypes")
-    private boolean isCordovaPlugin(Class c) {
+    private boolean isCordovaPlugin(Class<?> c) {
         if (c != null) {
-            return org.apache.cordova.CordovaPlugin.class.isAssignableFrom(c);
+            return CordovaPlugin.class.isAssignableFrom(c);
         }
         return false;
     }

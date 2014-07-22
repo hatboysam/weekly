@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 
 import java.util.HashMap;
 
@@ -46,15 +47,11 @@ public class CoreAndroid extends CordovaPlugin {
     /**
      * Sets the context of the Command. This can then be used to do things like
      * get file paths associated with the Activity.
-     *
-     * @param cordova The context of the main Activity.
-     * @param webView The CordovaWebView Cordova is running in.
      */
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
+    @Override
+    public void pluginInitialize() {
         this.initTelephonyReceiver();
     }
-
 
     /**
      * Executes the request and returns PluginResult.
@@ -78,7 +75,7 @@ public class CoreAndroid extends CordovaPlugin {
                 // indicative of what this actually does (shows the webview).
                 cordova.getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        webView.postMessage("spinner", "stop");
+                        webView.getPluginManager().postMessage("spinner", "stop");
                     }
                 });
             }
@@ -217,7 +214,7 @@ public class CoreAndroid extends CordovaPlugin {
      */
     public void overrideBackbutton(boolean override) {
         LOG.i("App", "WARNING: Back Button Default Behavior will be overridden.  The backbutton event will be fired!");
-        webView.bindButton(override);
+        webView.setButtonPlumbedToJs(KeyEvent.KEYCODE_BACK, override);
     }
 
     /**
@@ -229,7 +226,12 @@ public class CoreAndroid extends CordovaPlugin {
      */
     public void overrideButton(String button, boolean override) {
         LOG.i("App", "WARNING: Volume Button Default Behavior will be overridden.  The volume event will be fired!");
-        webView.bindButton(button, override);
+        if (button.equals("volumeup")) {
+            webView.setButtonPlumbedToJs(KeyEvent.KEYCODE_VOLUME_UP, override);
+        }
+        else if (button.equals("volumedown")) {
+            webView.setButtonPlumbedToJs(KeyEvent.KEYCODE_VOLUME_DOWN, override);
+        }
     }
 
     /**
@@ -238,14 +240,14 @@ public class CoreAndroid extends CordovaPlugin {
      * @return boolean
      */
     public boolean isBackbuttonOverridden() {
-        return webView.isBackButtonBound();
+        return webView.isButtonPlumbedToJs(KeyEvent.KEYCODE_BACK);
     }
 
     /**
      * Exit the Android application.
      */
     public void exitApp() {
-        this.webView.postMessage("exit", null);
+        this.webView.getPluginManager().postMessage("exit", null);
     }
     
 
@@ -269,15 +271,15 @@ public class CoreAndroid extends CordovaPlugin {
                         String extraData = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
                         if (extraData.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                             LOG.i(TAG, "Telephone RINGING");
-                            webView.postMessage("telephone", "ringing");
+                            webView.getPluginManager().postMessage("telephone", "ringing");
                         }
                         else if (extraData.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                             LOG.i(TAG, "Telephone OFFHOOK");
-                            webView.postMessage("telephone", "offhook");
+                            webView.getPluginManager().postMessage("telephone", "offhook");
                         }
                         else if (extraData.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                             LOG.i(TAG, "Telephone IDLE");
-                            webView.postMessage("telephone", "idle");
+                            webView.getPluginManager().postMessage("telephone", "idle");
                         }
                     }
                 }

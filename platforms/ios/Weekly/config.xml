@@ -63,7 +63,7 @@
     </feature>
     <name>Weekly</name>
     <description>Keep track of your life, week by week.</description>
-    <author />
+    <author>Author name and email</author>
     <preference name="KeyboardShrinksView" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />

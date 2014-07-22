@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.habosa.weekly" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <feature name="App">
-        <param name="android-package" value="org.apache.cordova.CoreAndroid" />
-    </feature>
     <preference name="webView" value="org.apache.cordova.engine.crosswalk.XWalkCordovaWebView" />
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
@@ -45,7 +42,7 @@
     </feature>
     <name>Weekly</name>
     <description>Keep track of your life, week by week.</description>
-    <author />
+    <author>Author name and email</author>
     <preference name="KeyboardShrinksView" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />

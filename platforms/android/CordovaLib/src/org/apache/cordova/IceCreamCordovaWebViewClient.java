@@ -32,14 +32,10 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class IceCreamCordovaWebViewClient extends AndroidWebViewClient implements CordovaWebViewClient{
+public class IceCreamCordovaWebViewClient extends AndroidWebViewClient {
 
     private static final String TAG = "IceCreamCordovaWebViewClient";
 
-    public IceCreamCordovaWebViewClient(CordovaInterface cordova) {
-        super(cordova);
-    }
-    
     public IceCreamCordovaWebViewClient(CordovaInterface cordova, AndroidWebView view) {
         super(cordova, view);
     }
@@ -47,8 +43,9 @@ public class IceCreamCordovaWebViewClient extends AndroidWebViewClient implement
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         try {
-            // Check the against the white-list.
-            if ((url.startsWith("http:") || url.startsWith("https:")) && !Config.isUrlWhiteListed(url)) {
+            // Check the against the whitelist and lock out access to the WebView directory
+            // Changing this will cause problems for your application
+            if (isUrlHarmful(url)) {
                 LOG.w(TAG, "URL blocked by whitelist: " + url);
                 // Results in a 404.
                 return new WebResourceResponse("text/plain", "UTF-8", null);
@@ -72,6 +69,11 @@ public class IceCreamCordovaWebViewClient extends AndroidWebViewClient implement
             // Results in a 404.
             return new WebResourceResponse("text/plain", "UTF-8", null);
         }
+    }
+
+    private boolean isUrlHarmful(String url) {
+        return ((url.startsWith("http:") || url.startsWith("https:")) && !appView.getWhitelist().isUrlWhiteListed(url))
+            || url.contains("app_webview");
     }
 
     private static boolean needsKitKatContentUrlFix(Uri uri) {

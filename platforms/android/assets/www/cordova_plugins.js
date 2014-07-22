@@ -279,7 +279,7 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.google.playservices": "17.0.0",
+    "com.google.playservices": "18.0.0",
     "org.apache.cordova.engine.crosswalk": "0.0.1-dev",
     "org.apache.cordova.file": "1.1.1-dev",
     "org.apache.cordova.inappbrowser": "0.4.1-dev",

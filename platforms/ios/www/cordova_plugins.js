@@ -281,7 +281,7 @@ module.exports.metadata =
     "org.chromium.storage": "1.0.1",
     "org.chromium.runtime": "1.0.1",
     "org.apache.cordova.inappbrowser": "0.4.1-dev",
-    "com.google.playservices": "17.0.0",
+    "com.google.playservices": "18.0.0",
     "org.chromium.frameworks.googleopensource": "1.0.0",
     "org.chromium.frameworks.googleplus": "1.0.0"
 }
