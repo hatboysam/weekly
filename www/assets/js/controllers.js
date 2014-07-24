@@ -245,6 +245,9 @@ weeklyApp.controller('DayCtrl',
   };
 
   $scope.toggle = function(task) {
+    if (task.dragging) {
+      return;
+    }
     // Calendars to move
     var fromId = task.completed ? $scope.completeId : $scope.incompleteId;
     var toId = task.completed ? $scope.incompleteId : $scope.completeId;
@@ -318,6 +321,62 @@ weeklyApp.controller('DayCtrl',
         });
       });
     });
+  }
+
+  $scope.taskDragStart = function(evt, ui, task, day) {
+    console.log('DRAG START');
+    task.dragging = true;
+    $scope.draggedTask = task;
+    $scope.draggedTaskDay = day;
+  }
+
+  $scope.taskDragStop = function(evt, ui, task) {
+    console.log('DRAG STOP');
+    task.dragging = false;
+  }
+
+  $scope.dayDrop = function(evt, ui, day) {
+    console.log('DROP');
+
+    // Remove from old day
+    $scope.draggedTaskDay.removeTask($scope.draggedTask);
+
+    // Add to new day
+    day.addTask($scope.draggedTask);
+    $scope.draggedTask.dragging = false;
+
+    // HTTP
+    var newDateString = dateToString(dateForDay(day.ind));
+    var calendardId = $scope.draggedTask.completed ? $scope.completeId : $scope.incompleteId;
+    var taskEvent = {
+      id: $scope.draggedTask.id,
+      start: { date: newDateString },
+      end: { date: newDateString },
+      summary: $scope.draggedTask.description,
+      sequence: $scope.draggedTask.sequence
+    }
+    
+    gCalAPI.updateEvent(calendardId, taskEvent).then(function(id) {
+      // Do nothing on success
+    }, function(err) {
+      // Decrement sequence on error
+      $scope.draggedTask.setSequence($scope.draggedTask.sequence - 1);
+    });
+
+    // Update event sequence (without knowing success or not)
+    $scope.draggedTask.setSequence($scope.draggedTask.sequence + 1)
+
+    // TODO: Add CSS classes to the drop targets 
+  }
+
+  /** Options for jQueryUI drag-drop **/
+  $scope.taskDragOpts = {
+    axis: 'y',
+    delay: 250,
+    revert: 'invalid',
+    revertDuration: 150,
+    snap: '.day',
+    snapMode: 'inner'
   }
 
   /**

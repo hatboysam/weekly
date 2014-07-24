@@ -1,4 +1,4 @@
 /**
  * Define the app
  */
-var weeklyApp = angular.module('weeklyApp', []);
+var weeklyApp = angular.module('weeklyApp', ['ngDragDrop']);

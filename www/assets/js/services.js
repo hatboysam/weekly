@@ -32,6 +32,7 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
       var startDate = dateFromString(dateString);
       var task = new Task(item.summary, completed);
       task.setId(item.id);
+      task.setSequence(item.sequence);
       this.addTask(task, startDate.getDay());
     }.bind(this));
   }
@@ -199,13 +200,14 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
 
     updateEvent: function(calendarId, updatedEvent) {
       var updateDefer = $q.defer();
-      var basePath = '/calendar/v3/calendars/' + calendarId + '/events/' + updatedEvent.id
+      var basePath = '/calendar/v3/calendars/' + calendarId + '/events/' + updatedEvent.id;
 
       // Just the parts we need to preserve
       var strippedEvent = {
         start: updatedEvent.start,
         end: updatedEvent.end,
-        summary: updatedEvent.summary
+        summary: updatedEvent.summary,
+        sequence: updatedEvent.sequence + 1
       };
 
       gapi.client.request({

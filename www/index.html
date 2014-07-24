@@ -12,7 +12,9 @@
 
     <!-- jQuery -->
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
     <script src="assets/js/jquery.jpanelmenu.min.js"></script>
+    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
 
     <!-- Swipebox -->
     <script src="assets/js/jquery.swipebox.min.js"></script>
@@ -33,6 +35,10 @@
     <script src="assets/js/services.js"></script>
     <script src="assets/js/controllers.js"></script>
     <script src="assets/js/directives.js"></script>
+
+    <!-- Angular Dragdrop -->
+    <script src="assets/js/angular-dragdrop.min.js"></script>
+
   </head>
   <body ng-controller="DayCtrl">
     <div id="menu" style="display: none;">
@@ -85,7 +91,9 @@
         <div 
           class="day"
           toggle-class="closed"
-          toggle-start-on="{{ !day.isToday() }}">
+          toggle-start-on="{{ !day.isToday() }}"
+          jqyoui-droppable="{ onDrop:'dayDrop(day)' }"
+          data-drop="true">
           <span class="day-date">
             {{ day.humanDate() }}
           </span>
@@ -102,7 +110,10 @@
         <div 
           class="task"  
           ng-repeat="task in day.tasks" 
-          ng-class="{ 'completed': task.completed }">
+          ng-class="{ 'completed': task.completed, 'dragging': task.dragging }"
+          jqyoui-draggable="{ onStart:'taskDragStart(task, day)', onStop:'taskDragStop(task)' }"
+          data-jqyoui-options="{{ taskDragOpts }}" 
+          data-drag="true">
           <div class="task-bar"></div>
           <div class="task-content" ng-click="toggle(task)">
             {{ task.description }}

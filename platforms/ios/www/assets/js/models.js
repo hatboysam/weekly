@@ -11,6 +11,13 @@ Weekday.prototype.addTask = function(task) {
   this.tasks.push(task);
 }
 
+Weekday.prototype.removeTask = function(task) {
+  var taskInd = this.tasks.indexOf(task);
+  if (taskInd > -1) {
+    this.tasks.splice(taskInd, 1);
+  }
+}
+
 Weekday.prototype.numTasks = function() {
   return this.tasks.length;
 }
@@ -47,8 +54,13 @@ Weekday.prototype.humanDate = function() {
 function Task(description, completed) {
   this.description = description;
   this.completed = completed;
+  this.sequence = 0;
 }
 
 Task.prototype.setId = function(id) {
   this.id = id;
+}
+
+Task.prototype.setSequence = function(sequence) {
+  this.sequence = sequence;
 }
