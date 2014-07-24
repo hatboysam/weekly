@@ -115,6 +115,7 @@
           data-jqyoui-options="{{ taskDragOpts }}" 
           data-drag="true">
           <div class="task-bar"></div>
+          <span class="task-drag" ng-if="!task.completed">&#x2195;</span>
           <div class="task-content" ng-click="toggle(task)">
             {{ task.description }}
           </div>

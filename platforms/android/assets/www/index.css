@@ -232,6 +232,17 @@ td {
   color: gray;
 }
 
+.task-drag {
+  position: absolute;
+  left: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 100%;
+  top: 10px;
+  font-size: large;
+  color: gray;
+}
+
 .completed .task-bar {
   background: gray;
 }

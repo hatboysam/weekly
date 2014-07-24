@@ -372,7 +372,8 @@ weeklyApp.controller('DayCtrl',
   /** Options for jQueryUI drag-drop **/
   $scope.taskDragOpts = {
     axis: 'y',
-    delay: 250,
+    delay: 50,
+    handle: '.task-drag',
     revert: 'invalid',
     revertDuration: 150,
     snap: '.day',
