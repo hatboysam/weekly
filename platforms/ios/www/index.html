@@ -43,9 +43,9 @@
   <body ng-controller="DayCtrl">
     <div id="menu" style="display: none;">
       <ul class="sidemenu">
-        <li class="menu-item">
+  <!-- <li class="menu-item">
           About
-        </li>
+        </li> -->
         <li id="help" class="swipebox" href="assets/img/WeeklyTour-1.png">
           Help
           <a href="assets/img/WeeklyTour-2.png" class="swipebox"></a>
@@ -57,7 +57,7 @@
         <li class="menu-item" ng-click="refresh()" ng-if="token">
           Refresh
         </li>
-        <li class="menu-item" ng-click="logIn(true)" ng-if="!token">
+        <li class="menu-item" ng-click="logIn(false)" ng-if="!token">
           Log In
         </li>
       </ul>
@@ -90,9 +90,11 @@
         class="day-box">
         <div 
           class="day"
+          id="day-{{ day.ind }}"
           toggle-class="closed"
           toggle-start-on="{{ !day.isToday() }}"
           jqyoui-droppable="{ onDrop:'dayDrop(day)' }"
+          data-jqyoui-options="{{ dayDropOpts }}"
           data-drop="true">
           <span class="day-date">
             {{ day.humanDate() }}
@@ -111,7 +113,7 @@
           class="task"  
           ng-repeat="task in day.tasks" 
           ng-class="{ 'completed': task.completed, 'dragging': task.dragging }"
-          jqyoui-draggable="{ onStart:'taskDragStart(task, day)', onStop:'taskDragStop(task)' }"
+          jqyoui-draggable="{ onStart:'taskDragStart(task, day)', onStop:'taskDragStop(task, day)' }"
           data-jqyoui-options="{{ taskDragOpts }}" 
           data-drag="true">
           <div class="task-bar"></div>

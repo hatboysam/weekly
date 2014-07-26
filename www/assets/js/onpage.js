@@ -106,6 +106,12 @@ $(document).ready(function() {
     afterClose: function() {
       // Mark help as viewed
       chrome.storage.local.set({ viewedHelp: true }, function() {});
+
+      // Open side menu and prompt log in
+      jPM.open();
+
+      // Prompt to log in
+      showSuccess('Please "Log In" to proceed');
     }
   });
 

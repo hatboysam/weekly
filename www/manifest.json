@@ -13,8 +13,10 @@
     "72": "assets/icons/WeeklyIcon72.png",
     "96": "assets/icons/WeeklyIcon96.png",
     "114": "assets/icons/WeeklyIcon114.png",
+    "120": "assets/icons/WeeklyIcon120.png",
     "128": "assets/icons/WeeklyIcon128.png",
-    "144": "assets/icons/WeeklyIcon144.png"
+    "144": "assets/icons/WeeklyIcon144.png",
+    "152": "assets/icons/WeeklyIcon152.png"
   },
   "app": {
     "background": {

@@ -46,6 +46,48 @@ td {
   padding-right: 5px;
 }
 
+.glowing {
+  -webkit-animation: neon-anim2 0.5s ease-in-out infinite alternate;
+  -moz-animation: neon-anim2 0.5s ease-in-out infinite alternate;
+  animation: neon-anim2 0.5s ease-in-out infinite alternate; 
+}
+
+@-webkit-keyframes neon-anim {
+  from {
+    text-shadow: 0 0 5px  #fff,
+                 0 0 10px #fff,
+                 0 0 15px #fff,
+                 0 0 20px #fff,
+                 0 0 35px #fff,
+                 0 0 40px #fff,
+                 0 0 50px #fff,
+                 0 0 75px #fff;
+  }
+  to {
+    text-shadow: 0 0 1px  #fff,
+                 0 0 2px  #fff,
+                 0 0 3px  #fff,
+                 0 0 4px  #fff,
+                 0 0 7px  #fff,
+                 0 0 8px  #fff,
+                 0 0 10px #fff,
+                 0 0 15px #fff;
+  }
+}
+
+@-webkit-keyframes neon-anim2 {
+  from {
+    text-shadow: 0 0 5px  #fff,
+                 0 0 10px #fff,
+                 0 0 15px #fff;
+  }
+  to {
+    text-shadow: 0 0 1px  #fff,
+                 0 0 2px  #fff,
+                 0 0 3px  #fff;
+  }
+}
+
 .alert {
   position: absolute;
   bottom: 0px;
@@ -145,6 +187,7 @@ td {
   position: absolute;
   left: 10px;
   color: #225E79;
+  text-shadow: 0 0 0 !important;
 }
 
 .hide {
@@ -234,11 +277,13 @@ td {
 
 .task-drag {
   position: absolute;
-  left: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
+  left: 0px;
+  top: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   height: 100%;
-  top: 10px;
   font-size: large;
   color: gray;
 }

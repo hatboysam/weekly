@@ -155,3 +155,112 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-07-24 13:11:29.749 Weekly[39983:70b] Got token 1
 2014-07-24 13:11:29.850 Weekly[39983:70b] Got token 1
 2014-07-24 13:11:29.950 Weekly[39983:70b] Got token 1
+2014-07-24 20:24:28.296 Weekly[77311:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-24 20:24:29.838 Weekly[77311:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-24 20:24:30.955 Weekly[77311:70b] [CDVTimer][chromenavigation] 0.059009ms
+2014-07-24 20:24:30.963 Weekly[77311:70b] [CDVTimer][chromebootstrap] 7.423043ms
+2014-07-24 20:24:30.964 Weekly[77311:70b] [CDVTimer][chromeextensionurls] 0.081003ms
+2014-07-24 20:24:30.988 Weekly[77311:70b] [CDVTimer][file] 22.977948ms
+2014-07-24 20:24:31.106 Weekly[77311:70b] [CDVTimer][statusbar] 117.931008ms
+2014-07-24 20:24:31.152 Weekly[77311:70b] [CDVTimer][keyboard] 45.005977ms
+2014-07-24 20:24:31.153 Weekly[77311:70b] [CDVTimer][TotalPluginStartup] 197.250009ms
+2014-07-24 20:24:31.343 Weekly[77311:70b] Resetting plugins due to page load.
+2014-07-24 20:24:33.237 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.313 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.400 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.501 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.600 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.700 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.800 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:33.900 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:34.001 Weekly[77311:70b] Got token 1
+2014-07-24 20:24:34.100 Weekly[77311:70b] Got token 1
+2014-07-24 20:25:01.011 Weekly[77311:70b] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '*** -[NSRegularExpression enumerateMatchesInString:options:range:usingBlock:]: nil argument'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x002121e4 __exceptionPreprocess + 180
+	1   libobjc.A.dylib                     0x0256b8e5 objc_exception_throw + 44
+	2   CoreFoundation                      0x00211fbb +[NSException raise:format:] + 139
+	3   Foundation                          0x01a82086 -[NSRegularExpression(NSMatching) enumerateMatchesInString:options:range:usingBlock:] + 215
+	4   Foundation                          0x01ba905a -[NSRegularExpression(NSMatching) firstMatchInString:options:range:] + 169
+	5   Weekly                              0x0001bf96 -[CDVCommandDelegateImpl isValidCallbackId:] + 438
+	6   Weekly                              0x0001c0f5 -[CDVCommandDelegateImpl sendPluginResult:callbackId:] + 181
+	7   Weekly                              0x00034a0d -[ChromeIdentity finishedWithAuth:error:] + 493
+	8   Weekly                              0x000c5801 __37-[GPPSignIn addCallDelegateCallback:]_block_invoke + 141
+	9   Weekly                              0x000c0618 -[GPPCallbackQueue fire] + 183
+	10  Weekly                              0x000c046d -[GPPCallbackQueue next] + 88
+	11  Weekly                              0x000c55f3 __44-[GPPSignIn addFetchGooglePlusUserCallback:]_block_invoke_2 + 287
+	12  Weekly                              0x0006217a -[GTLService handleParsedObjectForFetcher:] + 1694
+	13  libobjc.A.dylib                     0x0257d82b -[NSObject performSelector:withObject:] + 70
+	14  Foundation                          0x01a9ce48 __NSThreadPerformPerform + 285
+	15  CoreFoundation                      0x0019b77f __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ + 15
+	16  CoreFoundation                      0x0019b10b __CFRunLoopDoSources0 + 235
+	17  CoreFoundation                      0x001b81ae __CFRunLoopRun + 910
+	18  CoreFoundation                      0x001b79d3 CFRunLoopRunSpecific + 467
+	19  CoreFoundation                      0x001b77eb CFRunLoopRunInMode + 123
+	20  GraphicsServices                    0x0399d5ee GSEventRunModal + 192
+	21  GraphicsServices                    0x0399d42b GSEventRun + 104
+	22  UIKit                               0x00479f9b UIApplicationMain + 1225
+	23  Weekly                              0x00021a6c main + 92
+	24  libdyld.dylib                       0x02d73701 start + 1
+)
+libc++abi.dylib: terminating with uncaught exception of type NSException
+2014-07-24 20:40:10.886 Weekly[80015:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-24 20:40:10.946 Weekly[80015:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-24 20:40:10.973 Weekly[80015:70b] [CDVTimer][chromenavigation] 0.077009ms
+2014-07-24 20:40:10.974 Weekly[80015:70b] [CDVTimer][chromebootstrap] 0.065982ms
+2014-07-24 20:40:10.975 Weekly[80015:70b] [CDVTimer][chromeextensionurls] 0.065982ms
+2014-07-24 20:40:10.978 Weekly[80015:70b] [CDVTimer][file] 2.409995ms
+2014-07-24 20:40:11.039 Weekly[80015:70b] [CDVTimer][statusbar] 60.905993ms
+2014-07-24 20:40:11.040 Weekly[80015:70b] [CDVTimer][keyboard] 0.163972ms
+2014-07-24 20:40:11.040 Weekly[80015:70b] [CDVTimer][TotalPluginStartup] 67.040980ms
+2014-07-24 20:40:11.167 Weekly[80015:70b] Resetting plugins due to page load.
+2014-07-24 20:40:11.657 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:11.758 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:11.858 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:11.958 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:12.068 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:12.159 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:12.257 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:12.358 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:12.458 Weekly[80015:70b] Got token 1
+2014-07-24 20:40:12.557 Weekly[80015:70b] Got token 1
+2014-07-25 18:11:47.655 Weekly[80015:70b] THREAD WARNING: ['ChromeStorage'] took '21.229980' ms. Plugin should use a background thread.
+2014-07-25 18:11:48.034 Weekly[80015:70b] THREAD WARNING: ['ChromeIdentity'] took '65.446289' ms. Plugin should use a background thread.
+2014-07-25 18:11:48.079 Weekly[80015:70b] THREAD WARNING: ['ChromeIdentity'] took '39.921875' ms. Plugin should use a background thread.
+2014-07-25 18:11:53.246 Weekly[80015:70b] THREAD WARNING: ['ChromeStorage'] took '139.895020' ms. Plugin should use a background thread.
+2014-07-26 19:22:04.653 Weekly[51741:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-26 19:22:05.061 Weekly[51741:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-26 19:22:06.418 Weekly[51741:70b] [CDVTimer][chromenavigation] 0.054002ms
+2014-07-26 19:22:06.434 Weekly[51741:70b] [CDVTimer][chromebootstrap] 15.570998ms
+2014-07-26 19:22:06.435 Weekly[51741:70b] [CDVTimer][chromeextensionurls] 0.086010ms
+2014-07-26 19:22:06.592 Weekly[51741:70b] [CDVTimer][file] 156.336010ms
+2014-07-26 19:22:07.948 Weekly[51741:70b] [CDVTimer][statusbar] 1355.355978ms
+2014-07-26 19:22:07.964 Weekly[51741:70b] [CDVTimer][keyboard] 15.763998ms
+2014-07-26 19:22:07.965 Weekly[51741:70b] [CDVTimer][TotalPluginStartup] 1547.218025ms
+2014-07-26 19:22:08.503 Weekly[51741:70b] Resetting plugins due to page load.
+2014-07-26 19:22:12.740 Weekly[51741:70b] Got token 1
+2014-07-26 19:22:13.077 Weekly[51741:70b] Got token 1
+2014-07-26 19:22:13.319 Weekly[51741:70b] Got token 1
+2014-07-26 19:22:13.372 Weekly[51741:70b] Got token 1
+2014-07-26 19:22:13.488 Weekly[51741:70b] Got token 1
+2014-07-26 19:22:13.643 Weekly[51741:70b] Got token 1
+2014-07-26 19:22:14.055 Weekly[51741:70b] THREAD WARNING: ['ChromeIdentity'] took '64.666992' ms. Plugin should use a background thread.

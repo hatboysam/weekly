@@ -129,7 +129,7 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
       var minDate = dateForDay(dayMin);
       var maxDate = dateForDay(dayMax);
       minDate.setUTCHours(0);
-      maxDate.setUTCHours(0);
+      //maxDate.setUTCHours(0);
 
       var queryOpts = {
         timeMin: minDate.toISOString(),

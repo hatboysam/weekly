@@ -43,6 +43,7 @@ weeklyApp.controller('DayCtrl',
       // Got user info
       console.log('LOGIN: Got user info');
       showSuccess('Logged in, thanks!');
+      localStorageAPI.set({ firstLogIn: true });
       $scope.blockingLoad = false;
       $scope.id = infoObj.id;
       $scope.email = infoObj.emails[0].value;
@@ -58,7 +59,9 @@ weeklyApp.controller('DayCtrl',
       // CATCHALL BLOCK
       // There was an error somewhere along the way
       $scope.blockingLoad = false;
-      $scope.logOut();
+      if ($scope.token) {
+        $scope.logOut();
+      }
       showError('Error: there was a problem logging in');
     });
   };
@@ -70,9 +73,11 @@ weeklyApp.controller('DayCtrl',
     console.log('REMOVING TOKEN: ' + $scope.token);
     chrome.identity.removeCachedAuthToken({ token: $scope.token }, function() {
       console.log('TOKEN REMOVED');
-      $scope.token = undefined;
       logoutDefer.resolve();
     });
+
+    // Clear token
+    $scope.token = undefined;
 
     return logoutDefer.promise;
   }
@@ -228,6 +233,9 @@ weeklyApp.controller('DayCtrl',
         // Make update request
         var thisEventPromise = gCalAPI.updateEvent($scope.incompleteId, thisEvent);
         updatePromises.push(thisEventPromise);
+
+        // Update sequence
+        thisEvent.sequence = thisEvent.sequence + 1;
       }
 
       // Add events locally for instant result
@@ -328,15 +336,24 @@ weeklyApp.controller('DayCtrl',
     task.dragging = true;
     $scope.draggedTask = task;
     $scope.draggedTaskDay = day;
+
+    // TODO: disable dropping on this day
   }
 
-  $scope.taskDragStop = function(evt, ui, task) {
+  $scope.taskDragStop = function(evt, ui, task, day) {
     console.log('DRAG STOP');
     task.dragging = false;
+
+    // TODO: enable dropping on this day
   }
 
   $scope.dayDrop = function(evt, ui, day) {
     console.log('DROP');
+    if (day.ind == $scope.draggedTaskDay.ind) {
+      // Dropped on same day
+      console.log('SAME DAY');
+      return;
+    }
 
     // Remove from old day
     $scope.draggedTaskDay.removeTask($scope.draggedTask);
@@ -369,10 +386,8 @@ weeklyApp.controller('DayCtrl',
     // TODO: Add CSS classes to the drop targets 
   }
 
-  /** Options for jQueryUI drag-drop **/
   $scope.taskDragOpts = {
     axis: 'y',
-    delay: 50,
     handle: '.task-drag',
     revert: 'invalid',
     revertDuration: 150,
@@ -380,10 +395,22 @@ weeklyApp.controller('DayCtrl',
     snapMode: 'inner'
   }
 
+  $scope.dayDropOpts = {
+    activeClass: 'glowing'
+  }
+
   /**
    * STARTUP TASKS
    */
-  $scope.logIn(false);
+  localStorageAPI.getAlways('firstLogIn').then(function(firstLogIn) {
+    if (firstLogIn) {
+      // Not the first log in
+      $scope.logIn(false);
+    } else {
+      // First log in
+      // Just hang out ... wait for them to log in
+    }
+  });
 
   /**
    * DETECT RESUME EVENT (Cordova)
