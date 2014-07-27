@@ -53,6 +53,7 @@
           <a href="assets/img/WeeklyTour-4.png" class="swipebox"></a>
           <a href="assets/img/WeeklyTour-5.png" class="swipebox"></a>
           <a href="assets/img/WeeklyTour-6.png" class="swipebox"></a>
+          <a href="assets/img/WeeklyTour-7.png" class="swipebox"></a>
         </li>
         <li class="menu-item" ng-click="refresh()" ng-if="token">
           Refresh
@@ -96,7 +97,7 @@
           jqyoui-droppable="{ onDrop:'dayDrop(day)' }"
           data-jqyoui-options="{{ dayDropOpts }}"
           data-drop="true">
-          <span class="day-date">
+          <span class="day-date" ng-if="day.isThisWeek()">
             {{ day.humanDate() }}
           </span>
           {{ day.name }}

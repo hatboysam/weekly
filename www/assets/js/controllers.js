@@ -319,6 +319,8 @@ weeklyApp.controller('DayCtrl',
 
   $scope.restoreDays = function() {
     // Restore cached tasks
+    weekdayModel.clearAll();
+
     // TODO: Don't bother if they're not for the right week, check
     localStorageAPI.get('days').then(function(days) {
       days.forEach(function(day) {
@@ -337,14 +339,16 @@ weeklyApp.controller('DayCtrl',
     $scope.draggedTask = task;
     $scope.draggedTaskDay = day;
 
-    // TODO: disable dropping on this day
+    // TODO: Get this jQuery out of here!
+    $('#day-' + day.ind).droppable('disable');
   }
 
   $scope.taskDragStop = function(evt, ui, task, day) {
     console.log('DRAG STOP');
     task.dragging = false;
 
-    // TODO: enable dropping on this day
+    // TODO: Get this jQuery out of here!
+    $('.day').droppable('enable');
   }
 
   $scope.dayDrop = function(evt, ui, day) {
@@ -382,8 +386,6 @@ weeklyApp.controller('DayCtrl',
 
     // Update event sequence (without knowing success or not)
     $scope.draggedTask.setSequence($scope.draggedTask.sequence + 1)
-
-    // TODO: Add CSS classes to the drop targets 
   }
 
   $scope.taskDragOpts = {
@@ -404,7 +406,8 @@ weeklyApp.controller('DayCtrl',
    */
   localStorageAPI.getAlways('firstLogIn').then(function(firstLogIn) {
     if (firstLogIn) {
-      // Not the first log in
+      // Not the first log in, so get tasks
+      $scope.restoreDays();
       $scope.logIn(false);
     } else {
       // First log in

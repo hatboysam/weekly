@@ -4,8 +4,8 @@
 weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
   this.days = [];
 
-  this.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  this.dayTasks = [ [], [], [], [], [], [], [] ];
+  this.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Next Week'];
+  this.dayTasks = [ [], [], [], [], [], [], [], [] ];
 
   for (i = 0; i < this.dayNames.length; i++) {
     this.days.push(new Weekday(this.dayNames[i], i, this.dayTasks[i]));
