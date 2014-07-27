@@ -194,7 +194,7 @@ weeklyApp.controller('DayCtrl',
       weekdayModel.addAllFromCal(completeResp.items, true);
 
       // Cache
-      localStorageAPI.set({ days: $scope.days });
+      $scope.cacheDays();
 
       // Notify
       showSuccess('Refreshed');
@@ -245,10 +245,15 @@ weeklyApp.controller('DayCtrl',
       return $q.all(updatePromises);
     }).then(function(updateResults) {
       console.log('BEGAN NEW WEEK');
+
+      // Mark that we started this week
       var weekKey = dateToString(dateForDay(0));
       var setObj = {};
       setObj[weekKey] = true;
       localStorageAPI.set(setObj);
+
+      // Cache
+      $scope.cacheDays();
     });
   };
 
@@ -294,6 +299,8 @@ weeklyApp.controller('DayCtrl',
           console.log(eventObj);
           // Set the task id once it is returned
           task.setId(eventObj.id);
+          // Cache
+          $scope.cacheDays();
         }, function(err) {
           console.log(JSON.stringify(err));
         }); 
@@ -312,6 +319,7 @@ weeklyApp.controller('DayCtrl',
     var calId = task.completed ? $scope.completeId : $scope.incompleteId;
     gCalAPI.deleteEvent(task.id, calId).then(function() {
       // All good
+      $scope.cacheDays();
     }, function(err) {
       console.log(JSON.stringify(err));
     });
@@ -331,6 +339,10 @@ weeklyApp.controller('DayCtrl',
         });
       });
     });
+  }
+
+  $scope.cacheDays = function() {
+    localStorageAPI.set({ days: $scope.days });
   }
 
   $scope.taskDragStart = function(evt, ui, task, day) {
@@ -378,7 +390,8 @@ weeklyApp.controller('DayCtrl',
     }
     
     gCalAPI.updateEvent(calendardId, taskEvent).then(function(id) {
-      // Do nothing on success
+      // Cache days
+      $scope.cacheDays();
     }, function(err) {
       // Decrement sequence on error
       $scope.draggedTask.setSequence($scope.draggedTask.sequence - 1);
@@ -407,7 +420,12 @@ weeklyApp.controller('DayCtrl',
   localStorageAPI.getAlways('firstLogIn').then(function(firstLogIn) {
     if (firstLogIn) {
       // Not the first log in, so get tasks
-      $scope.restoreDays();
+      var numPerDay = $scope.days.map(function(day) { return day.numTasks() });
+      var totalTasks = numPerDay.reduce(function(a, b) { return a + b});
+      console.log('TOTAL ' + totalTasks);
+      if (totalTasks < 1) {
+        $scope.restoreDays();
+      }
       $scope.logIn(false);
     } else {
       // First log in
