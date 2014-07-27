@@ -264,3 +264,339 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-07-26 19:22:13.488 Weekly[51741:70b] Got token 1
 2014-07-26 19:22:13.643 Weekly[51741:70b] Got token 1
 2014-07-26 19:22:14.055 Weekly[51741:70b] THREAD WARNING: ['ChromeIdentity'] took '64.666992' ms. Plugin should use a background thread.
+2014-07-27 11:49:05.151 Weekly[1661:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 11:49:05.275 Weekly[1661:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 11:49:05.675 Weekly[1661:70b] [CDVTimer][chromenavigation] 0.075996ms
+2014-07-27 11:49:05.676 Weekly[1661:70b] [CDVTimer][chromebootstrap] 0.057995ms
+2014-07-27 11:49:05.676 Weekly[1661:70b] [CDVTimer][chromeextensionurls] 0.057042ms
+2014-07-27 11:49:05.680 Weekly[1661:70b] [CDVTimer][file] 3.487945ms
+2014-07-27 11:49:05.742 Weekly[1661:70b] [CDVTimer][statusbar] 61.654031ms
+2014-07-27 11:49:05.743 Weekly[1661:70b] [CDVTimer][keyboard] 0.153005ms
+2014-07-27 11:49:05.743 Weekly[1661:70b] [CDVTimer][TotalPluginStartup] 68.449020ms
+2014-07-27 11:49:05.889 Weekly[1661:70b] Resetting plugins due to page load.
+2014-07-27 11:49:06.465 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:06.633 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:06.661 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:06.761 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:06.860 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:06.961 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:07.397 Weekly[1661:70b] Got token 1
+2014-07-27 11:49:23.365 Weekly[1661:70b] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '*** -[NSRegularExpression enumerateMatchesInString:options:range:usingBlock:]: nil argument'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x002121e4 __exceptionPreprocess + 180
+	1   libobjc.A.dylib                     0x0256b8e5 objc_exception_throw + 44
+	2   CoreFoundation                      0x00211fbb +[NSException raise:format:] + 139
+	3   Foundation                          0x01a82086 -[NSRegularExpression(NSMatching) enumerateMatchesInString:options:range:usingBlock:] + 215
+	4   Foundation                          0x01ba905a -[NSRegularExpression(NSMatching) firstMatchInString:options:range:] + 169
+	5   Weekly                              0x0001bf96 -[CDVCommandDelegateImpl isValidCallbackId:] + 438
+	6   Weekly                              0x0001c0f5 -[CDVCommandDelegateImpl sendPluginResult:callbackId:] + 181
+	7   Weekly                              0x00034a0d -[ChromeIdentity finishedWithAuth:error:] + 493
+	8   Weekly                              0x000c5801 __37-[GPPSignIn addCallDelegateCallback:]_block_invoke + 141
+	9   Weekly                              0x000c0618 -[GPPCallbackQueue fire] + 183
+	10  Weekly                              0x000c046d -[GPPCallbackQueue next] + 88
+	11  Weekly                              0x000c55f3 __44-[GPPSignIn addFetchGooglePlusUserCallback:]_block_invoke_2 + 287
+	12  Weekly                              0x0006217a -[GTLService handleParsedObjectForFetcher:] + 1694
+	13  libobjc.A.dylib                     0x0257d82b -[NSObject performSelector:withObject:] + 70
+	14  Foundation                          0x01a9ce48 __NSThreadPerformPerform + 285
+	15  CoreFoundation                      0x0019b77f __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ + 15
+	16  CoreFoundation                      0x0019b10b __CFRunLoopDoSources0 + 235
+	17  CoreFoundation                      0x001b81ae __CFRunLoopRun + 910
+	18  CoreFoundation                      0x001b79d3 CFRunLoopRunSpecific + 467
+	19  CoreFoundation                      0x001b77eb CFRunLoopRunInMode + 123
+	20  GraphicsServices                    0x0399d5ee GSEventRunModal + 192
+	21  GraphicsServices                    0x0399d42b GSEventRun + 104
+	22  UIKit                               0x00479f9b UIApplicationMain + 1225
+	23  Weekly                              0x00021a6c main + 92
+	24  libdyld.dylib                       0x02d73701 start + 1
+	25  ???                                 0x00000001 0x0 + 1
+)
+libc++abi.dylib: terminating with uncaught exception of type NSException
+2014-07-27 11:50:55.598 Weekly[2582:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 11:50:55.613 Weekly[2582:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 11:50:55.637 Weekly[2582:70b] [CDVTimer][chromenavigation] 0.072002ms
+2014-07-27 11:50:55.638 Weekly[2582:70b] [CDVTimer][chromebootstrap] 0.066042ms
+2014-07-27 11:50:55.639 Weekly[2582:70b] [CDVTimer][chromeextensionurls] 0.066042ms
+2014-07-27 11:50:55.642 Weekly[2582:70b] [CDVTimer][file] 2.363026ms
+2014-07-27 11:50:55.718 Weekly[2582:70b] [CDVTimer][statusbar] 75.833023ms
+2014-07-27 11:50:55.719 Weekly[2582:70b] [CDVTimer][keyboard] 0.194967ms
+2014-07-27 11:50:55.719 Weekly[2582:70b] [CDVTimer][TotalPluginStartup] 82.068026ms
+2014-07-27 11:50:56.045 Weekly[2582:70b] Resetting plugins due to page load.
+2014-07-27 11:50:56.435 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:56.534 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:56.655 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:56.737 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:56.826 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:56.917 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:57.017 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:57.116 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:57.216 Weekly[2582:70b] Got token 1
+2014-07-27 11:50:57.317 Weekly[2582:70b] Got token 1
+2014-07-27 11:51:03.539 Weekly[2582:70b] THREAD WARNING: ['ChromeIdentity'] took '61.041992' ms. Plugin should use a background thread.
+2014-07-27 11:55:05.834 Weekly[3732:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 11:55:05.873 Weekly[3732:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 11:55:05.898 Weekly[3732:70b] [CDVTimer][chromenavigation] 0.060976ms
+2014-07-27 11:55:05.898 Weekly[3732:70b] [CDVTimer][chromebootstrap] 0.061035ms
+2014-07-27 11:55:05.899 Weekly[3732:70b] [CDVTimer][chromeextensionurls] 0.060976ms
+2014-07-27 11:55:05.901 Weekly[3732:70b] [CDVTimer][file] 2.089024ms
+2014-07-27 11:55:05.975 Weekly[3732:70b] [CDVTimer][statusbar] 73.458970ms
+2014-07-27 11:55:05.976 Weekly[3732:70b] [CDVTimer][keyboard] 0.146985ms
+2014-07-27 11:55:05.977 Weekly[3732:70b] [CDVTimer][TotalPluginStartup] 78.877985ms
+2014-07-27 11:55:06.232 Weekly[3732:70b] Resetting plugins due to page load.
+2014-07-27 11:55:06.679 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:06.843 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:06.890 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:06.980 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:07.078 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:07.171 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:07.271 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:07.371 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:07.472 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:07.571 Weekly[3732:70b] Got token 1
+2014-07-27 11:55:29.904 Weekly[3732:70b] THREAD WARNING: ['ChromeIdentity'] took '39.005127' ms. Plugin should use a background thread.
+2014-07-27 12:04:42.912 Weekly[6070:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 12:04:42.950 Weekly[6070:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 12:04:42.969 Weekly[6070:70b] [CDVTimer][chromenavigation] 0.047028ms
+2014-07-27 12:04:42.970 Weekly[6070:70b] [CDVTimer][chromebootstrap] 0.064015ms
+2014-07-27 12:04:42.970 Weekly[6070:70b] [CDVTimer][chromeextensionurls] 0.061989ms
+2014-07-27 12:04:42.972 Weekly[6070:70b] [CDVTimer][file] 1.713991ms
+2014-07-27 12:04:43.023 Weekly[6070:70b] [CDVTimer][statusbar] 50.011992ms
+2014-07-27 12:04:43.024 Weekly[6070:70b] [CDVTimer][keyboard] 0.151038ms
+2014-07-27 12:04:43.024 Weekly[6070:70b] [CDVTimer][TotalPluginStartup] 54.985046ms
+2014-07-27 12:04:43.220 Weekly[6070:70b] Resetting plugins due to page load.
+2014-07-27 12:04:43.651 Weekly[6070:70b] GAPI is Loaded
+2014-07-27 12:04:43.652 Weekly[6070:70b] DEVICE READY
+2014-07-27 12:04:43.682 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:43.684 Weekly[6070:70b] TOTAL 0
+2014-07-27 12:04:43.735 Weekly[6070:70b] OS: cordova-ios
+2014-07-27 12:04:43.775 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:43.875 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:43.979 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:44.075 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:44.175 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:44.275 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:44.375 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:44.475 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:44.575 Weekly[6070:70b] Got token 1
+2014-07-27 12:04:45.064 Weekly[6070:70b] {"access_token":"ya29.TwCUq2sL483nMRwAAAC24rlVpNTzC-tVO_SPpmf4IRKANSsCpB1z3PSGqpEMtw"}
+2014-07-27 12:04:45.072 Weekly[6070:70b] LOGIN: Basic request done
+2014-07-27 12:04:45.072 Weekly[6070:70b] {"access_token":"ya29.TwCUq2sL483nMRwAAAC24rlVpNTzC-tVO_SPpmf4IRKANSsCpB1z3PSGqpEMtw"}
+2014-07-27 12:04:45.072 Weekly[6070:70b] ACCESS TOKEN: ya29.TwCUq2sL483nMRwAAAC24rlVpNTzC-tVO_SPpmf4IRKANSsCpB1z3PSGqpEMtw
+2014-07-27 12:04:45.399 Weekly[6070:70b] INFO: Got user info from plus.people.me
+2014-07-27 12:04:45.414 Weekly[6070:70b] LOGIN: Got user info
+2014-07-27 12:04:45.419 Weekly[6070:70b] Stored: firstLogIn
+2014-07-27 12:04:45.423 Weekly[6070:70b] Stored: email
+2014-07-27 12:04:45.434 Weekly[6070:70b] Weekly Complete: pptd1eshcieh55tq62j047elvk@group.calendar.google.com
+2014-07-27 12:04:45.435 Weekly[6070:70b] Weekly Incomplete: 05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com
+2014-07-27 12:04:45.435 Weekly[6070:70b] LOGIN: Checked for calendars
+2014-07-27 12:04:45.435 Weekly[6070:70b] Loading Events...
+2014-07-27 12:04:45.436 Weekly[6070:70b] Loading Events...
+2014-07-27 12:04:45.545 Weekly[6070:70b] [{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzM4NzYzODAwMA\"","id":"jps7f3qjcc0g10plji8tfspqes","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=anBzN2YzcWpjYzBnMTBwbGppOHRmc3BxZXMgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:33.000Z","updated":"2014-07-27T04:01:33.819Z","summary":"Mom deposit/cash","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-27"},"end":{"date":"2014-07-27"},"iCalUID":"jps7f3qjcc0g10plji8tfspqes@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzQwNzM5MjAwMA\"","id":"qd8n72vlrdcsa5ib7svc0u4pr0","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=cWQ4bjcydmxyZGNzYTVpYjdzdmMwdTRwcjAgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:43.000Z","updated":"2014-07-27T04:01:43.696Z","summary":"Call David","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-27"},"end":{"date":"2014-07-27"},"iCalUID":"qd8n72vlrdcsa5ib7svc0u4pr0@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzQyMDQ5MjAwMA\"","id":"i3rjp3htk4pad3nstspbr7ikkc","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=aTNyanAzaHRrNHBhZDNuc3RzcGJyN2lra2MgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:50.000Z","updated":"2014-07-27T04:01:50.246Z","summary":"Make pin map","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-29"},"end":{"date":"2014-07-29"},"iCalUID":"i3rjp3htk4pad3nstspbr7ikkc@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzQ0MTY5MDAwMA\"","id":"e3q849cjlae824adl39foqo1os","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=ZTNxODQ5Y2psYWU4MjRhZGwzOWZvcW8xb3MgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:02:00.000Z","updated":"2014-07-27T04:02:00.845Z","summary":"Add Snaphack and Weekly to Habosa","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-28"},"end":{"date":"2014-07-28"},"iCalUID":"e3q849cjlae824adl39foqo1os@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2OTg3NzMwODAwMA\"","id":"pcasasep862qhp47gsksjioono","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=cGNhc2FzZXA4NjJxaHA0N2dza3NqaW9vbm8gMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:22:18.000Z","updated":"2014-07-27T04:22:18.654Z","summary":"Get stuff out of comp case","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-28"},"end":{"date":"2014-07-28"},"iCalUID":"pcasasep862qhp47gsksjioono@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg3Mzg5NjAzNDAwMA\"","id":"nigslg28squ80eg8qfabg8hprs","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=bmlnc2xnMjhzcXU4MGVnOHFmYWJnOGhwcnMgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:55:47.000Z","updated":"2014-07-27T04:55:48.017Z","summary":"Profile pic","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-29"},"end":{"date":"2014-07-29"},"iCalUID":"nigslg28squ80eg8qfabg8hprs@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjk1MTk0MjU5NjAwMA\"","id":"t1ne54qkk604iu3uoln7jk32fc","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=dDFuZTU0cWtrNjA0aXUzdW9sbjdqazMyZmMgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:25.000Z","updated":"2014-07-27T15:46:11.298Z","summary":"Schedule furniture delivery","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-27"},"end":{"date":"2014-07-27"},"iCalUID":"t1ne54qkk604iu3uoln7jk32fc@google.com","sequence":0,"reminders":{"useDefault":false}}]
+2014-07-27 12:04:45.705 Weekly[6070:70b] []
+2014-07-27 12:04:45.764 Weekly[6070:70b] Stored: days
+2014-07-27 12:06:25.952 Weekly[7153:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 12:06:25.997 Weekly[7153:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 12:06:26.022 Weekly[7153:70b] [CDVTimer][chromenavigation] 0.050008ms
+2014-07-27 12:06:26.022 Weekly[7153:70b] [CDVTimer][chromebootstrap] 0.065982ms
+2014-07-27 12:06:26.023 Weekly[7153:70b] [CDVTimer][chromeextensionurls] 0.068009ms
+2014-07-27 12:06:26.026 Weekly[7153:70b] [CDVTimer][file] 2.640963ms
+2014-07-27 12:06:26.044 Weekly[7153:70b] [CDVTimer][statusbar] 17.633975ms
+2014-07-27 12:06:26.045 Weekly[7153:70b] [CDVTimer][keyboard] 0.181973ms
+2014-07-27 12:06:26.046 Weekly[7153:70b] [CDVTimer][TotalPluginStartup] 23.804009ms
+2014-07-27 12:06:26.241 Weekly[7153:70b] Resetting plugins due to page load.
+2014-07-27 12:06:26.646 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:26.649 Weekly[7153:70b] GAPI is Loaded
+2014-07-27 12:06:26.650 Weekly[7153:70b] DEVICE READY
+2014-07-27 12:06:26.756 Weekly[7153:70b] WAITING FOR FIRST LOG IN
+2014-07-27 12:06:26.756 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:26.843 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:26.941 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:27.054 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:27.135 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:27.235 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:27.335 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:27.435 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:27.535 Weekly[7153:70b] Got token 1
+2014-07-27 12:06:31.710 Weekly[7153:70b] OS: cordova-ios
+2014-07-27 12:06:31.788 Weekly[7153:70b] THREAD WARNING: ['ChromeIdentity'] took '43.160889' ms. Plugin should use a background thread.
+2014-07-27 12:06:41.217 Weekly[7153:70b] RESUME INSIDE ANGULAR
+2014-07-27 12:06:41.218 Weekly[7153:70b] RESUME - LOGGING IN
+2014-07-27 12:06:41.224 Weekly[7153:70b] WAITING FOR FIRST LOG IN
+2014-07-27 12:06:42.563 Weekly[7153:70b] {"access_token":"ya29.TwC7RHXyHJkNDBwAAACLtUVkxplpR2x4f_Ja6rOyAA5mBToPe9rIkmcTuNdQaA"}
+2014-07-27 12:06:42.569 Weekly[7153:70b] LOGIN: Basic request done
+2014-07-27 12:06:42.570 Weekly[7153:70b] {"access_token":"ya29.TwC7RHXyHJkNDBwAAACLtUVkxplpR2x4f_Ja6rOyAA5mBToPe9rIkmcTuNdQaA"}
+2014-07-27 12:06:42.570 Weekly[7153:70b] ACCESS TOKEN: ya29.TwC7RHXyHJkNDBwAAACLtUVkxplpR2x4f_Ja6rOyAA5mBToPe9rIkmcTuNdQaA
+2014-07-27 12:06:42.904 Weekly[7153:70b] INFO: Got user info from plus.people.me
+2014-07-27 12:06:42.918 Weekly[7153:70b] LOGIN: Got user info
+2014-07-27 12:06:42.921 Weekly[7153:70b] Stored: firstLogIn
+2014-07-27 12:06:42.922 Weekly[7153:70b] Stored: email
+2014-07-27 12:06:43.139 Weekly[7153:70b] QUERYING PARSE:
+2014-07-27 12:06:43.139 Weekly[7153:70b] [{"personId":"102422150360921296506","calId":"pptd1eshcieh55tq62j047elvk@group.calendar.google.com","createdAt":"2014-05-23T00:57:14.266Z","updatedAt":"2014-05-23T00:57:14.266Z","objectId":"hT1oBrkNYt"}]
+2014-07-27 12:06:43.139 Weekly[7153:70b] Weekly Complete: pptd1eshcieh55tq62j047elvk@group.calendar.google.com
+2014-07-27 12:06:43.140 Weekly[7153:70b] LOGIN: Checked for calendars
+2014-07-27 12:06:43.140 Weekly[7153:70b] Loading Events...
+2014-07-27 12:06:43.141 Weekly[7153:70b] Loading Events...
+2014-07-27 12:06:43.147 Weekly[7153:70b] Stored: completeId
+2014-07-27 12:06:43.154 Weekly[7153:70b] Starting new week
+2014-07-27 12:06:43.154 Weekly[7153:70b] Loading Events...
+2014-07-27 12:06:43.155 Weekly[7153:70b] QUERYING PARSE:
+2014-07-27 12:06:43.155 Weekly[7153:70b] [{"personId":"102422150360921296506","calId":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","createdAt":"2014-05-23T00:59:49.255Z","updatedAt":"2014-05-23T00:59:49.255Z","objectId":"sdvCTLq8lz"}]
+2014-07-27 12:06:43.155 Weekly[7153:70b] Weekly Incomplete: 05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com
+2014-07-27 12:06:43.158 Weekly[7153:70b] Stored: incompleteId
+2014-07-27 12:06:43.186 Weekly[7153:70b] REMOVING TOKEN: ya29.TwC7RHXyHJkNDBwAAACLtUVkxplpR2x4f_Ja6rOyAA5mBToPe9rIkmcTuNdQaA
+2014-07-27 12:06:43.188 Weekly[7153:70b] TOKEN REMOVED
+2014-07-27 12:06:43.191 Weekly[7153:70b] OS: cordova-ios
+2014-07-27 12:21:44.368 Weekly[7153:70b] []
+2014-07-27 12:22:21.091 Weekly[9023:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 12:22:21.108 Weekly[9023:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 12:22:21.133 Weekly[9023:70b] [CDVTimer][chromenavigation] 0.077963ms
+2014-07-27 12:22:21.134 Weekly[9023:70b] [CDVTimer][chromebootstrap] 0.164986ms
+2014-07-27 12:22:21.135 Weekly[9023:70b] [CDVTimer][chromeextensionurls] 0.136018ms
+2014-07-27 12:22:21.139 Weekly[9023:70b] [CDVTimer][file] 3.075004ms
+2014-07-27 12:22:21.184 Weekly[9023:70b] [CDVTimer][statusbar] 44.709980ms
+2014-07-27 12:22:21.185 Weekly[9023:70b] [CDVTimer][keyboard] 0.180006ms
+2014-07-27 12:22:21.185 Weekly[9023:70b] [CDVTimer][TotalPluginStartup] 52.299023ms
+2014-07-27 12:22:21.388 Weekly[9023:70b] Resetting plugins due to page load.
+2014-07-27 12:22:21.925 Weekly[9023:70b] GAPI is Loaded
+2014-07-27 12:22:21.926 Weekly[9023:70b] DEVICE READY
+2014-07-27 12:22:21.950 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:21.959 Weekly[9023:70b] WAITING FOR FIRST LOG IN
+2014-07-27 12:22:22.054 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.144 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.244 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.329 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.430 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.530 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.629 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.730 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:22.830 Weekly[9023:70b] Got token 1
+2014-07-27 12:22:31.850 Weekly[9023:70b] OS: cordova-ios
+2014-07-27 12:22:32.032 Weekly[9023:70b] THREAD WARNING: ['ChromeIdentity'] took '89.989746' ms. Plugin should use a background thread.
+2014-07-27 12:22:38.050 Weekly[9023:70b] RESUME INSIDE ANGULAR
+2014-07-27 12:22:38.051 Weekly[9023:70b] RESUME - LOGGING IN
+2014-07-27 12:22:38.056 Weekly[9023:70b] WAITING FOR FIRST LOG IN
+2014-07-27 12:22:38.975 Weekly[9023:70b] {"access_token":"ya29.TwBLcHvw17AFpxsAAACyVUrgDjSosIJOoM-NpgWvswDLlQ8wijqNiQ6tztzyYw"}
+2014-07-27 12:22:38.981 Weekly[9023:70b] LOGIN: Basic request done
+2014-07-27 12:22:38.981 Weekly[9023:70b] {"access_token":"ya29.TwBLcHvw17AFpxsAAACyVUrgDjSosIJOoM-NpgWvswDLlQ8wijqNiQ6tztzyYw"}
+2014-07-27 12:22:38.982 Weekly[9023:70b] ACCESS TOKEN: ya29.TwBLcHvw17AFpxsAAACyVUrgDjSosIJOoM-NpgWvswDLlQ8wijqNiQ6tztzyYw
+2014-07-27 12:22:39.289 Weekly[9023:70b] INFO: Got user info from plus.people.me
+2014-07-27 12:22:39.300 Weekly[9023:70b] LOGIN: Got user info
+2014-07-27 12:22:39.303 Weekly[9023:70b] Stored: firstLogIn
+2014-07-27 12:22:39.305 Weekly[9023:70b] Stored: email
+2014-07-27 12:22:39.555 Weekly[9023:70b] QUERYING PARSE:
+2014-07-27 12:22:39.556 Weekly[9023:70b] [{"personId":"102422150360921296506","calId":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","createdAt":"2014-05-23T00:59:49.255Z","updatedAt":"2014-05-23T00:59:49.255Z","objectId":"sdvCTLq8lz"}]
+2014-07-27 12:22:39.556 Weekly[9023:70b] Weekly Incomplete: 05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com
+2014-07-27 12:22:39.559 Weekly[9023:70b] Stored: incompleteId
+2014-07-27 12:22:39.580 Weekly[9023:70b] QUERYING PARSE:
+2014-07-27 12:22:39.580 Weekly[9023:70b] [{"personId":"102422150360921296506","calId":"pptd1eshcieh55tq62j047elvk@group.calendar.google.com","createdAt":"2014-05-23T00:57:14.266Z","updatedAt":"2014-05-23T00:57:14.266Z","objectId":"hT1oBrkNYt"}]
+2014-07-27 12:22:39.581 Weekly[9023:70b] Weekly Complete: pptd1eshcieh55tq62j047elvk@group.calendar.google.com
+2014-07-27 12:22:39.581 Weekly[9023:70b] LOGIN: Checked for calendars
+2014-07-27 12:22:39.581 Weekly[9023:70b] Loading Events...
+2014-07-27 12:22:39.582 Weekly[9023:70b] Loading Events...
+2014-07-27 12:22:39.584 Weekly[9023:70b] Stored: completeId
+2014-07-27 12:22:39.597 Weekly[9023:70b] Starting new week
+2014-07-27 12:22:39.598 Weekly[9023:70b] Loading Events...
+2014-07-27 12:22:39.814 Weekly[9023:70b] [{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzM4NzYzODAwMA\"","id":"jps7f3qjcc0g10plji8tfspqes","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=anBzN2YzcWpjYzBnMTBwbGppOHRmc3BxZXMgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:33.000Z","updated":"2014-07-27T04:01:33.819Z","summary":"Mom deposit/cash","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-27"},"end":{"date":"2014-07-27"},"iCalUID":"jps7f3qjcc0g10plji8tfspqes@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzQwNzM5MjAwMA\"","id":"qd8n72vlrdcsa5ib7svc0u4pr0","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=cWQ4bjcydmxyZGNzYTVpYjdzdmMwdTRwcjAgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:43.000Z","updated":"2014-07-27T04:01:43.696Z","summary":"Call David","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-27"},"end":{"date":"2014-07-27"},"iCalUID":"qd8n72vlrdcsa5ib7svc0u4pr0@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzQyMDQ5MjAwMA\"","id":"i3rjp3htk4pad3nstspbr7ikkc","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=aTNyanAzaHRrNHBhZDNuc3RzcGJyN2lra2MgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:50.000Z","updated":"2014-07-27T04:01:50.246Z","summary":"Make pin map","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-29"},"end":{"date":"2014-07-29"},"iCalUID":"i3rjp3htk4pad3nstspbr7ikkc@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2NzQ0MTY5MDAwMA\"","id":"e3q849cjlae824adl39foqo1os","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=ZTNxODQ5Y2psYWU4MjRhZGwzOWZvcW8xb3MgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:02:00.000Z","updated":"2014-07-27T04:02:00.845Z","summary":"Add Snaphack and Weekly to Habosa","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-28"},"end":{"date":"2014-07-28"},"iCalUID":"e3q849cjlae824adl39foqo1os@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg2OTg3NzMwODAwMA\"","id":"pcasasep862qhp47gsksjioono","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=cGNhc2FzZXA4NjJxaHA0N2dza3NqaW9vbm8gMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:22:18.000Z","updated":"2014-07-27T04:22:18.654Z","summary":"Get stuff out of comp case","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-28"},"end":{"date":"2014-07-28"},"iCalUID":"pcasasep862qhp47gsksjioono@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjg3Mzg5NjAzNDAwMA\"","id":"nigslg28squ80eg8qfabg8hprs","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=bmlnc2xnMjhzcXU4MGVnOHFmYWJnOGhwcnMgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:55:47.000Z","updated":"2014-07-27T04:55:48.017Z","summary":"Profile pic","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-29"},"end":{"date":"2014-07-29"},"iCalUID":"nigslg28squ80eg8qfabg8hprs@google.com","sequence":0,"reminders":{"useDefault":false}},{"kind":"calendar#event","etag":"\"-kakMffdIzB99fTAlD9HooLp8eo/MjgxMjk1MTk0MjU5NjAwMA\"","id":"t1ne54qkk604iu3uoln7jk32fc","status":"confirmed","htmlLink":"https://www.google.com/calendar/event?eid=dDFuZTU0cWtrNjA0aXUzdW9sbjdqazMyZmMgMDVzaDd1MWM1N2VxMDM1a2d0cGsxbDhqOWtAZw","created":"2014-07-27T04:01:25.000Z","updated":"2014-07-27T15:46:11.298Z","summary":"Schedule furniture delivery","creator":{"email":"hatboysam@gmail.com","displayName":"Sam Stern"},"organizer":{"email":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","displayName":"Weekly Incomplete","self":true},"start":{"date":"2014-07-27"},"end":{"date":"2014-07-27"},"iCalUID":"t1ne54qkk604iu3uoln7jk32fc@google.com","sequence":0,"reminders":{"useDefault":false}}]
+2014-07-27 12:22:39.843 Weekly[9023:70b] []
+2014-07-27 12:22:39.867 Weekly[9023:70b] []
+2014-07-27 12:22:39.878 Weekly[9023:70b] Stored: days
+2014-07-27 12:22:39.883 Weekly[9023:70b] LAST WEEK INCOMPLETE
+2014-07-27 12:22:39.883 Weekly[9023:70b] []
+2014-07-27 12:22:39.883 Weekly[9023:70b] BEGAN NEW WEEK
+2014-07-27 12:22:39.887 Weekly[9023:70b] Stored: 2014-07-27
+2014-07-27 12:22:39.891 Weekly[9023:70b] Stored: days
+2014-07-27 12:25:54.231 Weekly[10231:70b] Multi-tasking -> Device: YES, App: YES
+2014-07-27 12:25:54.263 Weekly[10231:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-07-27 12:25:54.284 Weekly[10231:70b] [CDVTimer][chromenavigation] 0.073969ms
+2014-07-27 12:25:54.284 Weekly[10231:70b] [CDVTimer][chromebootstrap] 0.065982ms
+2014-07-27 12:25:54.285 Weekly[10231:70b] [CDVTimer][chromeextensionurls] 0.068009ms
+2014-07-27 12:25:54.287 Weekly[10231:70b] [CDVTimer][file] 2.148032ms
+2014-07-27 12:25:54.456 Weekly[10231:70b] [CDVTimer][statusbar] 167.980015ms
+2014-07-27 12:25:54.456 Weekly[10231:70b] [CDVTimer][keyboard] 0.138998ms
+2014-07-27 12:25:54.457 Weekly[10231:70b] [CDVTimer][TotalPluginStartup] 173.389018ms
+2014-07-27 12:25:54.755 Weekly[10231:70b] Resetting plugins due to page load.
+2014-07-27 12:25:55.340 Weekly[10231:70b] GAPI is Loaded
+2014-07-27 12:25:55.341 Weekly[10231:70b] DEVICE READY
+2014-07-27 12:25:55.367 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:55.387 Weekly[10231:70b] WAITING FOR FIRST LOG IN
+2014-07-27 12:25:55.471 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:55.563 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:55.667 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:55.762 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:55.858 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:55.957 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:56.058 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:56.157 Weekly[10231:70b] Got token 1
+2014-07-27 12:25:56.257 Weekly[10231:70b] Got token 1
+2014-07-27 12:26:11.189 Weekly[10231:70b] OS: cordova-ios
+2014-07-27 12:26:11.315 Weekly[10231:70b] THREAD WARNING: ['ChromeIdentity'] took '67.421875' ms. Plugin should use a background thread.
+2014-07-27 12:26:17.103 Weekly[10231:70b] RESUME INSIDE ANGULAR
+2014-07-27 12:26:17.103 Weekly[10231:70b] RESUME - LOGGING IN
+2014-07-27 12:26:17.109 Weekly[10231:70b] WAITING FOR FIRST LOG IN
+2014-07-27 12:26:18.025 Weekly[10231:70b] {"access_token":"ya29.TwAI--l3GIOkRBwAAAAtp5yfeSQNGwNbeKC5GeGoiKh55vY76RchrR5gLC0hiA"}
+2014-07-27 12:26:18.033 Weekly[10231:70b] LOGIN: Basic request done
+2014-07-27 12:26:18.033 Weekly[10231:70b] {"access_token":"ya29.TwAI--l3GIOkRBwAAAAtp5yfeSQNGwNbeKC5GeGoiKh55vY76RchrR5gLC0hiA"}
+2014-07-27 12:26:18.033 Weekly[10231:70b] ACCESS TOKEN: ya29.TwAI--l3GIOkRBwAAAAtp5yfeSQNGwNbeKC5GeGoiKh55vY76RchrR5gLC0hiA
+2014-07-27 12:26:18.334 Weekly[10231:70b] INFO: Got user info from plus.people.me
+2014-07-27 12:26:18.344 Weekly[10231:70b] LOGIN: Got user info
+2014-07-27 12:26:18.348 Weekly[10231:70b] Stored: firstLogIn
+2014-07-27 12:26:18.349 Weekly[10231:70b] Stored: email
+2014-07-27 12:26:18.582 Weekly[10231:70b] QUERYING PARSE:
+2014-07-27 12:26:18.582 Weekly[10231:70b] [{"personId":"102422150360921296506","calId":"pptd1eshcieh55tq62j047elvk@group.calendar.google.com","createdAt":"2014-05-23T00:57:14.266Z","updatedAt":"2014-05-23T00:57:14.266Z","objectId":"hT1oBrkNYt"}]
+2014-07-27 12:26:18.583 Weekly[10231:70b] Weekly Complete: pptd1eshcieh55tq62j047elvk@group.calendar.google.com
+2014-07-27 12:26:18.583 Weekly[10231:70b] LOGIN: Checked for calendars
+2014-07-27 12:26:18.583 Weekly[10231:70b] Loading Events...
+2014-07-27 12:26:18.584 Weekly[10231:70b] Loading Events...
+2014-07-27 12:26:18.589 Weekly[10231:70b] Stored: completeId
+2014-07-27 12:26:18.595 Weekly[10231:70b] Starting new week
+2014-07-27 12:26:18.596 Weekly[10231:70b] Loading Events...
+2014-07-27 12:26:18.596 Weekly[10231:70b] QUERYING PARSE:
+2014-07-27 12:26:18.596 Weekly[10231:70b] [{"personId":"102422150360921296506","calId":"05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com","createdAt":"2014-05-23T00:59:49.255Z","updatedAt":"2014-05-23T00:59:49.255Z","objectId":"sdvCTLq8lz"}]
+2014-07-27 12:26:18.596 Weekly[10231:70b] Weekly Incomplete: 05sh7u1c57eq035kgtpk1l8j9k@group.calendar.google.com
+2014-07-27 12:26:18.599 Weekly[10231:70b] Stored: incompleteId
+2014-07-27 12:26:18.627 Weekly[10231:70b] REMOVING TOKEN: ya29.TwAI--l3GIOkRBwAAAAtp5yfeSQNGwNbeKC5GeGoiKh55vY76RchrR5gLC0hiA
+2014-07-27 12:26:18.628 Weekly[10231:70b] TOKEN REMOVED
+2014-07-27 12:26:18.630 Weekly[10231:70b] OS: cordova-ios
+2014-07-27 12:26:53.206 Weekly[10231:70b] []

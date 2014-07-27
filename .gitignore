@@ -2,3 +2,5 @@
 www.crx
 www.pem
 *.zip
+*.apk
+platforms/android/ant.properties

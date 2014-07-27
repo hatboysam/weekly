@@ -295,6 +295,7 @@ module.exports.metadata =
     "org.chromium.polyfill.CustomEvent": "1.0.0",
     "org.chromium.polyfill.blob_constructor": "1.0.0",
     "org.chromium.polyfill.xhr_features": "1.0.0",
+    "org.apache.cordova.console": "0.2.10-dev",
     "org.chromium.common": "1.0.1",
     "org.chromium.storage": "1.0.1",
     "org.chromium.runtime": "1.0.1"

@@ -77,6 +77,10 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"CDVKeyboard\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -192,6 +196,9 @@
             "PACKAGE_NAME": "com.habosa.weekly"
         },
         "org.chromium.polyfill.blob_constructor": {
+            "PACKAGE_NAME": "com.habosa.weekly"
+        },
+        "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.habosa.weekly"
         }
     },

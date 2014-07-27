@@ -62,6 +62,7 @@
 		E421F5C99BCA436AB415BF4D /* ChromeBootstrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE0B2CF7964011BDEC6988 /* ChromeBootstrap.m */; };
 		1508391D8F5D43538DF85FDF /* ChromeExtensionURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BBF471D48F409D96E0B65D /* ChromeExtensionURLs.m */; };
 		5740C205875C4D1EA9B5D7BD /* ChromeI18n.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E5992C66624AFCA7645181 /* ChromeI18n.m */; };
+		1354A6C73831469F8039FD21 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 492E42A1589A40BE9F038C20 /* CDVLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +163,8 @@
 		B7BBF471D48F409D96E0B65D /* ChromeExtensionURLs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ChromeExtensionURLs.m"; path = "org.chromium.bootstrap/ChromeExtensionURLs.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		63E5992C66624AFCA7645181 /* ChromeI18n.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ChromeI18n.m"; path = "org.chromium.i18n/ChromeI18n.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		0CFF04E3134642189B3DD1A5 /* ChromeI18n.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ChromeI18n.h"; path = "org.chromium.i18n/ChromeI18n.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		492E42A1589A40BE9F038C20 /* CDVLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLogger.m"; path = "org.apache.cordova.console/CDVLogger.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		07FE504FF362426B94E0FCA2 /* CDVLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLogger.h"; path = "org.apache.cordova.console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +330,8 @@
 				B7BBF471D48F409D96E0B65D /* ChromeExtensionURLs.m */,
 				63E5992C66624AFCA7645181 /* ChromeI18n.m */,
 				0CFF04E3134642189B3DD1A5 /* ChromeI18n.h */,
+				492E42A1589A40BE9F038C20 /* CDVLogger.m */,
+				07FE504FF362426B94E0FCA2 /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = "Weekly/Plugins";
@@ -536,6 +541,7 @@
 				E421F5C99BCA436AB415BF4D /* ChromeBootstrap.m in Sources */,
 				1508391D8F5D43538DF85FDF /* ChromeExtensionURLs.m in Sources */,
 				5740C205875C4D1EA9B5D7BD /* ChromeI18n.m in Sources */,
+				1354A6C73831469F8039FD21 /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -48,6 +48,10 @@ Weekday.prototype.humanDate = function() {
   return (myDate.getMonth() + 1) + '/' + (myDate.getDate());
 }
 
+Weekday.prototype.isThisWeek = function() {
+  return (this.ind >= 0 && this.ind <= 6);
+}
+
 /**
  * Task object
  */

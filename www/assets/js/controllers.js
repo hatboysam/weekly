@@ -38,13 +38,21 @@ weeklyApp.controller('DayCtrl',
       $scope.token = resp.access_token;
 
       // Get user info
-      return gCalAPI.getInfo();
+      var infoRecoverFn = function() {
+        return $scope.logOut().then(function() {
+          return gCalAPI.logIn(false, $scope.email);
+        });
+      };
+      var infoPromise = requestMngr.tryWith(function() {
+        return gCalAPI.getInfo();
+      }, infoRecoverFn);
+
+      return infoPromise;
     }).then(function(infoObj) {
       // Got user info
       console.log('LOGIN: Got user info');
       showSuccess('Logged in, thanks!');
       localStorageAPI.set({ firstLogIn: true });
-      $scope.blockingLoad = false;
       $scope.id = infoObj.id;
       $scope.email = infoObj.emails[0].value;
       localStorageAPI.set({ email: $scope.email });
@@ -54,6 +62,7 @@ weeklyApp.controller('DayCtrl',
     }).then(function(ids) {
       // Refresh
       console.log('LOGIN: Checked for calendars');
+      $scope.blockingLoad = false;
       $scope.refresh();
     }, function(err) {
       // CATCHALL BLOCK
@@ -62,6 +71,7 @@ weeklyApp.controller('DayCtrl',
       if ($scope.token) {
         $scope.logOut();
       }
+      console.log('LOGIN: Error: ' + JSON.stringify(err));
       showError('Error: there was a problem logging in');
     });
   };
@@ -123,7 +133,7 @@ weeklyApp.controller('DayCtrl',
             parseAPI.create(name, { personId: $scope.id, calId: id });
           }, function(err) {
             // If you get here, everything is really fucked
-            calDefer.reject('Error: everything failed');
+            calDefer.reject('Error: everything failed. ' + JSON.stringify(err));
           });
         } else {
           // Got result from parse
@@ -162,7 +172,7 @@ weeklyApp.controller('DayCtrl',
       var logOutLogInPromise = $scope.logOut()
       .then(function() {
         // Log in again
-        return gCalAPI.logIn(true, $scope.email);
+        return gCalAPI.logIn(false, $scope.email);
       })
       .then(function(resp) {
         // Save the new access tokem
@@ -414,24 +424,29 @@ weeklyApp.controller('DayCtrl',
     activeClass: 'glowing'
   }
 
+  $scope.attemptLogin = function() {
+    localStorageAPI.getAlways('firstLogIn').then(function(firstLogIn) {
+      if (firstLogIn) {
+        // Not the first log in, so get tasks
+        var numPerDay = $scope.days.map(function(day) { return day.numTasks() });
+        var totalTasks = numPerDay.reduce(function(a, b) { return a + b});
+        console.log('TOTAL ' + totalTasks);
+        if (totalTasks < 1) {
+          $scope.restoreDays();
+        }
+        $scope.logIn(false);
+      } else {
+        // First log in. Just hang out ... wait for them to log in
+        console.log('WAITING FOR FIRST LOG IN');
+      }
+    });
+  }
+
   /**
    * STARTUP TASKS
    */
-  localStorageAPI.getAlways('firstLogIn').then(function(firstLogIn) {
-    if (firstLogIn) {
-      // Not the first log in, so get tasks
-      var numPerDay = $scope.days.map(function(day) { return day.numTasks() });
-      var totalTasks = numPerDay.reduce(function(a, b) { return a + b});
-      console.log('TOTAL ' + totalTasks);
-      if (totalTasks < 1) {
-        $scope.restoreDays();
-      }
-      $scope.logIn(false);
-    } else {
-      // First log in
-      // Just hang out ... wait for them to log in
-    }
-  });
+  $scope.attemptLogin();
+
 
   /**
    * DETECT RESUME EVENT (Cordova)
@@ -439,13 +454,14 @@ weeklyApp.controller('DayCtrl',
   document.addEventListener('resume', function() {
     console.log('RESUME INSIDE ANGULAR');
     if ($scope.token) {
-      // Refresh
+      // Already logged in, refresh
       console.log('RESUME - REFRESHING');
       $scope.refresh();
     } else {
-      // Log in and refresh
+      // Not yet logged in, log in and refresh
       console.log('RESUME - LOGGING IN');
-      $scope.logIn(false);
+      //$scope.logIn(false);
+      $scope.attemptLogin();
     }
   }, false);
 
