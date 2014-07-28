@@ -141,7 +141,8 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
         path: basePath + '?' + serialize(queryOpts), 
         callback: function (response) {
           if (response.items) {
-            console.log(response.items);
+            // console.log(response.items);
+            console.log('LOAD: ' + response.items.length + ' events loaded from ' + id);
             loadDefer.resolve(response);
           } else {
             loadDefer.reject(response);
@@ -301,15 +302,19 @@ weeklyApp.factory('requestMngr', ['$q', function($q) {
         // Request succeeded, first try
         attemptDefer.resolve(resp);
       }, function(err) {
-        // Request failed, first try
-        // recover and then try again
-        return recoverFn().then(requestFn);
-      }).then(function(resp) {
-        // Request succeeded, second try
-        attemptDefer.resolve(resp);
-      }, function(err) {
-        // Request failed, second try
-        attemptDefer.reject(err);
+        // Request failed, recover and then try again
+        console.log('RECOVERY: Retry')
+        recoverFn()      // Run the recover function
+        .then(requestFn) // Try the request again
+        .then(function(resp) {
+          // Request succeeded, second try
+          console.log('RECOVERY: Retry worked')
+          attemptDefer.resolve(resp);
+        }, function(err) {
+          // Request failed, second try
+          console.log('RECOVERY: Retry failed')
+          attemptDefer.reject(err);
+        });
       });
 
       return attemptDefer.promise;

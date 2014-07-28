@@ -63,6 +63,7 @@ weeklyApp.controller('DayCtrl',
       // Refresh
       console.log('LOGIN: Checked for calendars');
       $scope.blockingLoad = false;
+      console.log('LOGIN: Starting auto-refresh')
       $scope.refresh();
     }, function(err) {
       // CATCHALL BLOCK
@@ -141,14 +142,16 @@ weeklyApp.controller('DayCtrl',
           var id = firstResult.calId;
           console.log(title + ': ' + id);
 
-          // Store in scope and resolve promise
+          // Store in scope
           $scope[name] = id;
-          calDefer.resolve(id);
 
           // Cache in local storage
           calObj = {};
           calObj[name] = id;
           localStorageAPI.set(calObj);
+
+          // Resolve promise
+          calDefer.resolve(id);
         }
       });
     });
@@ -157,6 +160,7 @@ weeklyApp.controller('DayCtrl',
   }
 
   $scope.refresh = function() {
+    $scope.blockingLoad = true;
 
     // Check if we need to move last week's events
     var weekKey = dateToString(dateForDay(0));
@@ -208,14 +212,17 @@ weeklyApp.controller('DayCtrl',
 
       // Notify
       showSuccess('Refreshed');
+      $scope.blockingLoad = false;
     }, function(err) {
-      // Restore old days
+      // Notify
       showError('Error: could not refresh');
+      $scope.blockingLoad = false;
       console.log('REFRESH failed');
       console.log(JSON.stringify(err));
       // $scope.restoreDays();
 
       // Set as logged out
+      // TODO: Maybe replace with logOut()
       $scope.token = undefined;
     });
   };

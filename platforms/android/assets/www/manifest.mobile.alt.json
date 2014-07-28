@@ -2,10 +2,10 @@
   "packageId": "com.habosa.weekly",
   "versionCode": 2,
   "CFBundleVersion": "1.1.1",
-  "build_flag": "DEVELOPMENT",
+  "build_flag": "PRODUCTION",
   "android": {
     "oauth2": {
-      "client_id": "891667400722-4jj4mqolqporeemn9l0svij94ncsrhhg.apps.googleusercontent.com"
+      "client_id": "891667400722-t4343sf2pgkql45qnhb90pv7fl24r93t.apps.googleusercontent.com"
     }
   },
   "ios": {

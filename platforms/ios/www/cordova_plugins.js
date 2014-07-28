@@ -207,20 +207,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.console/www/console-via-logger.js",
-        "id": "org.apache.cordova.console.console",
-        "clobbers": [
-            "console"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.console/www/logger.js",
-        "id": "org.apache.cordova.console.logger",
-        "clobbers": [
-            "cordova.logger"
-        ]
-    },
-    {
         "file": "plugins/org.chromium.common/events.js",
         "id": "org.chromium.common.events",
         "clobbers": [
@@ -291,7 +277,6 @@ module.exports.metadata =
     "org.chromium.polyfill.CustomEvent": "1.0.0",
     "org.chromium.polyfill.xhr_features": "1.0.0",
     "org.chromium.polyfill.blob_constructor": "1.0.0",
-    "org.apache.cordova.console": "0.2.10-dev",
     "org.chromium.common": "1.0.1",
     "org.chromium.storage": "1.0.1",
     "org.chromium.runtime": "1.0.1",

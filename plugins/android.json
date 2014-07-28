@@ -143,9 +143,6 @@
         },
         "org.chromium.polyfill.xhr_features": {
             "PACKAGE_NAME": "com.habosa.weekly"
-        },
-        "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.habosa.weekly"
         }
     },
     "dependent_plugins": {
