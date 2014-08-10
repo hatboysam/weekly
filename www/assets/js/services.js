@@ -16,7 +16,7 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
   }
 
   this.removeTask = function(task) {
-    for (i = 0; i < 7; i++) {
+    for (i = 0; i < 8; i++) {
       var iDay = this.days[i];
       var dayTasks = iDay.tasks;
       var taskInd = dayTasks.indexOf(task);
@@ -33,7 +33,16 @@ weeklyApp.service('weekdayModel', ['$rootScope', function($rootScope) {
       var task = new Task(item.summary, completed);
       task.setId(item.id);
       task.setSequence(item.sequence);
-      this.addTask(task, startDate.getDay());
+
+      var oneWeek = 7 * 24 * 60 * 60 * 1000;
+      var startWeek = dateForDay(0);
+      if (startDate.getTime() - startWeek.getTime() >= oneWeek) {
+        // 'Next week event'
+        this.addTask(task, 7);
+      } else {
+        // This week event
+        this.addTask(task, startDate.getDay());
+      }
     }.bind(this));
   }
 
@@ -118,7 +127,7 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
 
     loadEvents: function(id, dayMin, dayMax) {
       dayMin = dayMin || 0; // Default to 0 (sunday of this week)
-      dayMax = dayMax || 6; // Default to 6 (saturday of this week)
+      dayMax = dayMax || 7; // Default to 6 (sunday of next week)
 
       var loadDefer = $q.defer();
       var basePath = '/calendar/v3/calendars/' + id + '/events';
@@ -153,18 +162,23 @@ weeklyApp.factory('gCalAPI', ['$rootScope', '$q', 'sysInfo', function($rootScope
       return loadDefer.promise;
     },
 
-    createEvent: function(id, name, date) {
+    createEvent: function(id, name, dateObj) {
       var eventDefer = $q.defer();
+
+      var dateStringStart = dateToString(dateObj);
+      var dateObjEnd = new Date(dateObj.getTime() + (24 * 60 * 60 * 1000));
+      var dateStringEnd = dateToString(dateObjEnd);
+
       gapi.client.request({
         path: '/calendar/v3/calendars/' + id + '/events',
         method: 'POST',
         body: {
           summary: name,
           start: {
-            date: date
+            date: dateStringStart
           },
           end: {
-            date: date
+            date: dateStringEnd
           }
         },
         callback: function(eventObj) {

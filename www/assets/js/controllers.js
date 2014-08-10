@@ -310,8 +310,7 @@ weeklyApp.controller('DayCtrl',
 
       // gCalCreate
       var dateObj = dateForDay(day);
-      var dateString = dateToString(dateObj);
-      gCalAPI.createEvent($scope.incompleteId, desc, dateString)
+      gCalAPI.createEvent($scope.incompleteId, desc, dateObj)
         .then(function(eventObj) {
           console.log(eventObj);
           // Set the task id once it is returned
